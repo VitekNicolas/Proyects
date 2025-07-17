@@ -1,0 +1,13 @@
+#divProductList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1px;
+  background-color: rgb(187, 178, 176);
+  grid-auto-columns: 1fr;
+}
+
+#divProductSearch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}

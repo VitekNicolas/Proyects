@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\TP1-REST-Vitek_Nicolas.props" />
+</Project>

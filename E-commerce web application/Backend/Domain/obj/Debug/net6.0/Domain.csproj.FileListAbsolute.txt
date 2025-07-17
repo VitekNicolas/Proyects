@@ -1,0 +1,59 @@
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\Domain\obj\Debug\net6.0\ref\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\Tercer Año\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\ref\Domain.dll
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\TP1-REST-Vitek_Nicolas\Domain\obj\Debug\net6.0\ref\Domain.dll
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.sourcelink.json
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\pc\Documents\Nicolas\Proyectos\E-commerce web application\Backend\Domain\obj\Debug\net6.0\ref\Domain.dll
+C:\Users\pc\Documents\Nicolas\Backend\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\pc\Documents\Nicolas\Backend\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\pc\Documents\Nicolas\Backend\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\pc\Documents\Nicolas\Backend\Domain\obj\Debug\net6.0\ref\Domain.dll

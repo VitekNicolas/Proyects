@@ -1,0 +1,47 @@
+Antes de hacer una compra
+-Las tablas orden y carrito producto deben estar vacias
+-El local storage debe estar vacio
+-El estado del carrito debe estar en 1
+update Carrito
+set Status=1
+where ClientId=1
+delete from Order
+where CarritoId='96B6BC34-2436-45B6-E33B-08DAACBA517B'
+delete CarritoProduct
+-El formato de las fechas para ver el balance es aaaa/mm/dd
+
+Para crear un carrito
+INSERT INTO cart (CartId, ClientId, Status)
+VALUES ('96B6BC34-2436-45B6-E33B-08DAACBA517B', 1, 1);
+
+Secuencia para traer un producto de la lista
+
+Controller-->services.GetProduct-->query.GetProduct
+json         productResponse       Product
+
+ClientController(Controllers) recibe el servicio y una peticion para crear un cliente. Pasa la peticion al servicio y devuelve el json con el resultado.
+	--ClientService(Application/UserCase/Client) recibe el comand y una peticion para crear un cliente. Pasa los datos de la peticion a una
+	nueva instancia de cliente y se lo manda al command.
+		--ClientCommand(Infraesctructure/Command) recibe el contexto y un cliente. Ejecuta el agregar del contexto y le pasa el cliente 
+
+ClientController(Controllers) recibe el servicio y el id del cliente. Pasa el id al servicio y devuelve el json con el resultado.
+	---ClientService(Application/UserCase/Client) recibe la query y el id del cliente. Pasa el id a la query y con los datos del cliente dado
+	por la query devuelve una respuesta
+		--ClientQuery(Infraesctructure/Query) recibe el contexto y le envia una consulta LINQ para que le devuelva un cliente.
+
+Secuencia de ejecucion de metodos para mostrar el carrito
+
+btnModoProduct-->mostrarCarrito-->getProductCarrito(renderCarrito)-->displayCarrito
+
+C:\Users\pc\OneDrive\Facultad\3\Proyecto software\Backend\TP1-REST-Vitek_Nicolas en consola
+donet build
+dotnet run
+
+C:\Users\pc\Documents\Nicolas\Backend\Infraesctructure
+dotnet ef database update 0
+dotnet ef migrations remove
+dotnet ef migrations add 20240829_AddTables
+dotnet ef database update
+
+
+https://localhost:7062/swagger/index.html
