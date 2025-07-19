@@ -21,3 +21,6 @@ def create_fingerprint(db: Session, fingerprint: schemas.FingerprintCreate):
 
 def get_fingerprint(db: Session, fingerprint_id: int):
     return db.query(models.Fingerprint).filter(models.Fingerprint.id == fingerprint_id).first()
+
+def get_fingerprints_by_episode(db: Session, episode_id: int):
+    return db.query(models.Fingerprint).filter(models.Fingerprint.episode_id == episode_id).all()

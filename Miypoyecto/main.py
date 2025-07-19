@@ -22,4 +22,15 @@ def read_episode(episode_id: int, db: Session = Depends(get_db)):
     db_episode = crud.get_episode(db=db, episode_id=episode_id)
     if db_episode is None:
         raise HTTPException(status_code=404, detail="Episode not found")
-    return db_episode           
+    return db_episode 
+          
+@app.post("/fingerprints/", response_model=schemas.Fingerprint)
+def create_fingerprint(fingerprint: schemas.FingerprintCreate, db: Session = Depends(get_db)):
+    return crud.create_fingerprint(db=db, fingerprint=fingerprint)
+
+@app.get("/episodes/{episode_id}/fingerprints", response_model=list[schemas.Fingerprint])
+def get_fingerprints_for_episode(episode_id: int, db: Session = Depends(get_db)):
+    episode = crud.get_episode(db, episode_id)
+    if not episode:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    return episode.episode_fingerprints
