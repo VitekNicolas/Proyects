@@ -19,11 +19,18 @@ def create_episode(episode: schemas.EpisodeCreate, db: Session = Depends(get_db)
 
 @app.get("/episodes/{episode_id}", response_model=schemas.Episode)
 def read_episode(episode_id: int, db: Session = Depends(get_db)):
-    db_episode = crud.get_episode(db=db, episode_id=episode_id)
-    if db_episode is None:
+    episode = crud.get_episode(db=db, episode_id=episode_id)
+    if episode is None:
         raise HTTPException(status_code=404, detail="Episode not found")
-    return db_episode 
-          
+    return episode 
+
+@app.delete("/episodes/{episode_id}", response_model=schemas.Episode)
+def delete_episode(episode_id: int, db: Session = Depends(get_db)):
+    episode = crud.delete_episode(db, episode_id)
+    if not episode:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    return episode
+
 @app.post("/fingerprints/", response_model=schemas.Fingerprint)
 def create_fingerprint(fingerprint: schemas.FingerprintCreate, db: Session = Depends(get_db)):
     return crud.create_fingerprint(db=db, fingerprint=fingerprint)

@@ -12,19 +12,21 @@ class EpisodeCreate(EpisodeBase):
 class Episode(EpisodeBase):
     id: int
 
-    class Config:
-        orm_mode = True
+model_config = {
+    "from_attributes": True
+}
 
 class FingerprintBase(BaseModel):
     frame_num: int
     hash: str
+    episode_id: int
 
 class FingerprintCreate(FingerprintBase):
     pass
 
 class Fingerprint(FingerprintBase):
     id: int
-    episode_id: int
 
-    class Config:
-        orm_mode = True
+model_config = {
+    "from_attributes": True
+}

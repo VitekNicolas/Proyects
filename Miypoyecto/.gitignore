@@ -1,0 +1,51 @@
+# ---- Carpetas y archivos generados por Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Entornos virtuales
+.venv/
+env/
+venv/
+
+# Archivos de configuración de VS Code
+.vscode/
+
+# Archivos de entorno
+.env
+.env.*
+
+# Archivos temporales
+*.bak
+*.tmp
+*.swp
+
+# Archivos de video (para no subirlos)
+*.mp4
+*.mkv
+*.avi
+*.mov
+
+# Carpetas con fragmentos o videos completos
+videos/
+fragmentos/
+capitulos/
+
+# Archivos de caché
+*.cache
+.cache/
+
+# Archivos de salida
+output/
+outputs/
+results/
+
+# Archivos de lock
+Pipfile.lock
+poetry.lock
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
