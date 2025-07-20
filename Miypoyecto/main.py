@@ -1,7 +1,10 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, File, HTTPException, Depends, UploadFile
+from PIL import Image  
+import imagehash
 from sqlalchemy.orm import Session
 import crud, models, schemas
 from database import SessionLocal, engine
+
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
@@ -41,3 +44,26 @@ def get_fingerprints_for_episode(episode_id: int, db: Session = Depends(get_db))
     if not episode:
         raise HTTPException(status_code=404, detail="Episode not found")
     return episode.episode_fingerprints
+
+@app.post("/match-frame/")
+async def match_frame(file: UploadFile = File(...)):
+    try:
+        # Abrimos imagen con Pillow
+        image = Image.open(file.file).convert("RGB")
+        frame_hash = str(imagehash.phash(image))
+
+        db: Session = SessionLocal()
+        fingerprint = db.query(models.Fingerprint).filter(models.Fingerprint.hash == frame_hash).first()
+
+        if not fingerprint:
+            return {"message": "No se encontró ningún episodio coincidente"}
+
+        episode = db.query(models.Episode).filter(models.Episode.id == fingerprint.episode_id).first()
+
+        return {
+            "episode_number": episode.id,
+            "title": getattr(episode, "title", None),
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

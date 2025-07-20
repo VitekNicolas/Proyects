@@ -4,7 +4,8 @@ __pycache__/
 *.pyo
 *.pyd
 *.log
-
+searchSimulator.py
+uploadVideo.py  
 # Entornos virtuales
 .venv/
 env/
@@ -27,11 +28,7 @@ venv/
 *.mkv
 *.avi
 *.mov
-
-# Carpetas con fragmentos o videos completos
-videos/
-fragmentos/
-capitulos/
+*.png
 
 # Archivos de caché
 *.cache
