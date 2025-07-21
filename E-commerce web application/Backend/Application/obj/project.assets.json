@@ -596,19 +596,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {}
+    "C:\\Users\\nicol\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Application\\obj\\",
+      "projectPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -620,8 +620,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Domain\\Domain.csproj"
+            "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Domain\\Domain.csproj"
             }
           }
         }
@@ -635,7 +635,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net6.0": {
@@ -660,15 +661,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.29, 6.0.29]"
+            "version": "[6.0.36, 6.0.36]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.29, 6.0.29]"
+            "version": "[6.0.36, 6.0.36]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.29, 6.0.29]"
+            "version": "[6.0.36, 6.0.36]"
           }
         ],
         "frameworkReferences": {
@@ -676,7 +677,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }

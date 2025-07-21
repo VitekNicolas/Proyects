@@ -9631,19 +9631,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {}
+    "C:\\Users\\nicol\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\TP1-REST-Vitek_Nicolas.csproj",
+      "projectUniqueName": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\TP1-REST-Vitek_Nicolas.csproj",
       "projectName": "TP1-REST-Vitek_Nicolas",
-      "projectPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\TP1-REST-Vitek_Nicolas.csproj",
-      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\obj\\",
+      "projectPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\TP1-REST-Vitek_Nicolas.csproj",
+      "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\TP1-REST-Vitek_Nicolas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\nicol\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -9655,8 +9655,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Infraesctructure\\Infraesctructure.csproj": {
-              "projectPath": "C:\\Users\\pc\\Documents\\Nicolas\\Proyectos\\E-commerce web application\\Backend\\Infraesctructure\\Infraesctructure.csproj"
+            "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Infraesctructure\\Infraesctructure.csproj": {
+              "projectPath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Infraesctructure\\Infraesctructure.csproj"
             }
           }
         }
@@ -9670,7 +9670,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -9726,6 +9727,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.18, 8.0.18]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.18, 8.0.18]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.18, 8.0.18]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.18, 8.0.18]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9734,7 +9753,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
