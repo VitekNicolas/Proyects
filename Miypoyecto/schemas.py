@@ -3,7 +3,6 @@ from pydantic import BaseModel
 class EpisodeBase(BaseModel):
     title: str
     plot_summary: str
-    trivia: str
     fingerprint_summary: str
 
 class EpisodeCreate(EpisodeBase):
@@ -17,7 +16,7 @@ model_config = {
 }
 
 class FingerprintBase(BaseModel):
-    frame_num: int
+    frame_number: int
     hash: str
     episode_id: int
 
@@ -26,6 +25,20 @@ class FingerprintCreate(FingerprintBase):
 
 class Fingerprint(FingerprintBase):
     id: int
+
+model_config = {
+    "from_attributes": True
+}
+
+class TriviaBase(BaseModel):
+    content: str
+
+class TriviaCreate(TriviaBase):
+    episode_id: int
+
+class Trivia(TriviaBase):
+    id: int
+    episode_id: int
 
 model_config = {
     "from_attributes": True

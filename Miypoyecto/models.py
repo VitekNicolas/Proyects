@@ -10,15 +10,23 @@ class Episode(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     plot_summary = Column(String)
-    trivia= Column(String)
     fingerprint_summary = Column(String)
     episode_fingerprints = relationship("Fingerprint", back_populates="episode")
+    episode_trivia = relationship("Trivia", back_populates="episode", cascade="all, delete")
 
 class Fingerprint(Base):
-    __tablename__ = "EpisodesFingerprints"
+    __tablename__ = "EpisodeFingerprint"
 
     id = Column(Integer, primary_key=True, index=True)
     episode_id = Column(Integer, ForeignKey("EpisodeList.id"))
-    frame_num = Column(Integer)
+    frame_number = Column(Integer)
     hash = Column(String)
     episode = relationship("Episode", back_populates="episode_fingerprints")
+
+class Trivia(Base):
+    __tablename__ = "EpisodeTrivia"
+
+    id = Column(Integer, primary_key=True, index=True)
+    episode_id = Column(Integer, ForeignKey("EpisodeList.id"), nullable=False)
+    content = Column(String, nullable=False)
+    episode = relationship("Episode", back_populates="episode_trivia")

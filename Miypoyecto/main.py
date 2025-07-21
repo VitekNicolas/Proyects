@@ -79,7 +79,7 @@ def create_fingerprint(fingerprint: schemas.FingerprintCreate, db: Session = Dep
     "/episodes/{episode_id}/fingerprints", 
     tags=["fingerprints"], 
     response_model=list[schemas.Fingerprint],
-    summary="Get Fingerprints for Episode",
+    summary="Get fingerprints for episode",
     description="Retrieve all fingerprints associated with a specific episode."
 )
 def get_fingerprints_for_episode(episode_id: int, db: Session = Depends(get_db)):
@@ -110,3 +110,25 @@ async def match_frame(file: UploadFile = File(...)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post(
+    "/episode_trivia/",
+    tags=["trivia"],
+    response_model=schemas.Trivia,
+    summary="Create a trivia for an episode",
+    description="Add a new trivia item for a specific episode."
+)
+def create_trivia(
+    trivia: schemas.TriviaCreate = Body(
+        ..., 
+        title="Trivia Entry", 
+        description="Trivia content and the episode it belongs to"
+    ),
+    db: Session = Depends(get_db)
+):
+    return crud.create_episode_trivia(db, trivia)
+
+@app.get("/episodes/{episode_id}/trivia", tags=["trivia"], response_model=list[schemas.Trivia])
+def read_trivia_for_episode(episode_id: int, db: Session = Depends(get_db)):
+    trivia = crud.get_trivia_by_episode(db, episode_id=episode_id)
+    return trivia

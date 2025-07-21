@@ -23,7 +23,7 @@ def delete_episode(db: Session, episode_id: int):
 def create_fingerprint(db: Session, fingerprint: schemas.FingerprintCreate):
     db_fingerprint = models.Fingerprint(
         episode_id=fingerprint.episode_id,
-        frame_num=fingerprint.frame_num,
+        frame_number=fingerprint.frame_number,
         hash=fingerprint.hash
     )
     db.add(db_fingerprint)
@@ -36,3 +36,15 @@ def get_fingerprint(db: Session, fingerprint_id: int):
 
 def get_fingerprints_by_episode(db: Session, episode_id: int):
     return db.query(models.Fingerprint).filter(models.Fingerprint.episode_id == episode_id).all()
+
+def create_episode_trivia(db: Session, trivia: schemas.TriviaCreate):
+    db_trivia = models.Trivia(
+        episode_id=trivia.episode_id,
+        content=trivia.content
+    )
+    db.add(db_trivia)
+    db.commit()
+    db.refresh(db_trivia)
+    return db_trivia
+def get_trivia_by_episode(db: Session, episode_id: int):
+    return db.query(models.Trivia).filter(models.Trivia.episode_id == episode_id).all()
