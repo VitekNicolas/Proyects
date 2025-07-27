@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class EpisodeBase(BaseModel):
     title: str
     plot_summary: str
-    fingerprint_summary: str
+    number: int
 
 class EpisodeCreate(EpisodeBase):
     pass

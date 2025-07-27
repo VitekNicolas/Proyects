@@ -8,6 +8,7 @@ class Episode(Base):
     __tablename__ = "EpisodeList"
 
     id = Column(Integer, primary_key=True, index=True)
+    number = Column(Integer)
     title = Column(String, index=True)
     plot_summary = Column(String)
     fingerprint_summary = Column(String)

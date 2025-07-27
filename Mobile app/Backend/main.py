@@ -4,7 +4,7 @@ import imagehash
 from sqlalchemy.orm import Session
 import crud, models, schemas
 from database import SessionLocal, engine
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Mobile app API",
@@ -12,6 +12,14 @@ app = FastAPI(
     version="1.0.0"
 )
 models.Base.metadata.create_all(bind=engine)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # En producción deberías poner solo la IP o dominio exacto
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     db = SessionLocal()
