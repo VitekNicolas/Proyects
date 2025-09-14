@@ -1,0 +1,37 @@
+@import url(./header.css);
+@import url(./footer.css);
+@import url(./aside.css);
+@import url(./card.css);
+@import url(./pagination.css);
+@import url(./carousel.css);
+@import url(./bookCart.css);
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  align-items: stretch;
+}
+
+main {
+  flex: 1;
+  padding-top: 30px;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .p´{
+  width: 100px;
+}
+

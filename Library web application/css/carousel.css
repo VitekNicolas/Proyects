@@ -1,0 +1,37 @@
+.carousel {
+  margin-top: 20px;
+}
+
+ul {
+  height: 520px;
+  display: grid;
+  column-gap: 250px;
+  row-gap: 40px;
+  grid-template-columns: 50px 50px 50px 50px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  padding-left: 0;
+}
+
+ul .card {
+  scroll-snap-align: center;
+}
+
+.whatsapp-check {
+  position: absolute;
+  bottom: 27px;
+  right: 3px;
+  width: 24px;
+}
+
+.btnDangerBookSeen {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #f13030;
+  border: 2px black;
+  border-style: solid;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}

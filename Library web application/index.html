@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header>
+      <img src="./img/logo.jpg" alt="Logo" />
+      <h1>Welcome to My Website</h1>
+      <div class="cart-container">
+        <button id="cart-btn">🛒 Carrito <span id="cart-count">0</span></button>
+        <div class="cart-dropdown" id="cart-dropdown">
+          <h3>Carrito</h3>
+          <div class="divBookCart" id="cart-items"></div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <aside>
+        <div class="divFilterLang">
+          <h3>Idiomas</h3>
+          <label
+            ><input type="checkbox" name="idioma" value="es" /> Español</label
+          >
+          <label
+            ><input type="checkbox" name="idioma" value="en" /> Inglés</label
+          >
+          <label
+            ><input type="checkbox" name="idioma" value="fr" /> Francés</label
+          >
+          <label
+            ><input type="checkbox" name="idioma" value="it" /> Italiano</label
+          >
+          <label
+            ><input type="checkbox" name="idioma" value="de" /> Alemán</label
+          >
+        </div>
+        <div class="divFilterCopyRight">
+          <h3>Derechos de autor</h3>
+          <label
+            ><input type="checkbox" name="copyright" value="yes" /> Si</label
+          >
+          <label
+            ><input type="checkbox" name="copyright" value="no" /> No</label
+          >
+        </div>
+        <div class="divFilterYears">
+          <h3>Rango de años</h3>
+          <input class="input" id="inpMinYear" placeholder="Mínimo" />
+          <input class="input" id="inpMaxYear" placeholder="Máximo" />
+          <button class="btnSearchByAuthorYears">Buscar</button>
+        </div>
+        <div class="divFilterName">
+          <h3>Nombre de autor</h3>
+          <input type="text" placeholder="Nombre" />
+          <button class="next-btn">Buscar</button>
+        </div>
+        <div class="divFilterTopic">
+          <h3>Tematica</h3>
+          <input type="text" placeholder="Tematica" />
+          <button class="next-btn">Buscar</button>
+        </div>
+      </aside>
+      <main>
+        <div class="cardsDiv"></div>
+        <section class="carousel" hidden>
+          <h2>Inspirado en lo último que viste</h2>
+          <ul class="listBookSeen"></ul>
+        </section>
+        <div class="pagination">
+          <a href="#" data-page="back">&lsaquo; Atras</a>
+          <a href="#" id="page1" data-page="1" class="active">1</a>
+          <a href="#" id="page2" data-page="2">2</a>
+          <a href="#" data-page="3">3</a>
+          <a href="#" data-page="4">4</a>
+          <a href="#" data-page="5">5</a>
+          <a href="#" data-page="next">Siguiente &rsaquo;</a>
+        </div>
+      </main>
+    </div>
+  </body>
+  <footer>
+    <p>Derechos de autor &copy; 1991-2025&nbsp;</p>
+    <a href="https://www.linkedin.com/in/nicolasvitek">Nicolas Vitek</a>
+  </footer>
+  <script type="module" src="./js/script.js"></script>
+</html>

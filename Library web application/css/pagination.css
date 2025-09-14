@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;   
+  gap: 8px;                 
+  font-family: Arial, sans-serif;
+  color: #F0F0F0;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #333;               
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.pagination a.active {
+  font-weight: bold;
+  border: 1px solid #007bff;  
+  color: #007bff;
+  background-color: #fff;
+}
