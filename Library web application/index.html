@@ -18,23 +18,23 @@
       </div>
     </header>
     <div class="container">
-      <aside>
+      <aside class="aside">
         <div class="divFilterLang">
           <h3>Idiomas</h3>
           <label
-            ><input type="checkbox" name="idioma" value="es" /> Español</label
+            ><input type="checkbox" name="idioma" value="es"/>Español</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="en" /> Inglés</label
+            ><input type="checkbox" name="idioma" value="en"/>Inglés</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="fr" /> Francés</label
+            ><input type="checkbox" name="idioma" value="fr"/>Francés</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="it" /> Italiano</label
+            ><input type="checkbox" name="idioma" value="it"/>Italiano</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="de" /> Alemán</label
+            ><input type="checkbox" name="idioma" value="de"/>Alemán</label
           >
         </div>
         <div class="divFilterCopyRight">
@@ -54,14 +54,15 @@
         </div>
         <div class="divFilterName">
           <h3>Nombre de autor</h3>
-          <input type="text" placeholder="Nombre" />
-          <button class="next-btn">Buscar</button>
+          <input class="input" type="inpAuthorName" placeholder="Nombre" />
+          <button class="btnSearchByAuthorName">Buscar</button>
         </div>
         <div class="divFilterTopic">
           <h3>Tematica</h3>
-          <input type="text" placeholder="Tematica" />
+          <input class="input" type="text" placeholder="Tematica" />
           <button class="next-btn">Buscar</button>
         </div>
+        <button class="btnReset">Resetear</button>
       </aside>
       <main>
         <div class="cardsDiv"></div>

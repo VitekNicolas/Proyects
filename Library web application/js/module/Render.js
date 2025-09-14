@@ -61,4 +61,7 @@ export class Render {
     }
     card.AssignEventHandler();
   }
+  RenderBooksFilteredByAuthorName=async()=>{
+    
+  }
 };

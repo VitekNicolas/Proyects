@@ -6,6 +6,7 @@ export class PaginationHandler {
         this.currentPage = 1;
         this.totalPages = 5;
         this.render = new Render();
+        this.divname = document.querySelector(".pagination");
     }
 
     loadPage = (pageNumber) => {
@@ -28,7 +29,6 @@ export class PaginationHandler {
         links.forEach(link => {
             link.addEventListener("click", (e) => {
                 e.preventDefault();
-                console.log("Click en:", link.dataset.page);
                 const page = link.dataset.page;
                 let newPage = this.currentPage;
                 if (page === "next") {
@@ -44,9 +44,15 @@ export class PaginationHandler {
                 }
                 if (newPage === this.currentPage || isNaN(newPage)) return;
                 this.loadPage(newPage);
-                this.render.RenderCard((newPage - 1) * 10, newPage * 10 - 1);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
     };
+
+    ChangePaginationAtributtes = (pointerEvent, color, textDecoration) => {
+        this.divname.querySelectorAll("a").forEach((a) => {
+            a.style.pointerEvents = pointerEvent; 
+            a.style.color = color;         
+            a.style.textDecoration = textDecoration;
+        })
+    }
 }
