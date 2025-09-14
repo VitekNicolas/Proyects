@@ -61,7 +61,16 @@ export class Render {
     }
     card.AssignEventHandler();
   }
-  RenderBooksFilteredByAuthorName=async()=>{
-    
+  RenderBooksFilteredByAuthorName = async (authorName) => {
+    const cardDiv = document.querySelector(".cardsDiv");
+    cardDiv.innerHTML = "";
+    let card = new Card(cardDiv);
+    var fetch = new Fetch();
+    const books = await fetch.GetBooksByAuthorName(authorName)
+        for (let i = 0; i < 10; i++) {
+      const bookData = new BookData(books.results[i]);
+      card.Append(bookData);
+    }
+    card.AssignEventHandler();
   }
 };

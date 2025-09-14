@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   //searchFilters.AddBeheaviorToBtnSearchByYears();
   searchFilters.AddEventListenerToBtnSearchByYears();
   searchFilters.AddEventListenerBtnReset();
+  searchFilters.AddEventListenerToBtnSearchByAuthorName();
   handler.CreateStorageForBooks("bookshelve");
   handler.CreateStorageForBooks("cart");
   handler.CreateStorageForBooks("historical");

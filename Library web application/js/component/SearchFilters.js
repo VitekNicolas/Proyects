@@ -9,8 +9,6 @@ export class SearchFilters {
         this.btnSearchByAuthorYears = this.divName.querySelector(".btnSearchByAuthorYears");
         this.btnSearchByAuthorName = this.divName.querySelector(".btnSearchByAuthorName");
         this.btnReset = this.divName.querySelector(".btnReset");
-        this.inpMinYear = this.divName.querySelector("#inpMinYear").value;
-        this.inpMaxYear = this.divName.querySelector("#inpMaxYear").value;
     }
 
     AddEventListenerBtnReset = () => {
@@ -25,14 +23,19 @@ export class SearchFilters {
 
     AddEventListenerToBtnSearchByYears = () => {
         this.btnSearchByAuthorYears.addEventListener("click", () => {
-            this.render.RenderBooksFilteredByYears(this.inpMinYear, this.inpMaxYear);
+            const inpMinYear = this.divName.querySelector("#inpMinYear").value;
+            const inpMaxYear = this.divName.querySelector("#inpMaxYear").value;
+            this.render.RenderBooksFilteredByYears(inpMinYear, inpMaxYear);
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         })
     }
     AddEventListenerToBtnSearchByAuthorName = () => {
-        this.btnSearchByAuthorName.addEventListener("click"), () => {
+        this.btnSearchByAuthorName.addEventListener("click", () => {
+            const inpAuthorName = this.divName.querySelector("#inpAuthorName").value.trim();
+            const encodedAuthor = encodeURIComponent(inpAuthorName);
+            this.render.RenderBooksFilteredByAuthorName(encodedAuthor);
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
-        }
+        })
     }
 
     CheckInputs = () => {

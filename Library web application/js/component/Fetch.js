@@ -32,4 +32,16 @@ export class Fetch {
       console.error("Error al buscar libros:", error);
     }
   }
+  GetBooksByAuthorName = async (authorName) => {
+    try {
+      const response = await fetch(`https://gutendex.com/books?search=${authorName}`);
+      if (!response.ok) {
+        throw new Error("Error en la respuesta del servidor");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error al buscar libros:", error);
+    }
+  }
 }
