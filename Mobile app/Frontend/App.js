@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, View, StyleSheet, Alert, Image, Animated } from 'react-native';
+import { Pressable, View, StyleSheet, Alert, Image, Animated, ImageBackground, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useRef } from 'react';
 
@@ -10,19 +10,14 @@ export default function App() {
   const handleScan = async () => {
     try {
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-
-      if (permissionResult.granted === false) {
+      if (!permissionResult.granted) {
         Alert.alert("Permiso denegado", "Necesitás permiso para usar la cámara.");
         return;
       }
 
-      const result = await ImagePicker.launchCameraAsync({
-        allowsEditing: false,
-        quality: 0.7,
-        base64: false,
-      });
+      const result = await ImagePicker.launchCameraAsync({ allowsEditing: false, quality: 0.7, base64: false });
 
-      if (!result.cancelled && result.assets && result.assets.length > 0) {
+      if (!result.cancelled && result.assets?.length > 0) {
         setImageUri(result.assets[0].uri);
 
         const formData = new FormData();
@@ -64,36 +59,45 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {imageUri && (
-        <Image source={{ uri: imageUri }} style={{ marginBottom: 30, width: 200, height: 200 }} />
-      )}
+      <ImageBackground source={require('./assets/wallpaper.jpg')} resizeMode="stretch" style={styles.background}>
+        <Animated.View style={[styles.buttonWrapper, { transform: [{ scale: scaleAnim }] }]}>
+          <Pressable
+            onPress={handleScan}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
+            style={styles.roundButton}
+          >
+            <Image source={require('./assets/z.png')} style={styles.icon} />
+          </Pressable>
+        </Animated.View>
+      </ImageBackground>
 
-      <Animated.View style={[styles.buttonWrapper, { transform: [{ scale: scaleAnim }] }]}>
-        <Pressable
-          onPress={handleScan}
-          onPressIn={onPressIn}
-          onPressOut={onPressOut}
-          style={styles.roundButton}
-        >
-          <Image source={require('./assets/z.png')} style={styles.icon} />
-        </Pressable>
-      </Animated.View>
+      {imageUri && (
+        <Image source={{ uri: imageUri }} style={{ marginTop: 20, width: 200, height: 200 }} />
+      )}
 
       <StatusBar style="auto" />
     </View>
   );
 }
 
+const { width, height } = Dimensions.get('window');
 const BUTTON_SIZE = 220;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  },
+  background: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    height: 800,
   },
   buttonWrapper: {
+    position: 'absolute',
+    top: height * 0.4, // adaptá según la zona del símbolo
+    left: width * 0.3, // adaptá según tu diseño
     alignItems: 'center',
     justifyContent: 'center',
   },

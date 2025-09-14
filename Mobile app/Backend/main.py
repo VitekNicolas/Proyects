@@ -73,48 +73,38 @@ def delete_episode(episode_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Episode not found")
     return episode
 
-@app.post(
-    "/fingerprints/", 
-    tags=["fingerprints"], 
-    response_model=schemas.Fingerprint,
-    summary="Create Fingerprint",
-    description="Create a new fingerprint for an episode."
-)
-def create_fingerprint(fingerprint: schemas.FingerprintCreate, db: Session = Depends(get_db)):
-    return crud.create_fingerprint(db=db, fingerprint=fingerprint)
-
-@app.get(
-    "/episodes/{episode_id}/fingerprints", 
-    tags=["fingerprints"], 
-    response_model=list[schemas.Fingerprint],
-    summary="Get fingerprints for episode",
-    description="Retrieve all fingerprints associated with a specific episode."
-)
-def get_fingerprints_for_episode(episode_id: int, db: Session = Depends(get_db)):
-    episode = crud.get_episode(db, episode_id)
-    if not episode:
-        raise HTTPException(status_code=404, detail="Episode not found")
-    return episode.episode_fingerprints
-
 @app.post("/match-frame/", tags=["frame matching"], response_model=dict)
 async def match_frame(file: UploadFile = File(...)):
     try:
-        # Abrimos imagen con Pillow
         image = Image.open(file.file).convert("RGB")
-        frame_hash = str(imagehash.phash(image))
+        frame_hash = imagehash.phash(image)
 
         db: Session = SessionLocal()
-        fingerprint = db.query(models.Fingerprint).filter(models.Fingerprint.hash == frame_hash).first()
 
-        if not fingerprint:
-            return {"message": "No se encontró ningún episodio coincidente"}
+        # Obtener todos los fingerprints de la DB
+        fingerprints = db.query(models.Fingerprint).all()
 
-        episode = db.query(models.Episode).filter(models.Episode.id == fingerprint.episode_id).first()
+        if not fingerprints:
+            raise HTTPException(status_code=404, detail="No fingerprints in database")
 
-        return {
-            "episode_number": episode.id,
-            "title": getattr(episode, "title", None),
-        }
+        # Buscar la coincidencia más cercana
+        closest = min(
+            fingerprints,
+            key=lambda f: frame_hash - imagehash.hex_to_hash(f.hash)
+        )
+
+        distance = frame_hash - imagehash.hex_to_hash(closest.hash)
+
+        # Definí una tolerancia (ajustá si hace falta)
+        if distance <= 20:
+            episode = db.query(models.Episode).filter(models.Episode.id == closest.episode_id).first()
+            return {
+                "episode_number": episode.id,
+                "title": getattr(episode, "title", None),
+                "match_distance": distance
+            }
+        else:
+            return {"message": "No se encontró ningún episodio coincidente", "match_distance": distance}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
