@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   render.RenderBookInStorage("cart", ".divBookCart")
   //handler.FillBookshelve();
   const pHandler = new PaginationHandler();
+  pHandler.loadPage(1);
   pHandler.ChangePage();
   bookCart.AssignEventHandlerContainer(divBookCart);
 });
