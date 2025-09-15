@@ -1,21 +1,38 @@
-header{
-    display: flex;
-    align-items: center;
-    background-color: #F55F42;
-    padding: 10px 20px;
+header {
+  display: flex;
+  align-items: center;
+   background-color: #0A66C2;
+  padding: 10px 20px;
 }
 
+.button-18:hover,
+.button-18:focus { 
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
 header h1 {
-    color: white;
-    margin: 0;
-    font-size: 24px;
-    flex-grow: 1;
+  color: white;
+  margin: 0;
+  font-size: 24px;
+  flex-grow: 1;
+   font-family: "Raleway", sans-serif;
 }
 
 header img {
-    height: 50px;
-    width: 50px;
-    margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
 }
 
 .cart-container {
@@ -23,11 +40,34 @@ header img {
   display: inline-block;
 }
 
-#cart-btn {
-  border: none;
-  font-size: 18px;
+/* CSS */
+.cartBtn {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
   cursor: pointer;
-  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 25px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  height: auto;
+}
+
+.button-74:hover {
+  background-color: #fff;
+}
+
+.button-74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
 }
 
 #cart-count {
@@ -50,7 +90,7 @@ header img {
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 100;
 }
 
@@ -70,13 +110,4 @@ header img {
   padding: 10px;
   border-top: 1px solid #ddd;
   text-align: right;
-}
-
-.checkout-btn {
-  background: #3483fa;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
 }

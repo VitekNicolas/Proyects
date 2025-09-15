@@ -39,19 +39,6 @@ aside h3 {
   width: 80px;
 }
 
-.btnSearchByAuthorYears {
-  background-color: #e6e6e6;
-  border-radius: 100%;
-  width: 100px;
-  height: 28px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btnSearchByAuthorYears:hover {
-  background-color: #226849;
-  color: #333;
-}
 .divFilterLang,
 .divFilterCopyRight {
   padding-left: 10px;
@@ -68,4 +55,68 @@ aside h3 {
   display: block;
   margin-top: 20px;
   width: 100%;
+  background: #ff4742;
+  border: 1px solid #ff4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btnReset:hover,
+.btnReset:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #ff4742;
+}
+
+.btnReset:active {
+  opacity: 0.5;
+}
+
+.btnSearchByAuthorYears,
+.btnSearchByAuthorName,
+.btnSearchByTopic {
+  background-color: #13aa52;
+  border: 1px solid #13aa52;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btnSearchByAuthorYears:hover,
+.btnReset:hover,
+.btnSearchByAuthorName:hover,
+.btnSearchByTopic:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
+  transform: translateY(-2px);
 }

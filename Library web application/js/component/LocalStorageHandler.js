@@ -21,12 +21,12 @@ export class LocalStorageHandler {
       localStorage.setItem(category, JSON.stringify(array));
     }
   }
+  
   DeleteBookDataFromStorage = (category, bookTitle) => {
     let array = JSON.parse(localStorage.getItem(category));
     array = array.filter(item => item.title !== bookTitle);
     localStorage.setItem(category, JSON.stringify(array));
   }
-
 
   FillBookshelve = async () => {
     let storage = JSON.parse(localStorage.getItem("bookshelve"));

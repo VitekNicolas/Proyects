@@ -1,9 +1,9 @@
 export class BookData {
   constructor(json) {
-    this.title = json.title;
-    this.author = json.authors[0].name;
-    this.birthYear = json.authors[0].birth_year;
-    this.deathYear = json.authors[0].death_year;
+    this.title = json.title ?? "Título desconocido";
+    this.author = json.authors?.[0]?.name ?? "Autor desconocido";
+    this.birthYear = json.authors?.[0]?.birth_year ?? "Desconocido";
+    this.deathYear = json.authors?.[0]?.death_year ?? "Desconocido";
     this.language = json.languages;
     this.image = json.formats["image/jpeg"];
     this.copyright = json.copyright;
@@ -12,7 +12,7 @@ export class BookData {
     this.bookshelves = json.bookshelves;
     this.TranslateCopyright();
     this.Translatelanguage();
-    this.TruncateSummary();
+    //this.TruncateSummary();
     this.ConvertSubjectsToString();
     //this.ReverseAuthorName();
     this.ConvertBookshelvesToString();

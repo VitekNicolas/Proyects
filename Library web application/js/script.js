@@ -4,27 +4,34 @@ import { LocalStorageHandler } from "./component/LocalStorageHandler.js";
 import { PaginationHandler } from "./component/PaginationHandler.js";
 import { BookCart } from "./component/BookCart.js";
 
-document.addEventListener("DOMContentLoaded", async function () {
-  document.querySelector(".cardsDiv").innerHTML = "";
+$(document).ready(async function () {
+  $(".cardsDiv").html(""); 
   const render = new Render();
-  const divFilterYears = document.querySelector(".aside")
-  const searchFilters = new SearchFilters(divFilterYears);
+  const $divFilterYears = $(".aside");
+  const searchFilters = new SearchFilters($divFilterYears[0]); 
   const bookCart = new BookCart();
-  const divBookCart = document.querySelector(".divBookCart")
+  const $divBookCart = $(".divBookCart");
   const handler = new LocalStorageHandler();
   const pHandler = new PaginationHandler();
-  //searchFilters.AddBeheaviorToBtnSearchByYears();
+  // Filtros
+  // searchFilters.AddBeheaviorToBtnSearchByYears();
   searchFilters.AddEventListenerToBtnSearchByYears();
   searchFilters.AddEventListenerBtnReset();
   searchFilters.AddEventListenerToBtnSearchByAuthorName();
+  searchFilters.AddEventListenerToBtnSearchByTopic();
+  searchFilters.AddEventListenerToInpCopyright();
+  searchFilters.AddEventListenerToInpLanguage();
+  // Storages
   handler.CreateStorageForBooks("bookshelve");
   handler.CreateStorageForBooks("cart");
   handler.CreateStorageForBooks("historical");
+  // Render
   render.CheckCarousel();
-  render.RenderBookInStorage("historical", ".listBookSeen")
-  render.RenderBookInStorage("cart", ".divBookCart")
-  //handler.FillBookshelve();
-  pHandler.loadPage(1);
+  render.RenderBookInStorage("historical", ".listBookSeen");
+  render.RenderBookInStorage("cart", ".divBookCart");
+  // Pagination
+  pHandler.LoadPage(1);
   pHandler.ChangePage();
-  bookCart.AssignEventHandlerContainer(divBookCart);
+  // BookCart
+  bookCart.AssignEventHandlerContainer($divBookCart[0]); 
 });

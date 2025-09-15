@@ -8,14 +8,13 @@ export class Render {
 
   constructor() {
     this.localStorageHandler = new LocalStorageHandler();
+    this.fetch = new Fetch();
+    this.cardDiv = document.querySelector(".cardsDiv");
   }
-  //Takes the array of books. Catch the first and only element
-  //because in this case is searching by id, transforms to 
-  //BookData and create a card with this last one. 
-  RenderCard = async (indexMin, indexMax) => {
-    const cardDiv = document.querySelector(".cardsDiv");
-    cardDiv.innerHTML = "";
-    let card = new Card(cardDiv);
+
+  RenderCard = (indexMin, indexMax) => {
+    this.cardDiv.innerHTML = "";
+    let card = new Card(this.cardDiv);
     let bookshelve = this.localStorageHandler.GetStorage("bookshelve");
     for (let index = indexMin; index <= indexMax; index++) {
       card.Append(bookshelve[index])
@@ -47,30 +46,37 @@ export class Render {
     if (carrousel.querySelector(".listBookSeen").childNodes.length > 0) {
       carrousel.removeAttribute("hidden");
     }
-  }
+  };
 
-  RenderBooksFilteredByYears = async (minYear, maxYear) => {
-    const cardDiv = document.querySelector(".cardsDiv");
-    cardDiv.innerHTML = "";
-    let card = new Card(cardDiv);
-    var fetch = new Fetch();
-    const books = await fetch.GetBooksByYears(minYear, maxYear);
-    for (let i = 0; i < 10; i++) {
-      const bookData = new BookData(books.results[i]);
+  RenderBooksFiltered = async (fetchMethod, ...args) => {
+    this.cardDiv.innerHTML = "";
+    let card = new Card(this.cardDiv);
+    const books = await fetchMethod.apply(this.fetch, args);
+    const results = books.results.slice(0, 10);
+    results.forEach(book => {
+      const bookData = new BookData(book);
       card.Append(bookData);
-    }
+    });
     card.AssignEventHandler();
-  }
-  RenderBooksFilteredByAuthorName = async (authorName) => {
-    const cardDiv = document.querySelector(".cardsDiv");
-    cardDiv.innerHTML = "";
-    let card = new Card(cardDiv);
-    var fetch = new Fetch();
-    const books = await fetch.GetBooksByAuthorName(authorName)
-        for (let i = 0; i < 10; i++) {
-      const bookData = new BookData(books.results[i]);
-      card.Append(bookData);
-    }
-    card.AssignEventHandler();
-  }
+  };
+
+  RenderBooksFilteredByYears = (minYear, maxYear) => {
+    return this.RenderBooksFiltered(this.fetch.GetBooksByYears, minYear, maxYear);
+  };
+
+  RenderBooksFilteredByAuthorName = (authorName) => {
+    return this.RenderBooksFiltered(this.fetch.GetBooksByAuthorName, authorName);
+  };
+
+  RenderBooksFilteredByTopic = (topic) => {
+    return this.RenderBooksFiltered(this.fetch.GetBooksByTopic, topic);
+  };
+
+  RenderBooksFilteredByCopyrights = (valor) => {
+    return this.RenderBooksFiltered(this.fetch.GetBookByCopyright, valor);
+  };
+
+  RenderBooksFilteredByLanguage = (language) => {
+    return this.RenderBooksFiltered(this.fetch.GetBookByLanguage, language);
+  };
 };

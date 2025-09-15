@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <header>
       <img src="./img/logo.jpg" alt="Logo" />
       <h1>Welcome to My Website</h1>
       <div class="cart-container">
-        <button id="cart-btn">🛒 Carrito <span id="cart-count">0</span></button>
+        <button class="cartBtn">🛒 Carrito <span id="cart-count">0</span></button>
         <div class="cart-dropdown" id="cart-dropdown">
           <h3>Carrito</h3>
           <div class="divBookCart" id="cart-items"></div>
@@ -20,30 +21,30 @@
     <div class="container">
       <aside class="aside">
         <div class="divFilterLang">
-          <h3>Idiomas</h3>
+          <h3>Idioma</h3>
           <label
-            ><input type="checkbox" name="idioma" value="es"/>Español</label
+            ><input type="checkbox" class="inpLanguage" value="es"/>Español</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="en"/>Inglés</label
+            ><input type="checkbox" class="inpLanguage" value="en"/>Inglés</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="fr"/>Francés</label
+            ><input type="checkbox" class="inpLanguage" value="fr"/>Francés</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="it"/>Italiano</label
+            ><input type="checkbox" class="inpLanguage" value="it"/>Italiano</label
           >
           <label
-            ><input type="checkbox" name="idioma" value="de"/>Alemán</label
+            ><input type="checkbox" class="inpLanguage" value="de"/>Alemán</label
           >
         </div>
         <div class="divFilterCopyRight">
           <h3>Derechos de autor</h3>
           <label
-            ><input type="checkbox" name="copyright" value="yes" /> Si</label
+            ><input type="checkbox" class="inptTrue" value="yes"/> Si</label
           >
           <label
-            ><input type="checkbox" name="copyright" value="no" /> No</label
+            ><input type="checkbox" class="inpFalse" value="no"/> No</label
           >
         </div>
         <div class="divFilterYears">
@@ -59,8 +60,8 @@
         </div>
         <div class="divFilterTopic">
           <h3>Tematica</h3>
-          <input class="input" type="text" placeholder="Tematica" />
-          <button class="next-btn">Buscar</button>
+          <input class="input" id="inpTopic" placeholder="Tematica" />
+          <button class="btnSearchByTopic">Buscar</button>
         </div>
         <button class="btnReset">Resetear</button>
       </aside>

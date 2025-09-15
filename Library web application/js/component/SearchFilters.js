@@ -9,17 +9,20 @@ export class SearchFilters {
         this.btnSearchByAuthorYears = this.divName.querySelector(".btnSearchByAuthorYears");
         this.btnSearchByAuthorName = this.divName.querySelector(".btnSearchByAuthorName");
         this.btnReset = this.divName.querySelector(".btnReset");
+        this.btnSearchByTopic = this.divName.querySelector(".btnSearchByTopic");
     }
 
     AddEventListenerBtnReset = () => {
         this.btnReset.addEventListener("click", () => {
             this.divName.querySelectorAll(".input").forEach((input) => { input.value = "" });
-            this.divName.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false });
-            this.pHandler.loadPage(1);
+            this.divName.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+                input.checked = false;
+                input.disabled = false;
+            });
+            this.pHandler.LoadPage(1);
             this.pHandler.ChangePaginationAtributtes("auto", "", "");
         })
     }
-
 
     AddEventListenerToBtnSearchByYears = () => {
         this.btnSearchByAuthorYears.addEventListener("click", () => {
@@ -36,6 +39,47 @@ export class SearchFilters {
             this.render.RenderBooksFilteredByAuthorName(encodedAuthor);
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         })
+    }
+
+    AddEventListenerToBtnSearchByTopic = () => {
+        this.btnSearchByTopic.addEventListener("click", () => {
+            const inpTopic = this.divName.querySelector("#inpTopic").value;
+            this.render.RenderBooksFilteredByTopic(inpTopic);
+            this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
+        })
+    }
+
+    AddEventListenerToInpCopyright = () => {
+        const checkboxYes = document.querySelector(".inptTrue");
+        const checkboxNo = document.querySelector(".inpFalse");
+        checkboxYes.addEventListener("change", () => {
+            if (checkboxYes.checked) {
+                checkboxNo.disabled = true;
+                this.render.RenderBooksFilteredByCopyrights("true");
+            }
+        });
+        checkboxNo.addEventListener("change", () => {
+            if (checkboxNo.checked) {
+                checkboxYes.disabled = true;
+                this.render.RenderBooksFilteredByCopyrights("false");
+            }
+        });
+        this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
+    }
+
+    AddEventListenerToInpLanguage = () => {
+        const inpsLanguages = document.querySelectorAll(".inpLanguage");
+        inpsLanguages.forEach(input => {
+            input.addEventListener("change", () => {
+                if (input.checked) {
+                    this.render.RenderBooksFilteredByLanguage(input.value);
+                    inpsLanguages.forEach(sib => {
+                        if (sib !== input) sib.disabled = true;
+                    });
+                }
+            });
+        });
+        this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
     }
 
     CheckInputs = () => {

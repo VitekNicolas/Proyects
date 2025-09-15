@@ -35,7 +35,7 @@ export class BookCart {
     }
 
     AssignEventHandlerContainer = () => {
-        const cartBtn = document.getElementById("cart-btn");
+        const cartBtn = document.querySelector(".cartBtn");
         const cartDropdown = document.getElementById("cart-dropdown");
         cartBtn.addEventListener("click", () => {
             cartDropdown.style.display =

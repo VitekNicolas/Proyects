@@ -9,7 +9,7 @@ export class PaginationHandler {
         this.divname = document.querySelector(".pagination");
     }
 
-    loadPage = (pageNumber) => {
+    LoadPage = (pageNumber) => {
         this.currentPage = pageNumber;
         const itemsPerPage = 10;
         const start = (pageNumber - 1) * itemsPerPage;
@@ -43,7 +43,7 @@ export class PaginationHandler {
                     newPage = parseInt(page);
                 }
                 if (newPage === this.currentPage || isNaN(newPage)) return;
-                this.loadPage(newPage);
+                this.LoadPage(newPage);
             });
         });
     };

@@ -1,4 +1,4 @@
-.cardsDiv{
+.cardsDiv {
   min-height: 1060px;
 }
 
@@ -11,28 +11,39 @@
   margin: 20px;
   padding: 10px 10px 0 10px;
 }
-.description{
+
+.description {
   height: 200px;
 }
 
-.title{
-  height: 100px;          /* fija un alto */
-  overflow: hidden;      /* esconde lo que sobra */ 
+.title {
+  height: 100px;
+  overflow: hidden;
 }
 
-#btnShowDetails, .btn-remove {
+#btnShowDetails,
+.btn-remove {
   position: absolute;
   bottom: 5px;
   left: 140px;
   padding: 8px 12px;
-  background: #ced47d;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   width: 100px;
   transition: background 0.3s;
+  font-weight: bold;
+  color: white;
+  background: #ad5389;
+  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
-#btnAddToCart{
+
+#btnAddToCart {
   position: absolute;
   bottom: 5px;
   padding: 8px 12px;
@@ -41,15 +52,34 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
+  color: #fff;
+  border-radius: 100px;
+  background-color: #4c43cd;
+  background-image: radial-gradient(
+      93% 87% at 87% 89%,
+      rgba(0, 0, 0, 0.23) 0%,
+      transparent 86.18%
+    ),
+    radial-gradient(
+      66% 87% at 26% 20%,
+      rgba(255, 255, 255, 0.41) 0%,
+      rgba(255, 255, 255, 0) 69.79%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .bloqueado {
   pointer-events: none;
-  opacity: 0.5; 
+  opacity: 0.5;
 }
 
 #btnShowDetails.active {
-  background: #d32f2f; 
+  background: #d32f2f;
 }
 
 .cover {
@@ -97,7 +127,7 @@
 }
 
 .book.show-info .divBookDetails {
-  bottom: 0; /* 👈 se desliza hacia arriba */
+  bottom: 0;
 }
 
 @media (max-width: 941px) {
