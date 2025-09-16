@@ -21,6 +21,8 @@ $(document).ready(async function () {
   searchFilters.AddEventListenerToBtnSearchByTopic();
   searchFilters.AddEventListenerToInpCopyright();
   searchFilters.AddEventListenerToInpLanguage();
+  searchFilters.AddEventListenerBtnSubmit();
+  searchFilters.AddBehaviorToAside();
   // Storages
   handler.CreateStorageForBooks("bookshelve");
   handler.CreateStorageForBooks("cart");

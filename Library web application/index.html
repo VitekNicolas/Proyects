@@ -11,7 +11,9 @@
       <img src="./img/logo.jpg" alt="Logo" />
       <h1>Welcome to My Website</h1>
       <div class="cart-container">
-        <button class="cartBtn">🛒 Carrito <span id="cart-count">0</span></button>
+        <button class="cartBtn">
+          🛒 Carrito <span id="cart-count">0</span>
+        </button>
         <div class="cart-dropdown" id="cart-dropdown">
           <h3>Carrito</h3>
           <div class="divBookCart" id="cart-items"></div>
@@ -23,28 +25,55 @@
         <div class="divFilterLang">
           <h3>Idioma</h3>
           <label
-            ><input type="checkbox" class="inpLanguage" value="es"/>Español</label
+            ><input
+              type="checkbox"
+              class="inpLanguage"
+              id="input"
+              value="es"
+            />Español</label
           >
           <label
-            ><input type="checkbox" class="inpLanguage" value="en"/>Inglés</label
+            ><input
+              type="checkbox"
+              class="inpLanguage"
+              id="input"
+              value="en"
+            />Inglés</label
           >
           <label
-            ><input type="checkbox" class="inpLanguage" value="fr"/>Francés</label
+            ><input
+              type="checkbox"
+              class="inpLanguage"
+              id="input"
+              value="fr"
+            />Francés</label
           >
           <label
-            ><input type="checkbox" class="inpLanguage" value="it"/>Italiano</label
+            ><input
+              type="checkbox"
+              class="inpLanguage"
+              id="input"
+              value="it"
+            />Italiano</label
           >
           <label
-            ><input type="checkbox" class="inpLanguage" value="de"/>Alemán</label
+            ><input
+              type="checkbox"
+              class="inpLanguage"
+              id="input"
+              value="de"
+            />Alemán</label
           >
         </div>
         <div class="divFilterCopyRight">
           <h3>Derechos de autor</h3>
           <label
-            ><input type="checkbox" class="inptTrue" value="yes"/> Si</label
+            ><input type="checkbox" class="inptTrue" id="input" value="yes" />
+            Si</label
           >
           <label
-            ><input type="checkbox" class="inpFalse" value="no"/> No</label
+            ><input type="checkbox" class="inpFalse" id="input" value="no" />
+            No</label
           >
         </div>
         <div class="divFilterYears">
@@ -64,6 +93,7 @@
           <button class="btnSearchByTopic">Buscar</button>
         </div>
         <button class="btnReset">Resetear</button>
+        <button class="btnSubmit">Enviar resultados</button>
       </aside>
       <main>
         <div class="cardsDiv"></div>

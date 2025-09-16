@@ -19,7 +19,9 @@ aside a {
 }
 
 aside h3 {
-  margin-bottom: 10px;
+  font-family: Courier, monospace;
+  font-size: 18px;
+  color:firebrick
 }
 .divFilterYears,
 .divFilterName,
@@ -51,7 +53,8 @@ aside h3 {
   margin-right: 8px;
 }
 
-.btnReset {
+.btnReset,
+.btnSubmit {
   display: block;
   margin-top: 20px;
   width: 100%;
@@ -119,4 +122,27 @@ aside h3 {
 .btnSearchByTopic:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
   transform: translateY(-2px);
+}
+
+.btnSearchByAuthorYears:disabled,
+.btnSearchByAuthorName:disabled,
+.btnSearchByTopic:disabled {  
+  background-color: #cccccc !important; /* gris claro */
+  color: #666 !important;              /* texto gris */
+  border: 1px solid #aaa !important;
+  cursor: not-allowed;                 /* cursor de prohibido */
+  opacity: 0.7;                        /* un poco transparente */
+}
+
+input[type="checkbox"] {
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+}
+
+input:disabled{
+  cursor: not-allowed;  
 }

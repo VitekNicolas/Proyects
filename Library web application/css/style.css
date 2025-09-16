@@ -5,6 +5,7 @@
 @import url(./pagination.css);
 @import url(./carousel.css);
 @import url(./bookCart.css);
+@import url(./form.css);
 
 body {
   margin: 0;
