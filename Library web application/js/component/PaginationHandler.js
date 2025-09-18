@@ -6,7 +6,7 @@ export class PaginationHandler {
         this.currentPage = 1;
         this.totalPages = 5;
         this.render = new Render();
-        this.divname = document.querySelector(".pagination");
+        this.divname = document.querySelector(".divPagination");
     }
 
     LoadPage = (pageNumber) => {
@@ -16,16 +16,16 @@ export class PaginationHandler {
         const end = start + itemsPerPage - 1;
         this.render.RenderCard(start, end);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        const links = document.querySelectorAll(".pagination a");
+        const links = document.querySelectorAll(".divPagination a");
         links.forEach(a => a.classList.remove("active"));
-        const activeLink = document.querySelector(`.pagination a[data-page="${pageNumber}"]`);
+        const activeLink = document.querySelector(`.divPagination a[data-page="${pageNumber}"]`);
         if (activeLink) {
             activeLink.classList.add("active");
         }
     };
 
     ChangePage = () => {
-        const links = document.querySelectorAll(".pagination a");
+        const links = document.querySelectorAll(".divPagination a");
         links.forEach(link => {
             link.addEventListener("click", (e) => {
                 e.preventDefault();

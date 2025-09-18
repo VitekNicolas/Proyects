@@ -1,5 +1,6 @@
 import { LocalStorageHandler } from "./LocalStorageHandler.js";
 import { BookCart } from "./BookCart.js";
+import { bookModal } from "./BookModal.js";
 
 export class Card {
 
@@ -7,7 +8,9 @@ export class Card {
     this.divName = divName;
     this.bookSeenDiv = document.querySelector(".listBookSeen");
     this.bookCartDiv = document.querySelector(".divBookCart")
+    this.containerDiv = document.querySelector(".container");
     this.localStorageHandler = new LocalStorageHandler();
+    this.bookModal = new bookModal();
   }
 
   Create = ({ json }) => {
@@ -24,18 +27,6 @@ export class Card {
         data-bookshelves="${json.bookshelves}">
   <div class="cover">
     <img class="bookImage" src="${json.image}"/>
-    <div class="divBookDetails">
-      <p class="bookTitle">Título del libro: ${json.title}</p>
-      <p class="bookAuthor">Autor: ${json.author}</p>
-      <p class="bookDetails">
-        Vivió entre: ${json.birthYear} y ${json.deathYear}<br>
-        Resumen: ${json.summary}<br>
-        Derechos de autor: ${json.copyright}<br>
-        Idioma: ${json.language}<br>
-        Temas: ${json.subjects}<br>
-        Categorías: ${json.bookshelves}<br>
-      </p>
-    </div>
   </div>
   <div class="description">
     <p class="title">
@@ -73,8 +64,8 @@ export class Card {
       image: card.dataset.image,
       author: card.dataset.author,
       title: card.dataset.title,
-      birthYear: card.dataset.birthyear,
-      deathYear: card.dataset.deathYear,
+      birthYear: card.dataset.birthyear ?? "desconocido",
+      deathYear: card.dataset.deathYear ?? "desconocido",
       summary: card.dataset.summary,
       copyright: card.dataset.copyright,
       language: card.dataset.language,
@@ -85,12 +76,10 @@ export class Card {
     const btnAddToCart = card.querySelector("#btnAddToCart");
     btnShowDetails.addEventListener("click", () => {
       let bookCard = this.bookSeenDiv.querySelector(`[data-title="${json.title}"]`);
-      card.classList.toggle("show-info");
-      btnShowDetails.classList.toggle("active");
-      const isExpanded = card.classList.contains("show-info");
-      btnShowDetails.textContent = isExpanded ? "Ver menos" : "Ver más";
-      if (isExpanded && !bookCard) {
-        let clonedCard = new Card(this.bookSeenDiv)
+      this.bookModal.Append(json);
+      this.bookModal.AssignEventHandler();
+      if (!bookCard) {
+        let clonedCard = new Card(this.bookSeenDiv);
         clonedCard.Append(json, "historical");
         clonedCard.AssignEventHandler();
         const carrousel = document.querySelector(".carousel");

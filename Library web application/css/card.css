@@ -73,15 +73,6 @@
   touch-action: manipulation;
 }
 
-.bloqueado {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-#btnShowDetails.active {
-  background: #d32f2f;
-}
-
 .cover {
   position: relative;
   border: 3px solid gray;
@@ -105,30 +96,6 @@
   font-size: 15px;
 }
 
-.divBookDetails {
-  position: absolute;
-  bottom: -100%; /* 👈 empieza oculto */
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(83, 83, 83, 0.8);
-  color: white;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  transition: bottom 0.4s ease; /* 👈 animación */
-}
-
-.divBookDetails .bookAuthor,
-.bookTitle {
-  font-size: smaller;
-  margin: 0;
-}
-
-.book.show-info .divBookDetails {
-  bottom: 0;
-}
 
 @media (max-width: 941px) {
   .container {

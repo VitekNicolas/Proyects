@@ -10,7 +10,6 @@ export class SearchFilters {
         this.btnSearchByAuthorName = this.divName.querySelector(".btnSearchByAuthorName");
         this.btnReset = this.divName.querySelector(".btnReset");
         this.btnSearchByTopic = this.divName.querySelector(".btnSearchByTopic");
-        this.btnSubmit = this.divName.querySelector(".btnSubmit");
         this.searchSections = this.divName.querySelectorAll(
             ".divFilterLang, .divFilterCopyRight, .divFilterYears, .divFilterName, .divFilterTopic"
         );
@@ -91,14 +90,16 @@ export class SearchFilters {
                 this.render.RenderBooksFilteredByCopyrights("true");
                 this.LockSections(true, section);
             }
+            this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });
         checkboxNo.addEventListener("change", () => {
             if (checkboxNo.checked) {
                 checkboxYes.disabled = true;
                 this.render.RenderBooksFilteredByCopyrights("false");
             }
+            this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });
-        this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
+        
     }
 
     AddEventListenerToInpLanguage = () => {
@@ -111,16 +112,11 @@ export class SearchFilters {
                         if (sib !== input) sib.disabled = true;
                     });
                 }
+                this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
             });
         });
-        this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
     }
 
-    AddEventListenerBtnSubmit = () => {
-        this.btnSubmit.addEventListener("click", () => {
-            window.open("form.html", "_blank");
-        })
-    }
     CheckInputs = () => {
         const hasValue =
             (this.inpMinYear?.value || "").trim() !== "" ||
