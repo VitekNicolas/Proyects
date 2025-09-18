@@ -1,6 +1,6 @@
 header {
   align-items: center;
-background: linear-gradient(to right, #003366, #3399ff);
+  background: linear-gradient(to right, #003366, #3399ff);
   padding: 10px 20px;
 }
 
@@ -19,7 +19,7 @@ header img {
 .divBookCartContainer {
   position: absolute;
   right: 10px;
-  top: 30px;
+  top: 27px;
 }
 
 .cartBtn {

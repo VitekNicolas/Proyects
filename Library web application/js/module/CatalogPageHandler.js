@@ -1,40 +1,33 @@
 import { BookCart } from "../component/BookCart.js";
-import { LocalStorageHandler } from "../component/LocalStorageHandler.js";
 import { PaginationHandler } from "../component/PaginationHandler.js";
 import { SearchFilters } from "../component/SearchFilters.js";
 import { Render } from "./Render.js";
+import { BasePageHandler } from "./BasePageHandler.js";
 
-export class CatalogPageHandler {
+export class CatalogPageHandler extends BasePageHandler {
     constructor() {
-        this.liCatalogPage = document.getElementById("liCatalogPage");
+        super();
         this.render = new Render();
-        this.aside = document.querySelector(".aside");
-        this.divFilterContainer = document.querySelector(".divFilterContainer");
-        this.divAdContainer = document.querySelector(".divAdContainer");
-        this.divPagination = document.querySelector(".divPagination");
-        this.divBookCartContainer = document.querySelector(".divBookCartContainer");
         this.bookCart = new BookCart();
         this.divBookCart = document.querySelector(".divBookCart");
-        this.localStorageHandler = new LocalStorageHandler();
         this.paginationHandler = new PaginationHandler();
         this.searchFilters = new SearchFilters(this.aside);
+        this.localStorageHandler.CreateStorageForBooks("bookshelve");
+        this.localStorageHandler.CreateStorageForBooks("cart");
+        this.localStorageHandler.CreateStorageForBooks("historical");
     }
 
     AddEventHandler = () => {
         this.liCatalogPage.addEventListener("click", () => {
-            this.divFilterContainer.removeAttribute("hidden");  
+            this.divFilterContainer.removeAttribute("hidden");
             this.divPagination.removeAttribute("hidden");
             this.divBookCartContainer.removeAttribute("hidden");
             this.divAdContainer.setAttribute("hidden", "");
-            this.ShowCatalogPage();
+            this.ShowPage();
         });
     }
 
-    ShowCatalogPage = () => {
-        // Storages
-        this.localStorageHandler.CreateStorageForBooks("bookshelve");
-        this.localStorageHandler.CreateStorageForBooks("cart");
-        this.localStorageHandler.CreateStorageForBooks("historical");
+    ShowPage = () => {
         //Render
         this.render.CheckCarousel();
         this.render.RenderBookInStorage("historical", ".listBookSeen");

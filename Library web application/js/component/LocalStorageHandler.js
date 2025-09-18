@@ -21,7 +21,7 @@ export class LocalStorageHandler {
       localStorage.setItem(category, JSON.stringify(array));
     }
   }
-  
+
   DeleteBookDataFromStorage = (category, bookTitle) => {
     let array = JSON.parse(localStorage.getItem(category));
     array = array.filter(item => item.title !== bookTitle);
@@ -30,12 +30,24 @@ export class LocalStorageHandler {
 
   FillBookshelve = async () => {
     let storage = JSON.parse(localStorage.getItem("bookshelve"));
-    if (storage != null) {
+    if (storage.length === 0) {
       for (let i = 340; i <= 390; i++) {
         let arrayOfBooks = await this.fetch.GetBook(i);
         let book = new BookData(arrayOfBooks[0])
         this.AppendBookDataToStorage("bookshelve", book);
         console.log(i + "Agregado")
+      }
+    }
+  }
+
+  FillPopular = async () => {
+    let storage = JSON.parse(localStorage.getItem("popular"));
+    let arrayOfBooks = await this.fetch.GetBookByPopularity();
+    if (storage.length == 0) {
+      for (let i = 0; i < 10; i++) {
+        let book = new BookData(arrayOfBooks.results[i])
+        this.AppendBookDataToStorage("popular", book);
+        console.log(i + " Agregado")
       }
     }
   }

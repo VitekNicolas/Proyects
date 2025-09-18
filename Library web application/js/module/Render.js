@@ -14,12 +14,28 @@ export class Render {
 
   RenderCard = (indexMin, indexMax) => {
     this.cardDiv.innerHTML = "";
-    let card = new Card(this.cardDiv);
-    let bookshelve = this.localStorageHandler.GetStorage("bookshelve");
+    const card = new Card(this.cardDiv);
+    const bookshelve = this.localStorageHandler.GetStorage("bookshelve");
     for (let index = indexMin; index <= indexMax; index++) {
       card.Append(bookshelve[index])
     }
     card.AssignEventHandler();
+  };
+
+  RenderPopularBookCard = () => {
+    this.cardDiv.innerHTML = "";
+    this.cardDiv.innerHTML+= `<h2>Libros populares</h2>`;
+    const card = new Card(this.cardDiv);
+    const popularBooks = this.localStorageHandler.GetStorage("popular");
+    popularBooks.forEach(book => {
+      card.Append(book);
+    });
+    const cards = this.cardDiv.querySelectorAll(".book");
+    cards.forEach((card) => {
+      let description = card.querySelector(".description");
+      description.hidden = true;
+      card.style.height = "390px";
+    });
   };
 
   RenderBookInStorage = (storage, divName) => {

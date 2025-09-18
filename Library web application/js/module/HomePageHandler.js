@@ -1,23 +1,25 @@
-export class HomePageHandler {
-    
+import { BasePageHandler } from "./BasePageHandler.js";
+
+export class HomePageHandler extends BasePageHandler {
+
     constructor() {
+        super();
         this.liHomePage = document.getElementById("liHomePage");
-        this.aside = document.querySelector(".aside");
-        this.divFilterContainer = document.querySelector(".divFilterContainer");
-        this.divAdContainer = document.querySelector(".divAdContainer");
-        this.divPagination = document.querySelector(".divPagination");
-        this.divBookCartContainer = document.querySelector(".divBookCartContainer");
+        this.localStorageHandler.CreateStorageForBooks("popular");
+        this.localStorageHandler.FillPopular();
     }
+
     AddEventHandler = () => {
         this.liHomePage.addEventListener("click", () => {
             this.divFilterContainer.setAttribute("hidden", "");  
             this.divPagination.setAttribute("hidden", "");
             this.divAdContainer.removeAttribute("hidden");
             this.divBookCartContainer.setAttribute("hidden", "");
-            this.ShowHomePage();
+            this.ShowPage();
         });
     }
 
-    ShowHomePage = () => {
+    ShowPage = () => {
+        this.render.RenderPopularBookCard();
     }
 }
