@@ -1,6 +1,46 @@
 footer {
-  background: white;
-  color: #333333;
-  text-align: center;
   padding: 10px;
+  background-color: #f0f0f0;
+  display: grid;
+  grid-gap: 20px;
+  margin: auto;
+}
+
+.map {
+  border: 0;
+  width: 100%;
+  display: block;
+}
+
+.divMap {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
+}
+
+.divMap h3 {
+  line-height: 26px;
+  margin: 20px 20px 5px;
+  font-size: 23px;
+  color: #333;
+  align-self: baseline;
+}
+
+.divMap p {
+  font-size: 15px;
+  margin: 0 20px 20px;
+}
+
+
+.section-head h2 {
+  font-size: 2rem;
+  color: #003366;
+  padding-bottom: 230px;
+  font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.section-head {
+  padding-bottom: 0;
 }

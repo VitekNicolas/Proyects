@@ -38,7 +38,6 @@ export class CatalogPageHandler extends BasePageHandler {
         // BookCart
         this.bookCart.AssignEventHandlerContainer(this.divBookCart);
         // Filters
-        this.searchFilters.AddBeheaviorToBtnSearchByYears();
         this.searchFilters.AddEventListenerToBtnSearchByYears();
         this.searchFilters.AddEventListenerBtnReset();
         this.searchFilters.AddEventListenerToBtnSearchByAuthorName();

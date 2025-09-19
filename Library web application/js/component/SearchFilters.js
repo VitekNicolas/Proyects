@@ -116,19 +116,4 @@ export class SearchFilters {
             });
         });
     }
-
-    CheckInputs = () => {
-        const hasValue =
-            (this.inpMinYear?.value || "").trim() !== "" ||
-            (this.inpMaxYear?.value || "").trim() !== "";
-
-        this.btnSearchByAuthorYears.disabled = !hasValue;
-    };
-
-    AddBeheaviorToBtnSearchByYears = () => {
-        [this.inpMinYear, this.inpMaxYear].forEach(inp => {
-            if (inp) inp.addEventListener("input", this.CheckInputs);
-        });
-        this.CheckInputs();
-    };
 }

@@ -6,7 +6,6 @@ $(document).ready(async function () {
   const catalogPageHandler = new CatalogPageHandler($liCatalogPage[0]);
   const $liHomePage = $("#liHomePage");
   const homePageHandler = new HomePageHandler($liHomePage[0]);
-
   // HomePage
   homePageHandler.AddEventHandler();
   // CatalogPage
