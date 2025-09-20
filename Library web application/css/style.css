@@ -8,6 +8,10 @@
 @import url(./form.css);
 @import url(./modal.css);
 
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -15,10 +19,10 @@ body {
   box-sizing: border-box;
 }
 
-.container {
-  display: flex;
+ .container {
+   display: flex; 
   align-items: stretch;
-}
+ }
 
 main {
   flex: 1;
@@ -33,16 +37,10 @@ footer {
   align-items: center;
 }
 
-footer .p´{
+footer .p {
   width: 100px;
 }
 
-.carousel h2 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #fff; /* Color de texto blanco */
-  background: linear-gradient(to right, #737529, #fff700);
-  padding: 10px 20px; /* Padding interno */
-  margin-bottom: 20px; /* Espacio inferior */
-  border-radius: 4px; /* Bordes redondeados */
+[hidden] {
+  display: none !important;
 }

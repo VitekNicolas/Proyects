@@ -11,10 +11,13 @@ export class HomePageHandler extends BasePageHandler {
 
     AddEventHandler = () => {
         this.liHomePage.addEventListener("click", () => {
+            this.container.removeAttribute("hidden");
             this.divFilterContainer.setAttribute("hidden", "");  
             this.divPagination.setAttribute("hidden", "");
             this.divAdContainer.removeAttribute("hidden");
             this.divBookCartContainer.setAttribute("hidden", "");
+            this.carousel.setAttribute("hidden", "");
+            this.divFormContainer.setAttribute("hidden", "");
             this.ShowPage();
         });
     }

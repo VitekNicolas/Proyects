@@ -19,10 +19,12 @@ export class CatalogPageHandler extends BasePageHandler {
 
     AddEventHandler = () => {
         this.liCatalogPage.addEventListener("click", () => {
+            this.container.removeAttribute("hidden");
             this.divFilterContainer.removeAttribute("hidden");
             this.divPagination.removeAttribute("hidden");
             this.divBookCartContainer.removeAttribute("hidden");
             this.divAdContainer.setAttribute("hidden", "");
+            this.divFormContainer.setAttribute("hidden", "");
             this.ShowPage();
         });
     }
@@ -36,6 +38,7 @@ export class CatalogPageHandler extends BasePageHandler {
         this.paginationHandler.LoadPage(1);
         this.paginationHandler.ChangePage();
         // BookCart
+        this.bookCart.AssignEventHandler();
         this.bookCart.AssignEventHandlerContainer(this.divBookCart);
         // Filters
         this.searchFilters.AddEventListenerToBtnSearchByYears();

@@ -1,10 +1,176 @@
-.textAnalyzed {
-  padding-top: 20px;
-}
-#txtResult {
-  height: 170px;
+.divForm {
+  background-color: #111111;
+  font-family: 'Titillium Web', sans-serif;
+  padding: 2em;
 }
 
-label {
+@media screen and (min-width: 750px) {
+  .divForm {
+    font-size: 1.25em;
+  }
+}
+
+.form {
+  max-width: 750px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.field {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+.field.half {
+  width: calc(50% - 3px);
+}
+
+.fieldButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 750px;
+  margin: 0 auto;
+
+}
+
+
+.label {
   font-weight: bold;
+  color: white;
+  letter-spacing: 0.025em;
+  font-size: 1.125em;
+  line-height: 1.25;
+  position: relative;
+  z-index: 100;
+  display: block;
+  padding: 0.75em 1em 0 0;
+}
+
+.required .label::after {
+  content: ' *';
+  color: #E8474C;
+  font-size: 0.75em;
+  vertical-align: top;
+}
+
+.text-input,
+.textarea,
+.select {
+  font: inherit;
+  line-height: normal;
+  width: 100%;
+  box-sizing: border-box;
+  background: #222222;
+  color: white;
+  padding: 0.75em 1em;
+  border: none;
+  outline: none;
+}
+
+.text-input::placeholder {
+  color: white;
+}
+
+.button {
+  background: #E8474C;
+  color: white;
+  font-weight: bold;
+  padding: 0.75em 2em;
+  cursor: pointer;
+  border: none;
+  width: 240px;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  color: white;
+  border-color: white;
+}
+
+.checkboxes,
+.options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.checkbox,
+.option {
+  float: left;
+  margin: 1px;
+}
+
+.checkbox-input,
+.option-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.checkbox-label,
+.option-label {
+  display: inline-block;
+  color: #4E4E4E;
+  cursor: pointer;
+  padding: 0.75em 1em;
+}
+
+.checkbox-input:checked + .checkbox-label,
+.option-input:checked + .option-label {
+  color: white;
+}
+
+ul.checkboxes,
+ul.options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+li.checkbox,
+li.option {
+  position: relative;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+}
+
+.checkbox-label,
+.option-label {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  background-color: #222;
+  color: #aaa;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkbox-label:hover,
+.option-label:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+input[type="checkbox"]:checked + .checkbox-label,
+input[type="radio"]:checked + .option-label {
+  background-color: #E8474C;
+  color: white;
+  border-color: #E8474C;
+  box-shadow: 0 0 0 2px rgba(232, 71, 76, 0.4);
 }

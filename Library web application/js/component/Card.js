@@ -1,6 +1,6 @@
 import { LocalStorageHandler } from "./LocalStorageHandler.js";
 import { BookCart } from "./BookCart.js";
-import { bookModal } from "./BookModal.js";
+import { BookModal } from "./BookModal.js";
 
 export class Card {
 
@@ -10,7 +10,7 @@ export class Card {
     this.bookCartDiv = document.querySelector(".divBookCart")
     this.containerDiv = document.querySelector(".container");
     this.localStorageHandler = new LocalStorageHandler();
-    this.bookModal = new bookModal();
+    this.bookModal = new BookModal();
   }
 
   Create = ({ json }) => {

@@ -24,7 +24,7 @@ export class Render {
 
   RenderPopularBookCard = () => {
     this.cardDiv.innerHTML = "";
-    this.cardDiv.innerHTML+= `<h2>Libros populares</h2>`;
+    this.cardDiv.innerHTML += `<h2>Libros populares</h2>`;
     const card = new Card(this.cardDiv);
     const popularBooks = this.localStorageHandler.GetStorage("popular");
     popularBooks.forEach(book => {
