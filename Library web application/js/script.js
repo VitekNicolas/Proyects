@@ -10,10 +10,9 @@ $(document).ready(async function () {
   const $liFormPage = $("#liFormPage");
   const formPageHandler = new FormPageHandler($liFormPage[0]);
   // HomePage
-  homePageHandler.AddEventHandler();
+  homePageHandler.ShowPage();
   // CatalogPage
-  catalogPageHandler.AddEventHandler();
+  catalogPageHandler.ShowPage();
   // FormPage
-  formPageHandler.AddEventHandler();
-
+  formPageHandler.ShowPage();
 });

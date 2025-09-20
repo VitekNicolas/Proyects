@@ -10,6 +10,12 @@
   }
 }
 
+.divForm h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
 .form {
   max-width: 750px;
   margin: 0 auto;
@@ -143,11 +149,6 @@ li.option {
   position: relative;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-  display: none;
-}
-
 .checkbox-label,
 .option-label {
   display: inline-block;
@@ -167,10 +168,15 @@ input[type="radio"] {
   color: #fff;
 }
 
-input[type="checkbox"]:checked + .checkbox-label,
 input[type="radio"]:checked + .option-label {
   background-color: #E8474C;
   color: white;
   border-color: #E8474C;
   box-shadow: 0 0 0 2px rgba(232, 71, 76, 0.4);
+}
+
+fieldset {
+  border: none;        /* saca el recuadro */
+  margin: 0;           /* opcional: elimina márgenes extras */
+  padding: 0;          /* opcional: elimina relleno */
 }

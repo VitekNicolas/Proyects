@@ -9,7 +9,7 @@ export class HomePageHandler extends BasePageHandler {
         this.localStorageHandler.FillPopular();
     }
 
-    AddEventHandler = () => {
+    ShowPage = () => {
         this.liHomePage.addEventListener("click", () => {
             this.container.removeAttribute("hidden");
             this.divFilterContainer.setAttribute("hidden", "");  
@@ -18,11 +18,11 @@ export class HomePageHandler extends BasePageHandler {
             this.divBookCartContainer.setAttribute("hidden", "");
             this.carousel.setAttribute("hidden", "");
             this.divFormContainer.setAttribute("hidden", "");
-            this.ShowPage();
+            this.AddEventHandler();
         });
     }
 
-    ShowPage = () => {
+    AddEventHandler = () => {
         this.render.RenderPopularBookCard();
     }
 }

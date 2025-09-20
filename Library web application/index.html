@@ -23,125 +23,162 @@
       </div>
     </header>
     <div class="divForm" hidden>
+      <h2>Dejanos tu comentario</h2>
       <form class="form" action="">
         <p class="field half">
-          <label class="label" for="inpFirstName" aria-autocomplete="both">Nombre</label>
-          <input class="text-input" id="inpFirstName" name="firstName" autocomplete="given-name"/>
+          <label class="label" for="inpFirstName" aria-autocomplete="both"
+            >Nombre</label
+          >
+          <input
+            class="text-input"
+            id="inpFirstName"
+            name="nombre"
+            autocomplete="given-name"
+          />
         </p>
         <p class="field half">
           <label class="label" for="inpLastName">Apellido</label>
-          <input class="text-input" id="inpLastName" name="lastName" autocomplete="family-name"/>
+          <input
+            class="text-input"
+            id="inpLastName"
+            name="apellido"
+            autocomplete="family-name"
+          />
         </p>
         <p class="field">
           <label class="label required" for="inpBirthDate"
             >Fecha de nacimiento</label
           >
-          <input class="text-input" type="date" id="inpBirthDate" name="name" autocomplete="birthdate"/>
+          <input
+            class="text-input"
+            type="date"
+            id="inpBirthDate"
+            name="fecha de nacimiento"
+            autocomplete="birthdate"
+          />
         </p>
         <div class="field">
-          <label class="label">Sexo</label>
-          <ul class="checkboxes">
-            <li class="checkbox">
-              <input
-                class="checkbox-input"
-                name="choice"
-                value="0"
-                id="inpMasculino"
-              />
-              <label class="checkbox-label" for="inpMasculino">Masculino</label>
-            </li>
-            <li class="checkbox">
-              <input
-                class="checkbox-input"
-                name="choice"
-                value="1"
-                id="inpFemenino"
-              />
-              <label class="checkbox-label" for="inpFemenino">Femenino</label>
-            </li>
-            <li class="checkbox">
-              <input
-                class="checkbox-input"
-                name="choice"
-                value="2"
-                id="inpOtro"
-              />
-              <label class="checkbox-label" for="inpOtro">Otro</label>
-            </li>
-          </ul>
+          <fieldset>
+            <legend class="label">Sexo</legend>
+            <ul class="checkboxes">
+              <li class="checkbox">
+                <input
+                  class="checkbox-input"
+                  type="radio"
+                  name="sexo"
+                  value="masculino"
+                  id="inpMasculino"
+                />
+                <label class="option-label" for="inpMasculino">Masculino</label>
+              </li>
+              <li class="checkbox">
+                <input
+                  class="checkbox-input"
+                  type="radio"
+                  name="sexo"
+                  value="femenino"
+                  id="inpFemenino"
+                />
+                <label class="option-label" for="inpFemenino">Femenino</label>
+              </li>
+              <li class="checkbox">
+                <input
+                  class="checkbox-input"
+                  type="radio"
+                  name="sexo"
+                  value="otro"
+                  id="inpOtro"
+                />
+                <label class="option-label" for="inpOtro">Otro</label>
+              </li>
+            </ul>
+          </fieldset>
         </div>
-<div class="field">
-  <label class="label">Valoración de la página</label>
-  <ul class="options">
-    <li class="option">
-      <input
-        type="radio"
-        class="option-input"
-        name="option"
-        value="0"
-        id="option-0"
-      />
-      <label class="option-label" for="option-0">Me encantó</label>
-    </li>
-    <li class="option">
-      <input
-        type="radio"
-        class="option-input"
-        name="option"
-        value="1"
-        id="option-1"
-      />
-      <label class="option-label" for="option-1">Cumple con mis expectativas</label>
-    </li>
-    <li class="option">
-      <input
-        type="radio"
-        class="option-input"
-        name="option"
-        value="2"
-        id="option-2"
-      />
-      <label class="option-label" for="option-2">Podría ser mejor</label>
-    </li>
-    <li class="option">
-      <input
-        type="radio"
-        class="option-input"
-        name="option"
-        value="3"
-        id="option-3"
-      />
-      <label class="option-label" for="option-3">Mala</label>
-    </li>
-    <li class="option">
-      <input
-        type="radio"
-        class="option-input"
-        name="option"
-        value="4"
-        id="option-4"
-      />
-      <label class="option-label" for="option-4">Lamentable</label>
-    </li>
-  </ul>
-</div>
+        <div class="field">
+          <fieldset>
+            <legend class="label">Valoración de la página</legend>
+            <ul class="options">
+              <li class="option">
+                <input
+                  type="radio"
+                  class="option-input"
+                  name="valoracion"
+                  value="0"
+                  id="option-0"
+                />
+                <label class="option-label" for="option-0">Me encantó</label>
+              </li>
+              <li class="option">
+                <input
+                  type="radio"
+                  class="option-input"
+                  name="valoracion"
+                  value="1"
+                  id="option-1"
+                />
+                <label class="option-label" for="option-1"
+                  >Cumple con mis expectativas</label
+                >
+              </li>
+              <li class="option">
+                <input
+                  type="radio"
+                  class="option-input"
+                  name="valoracion"
+                  value="2"
+                  id="option-2"
+                />
+                <label class="option-label" for="option-2"
+                  >Podría ser mejor</label
+                >
+              </li>
+              <li class="option">
+                <input
+                  type="radio"
+                  class="option-input"
+                  name="valoracion"
+                  value="3"
+                  id="option-3"
+                />
+                <label class="option-label" for="option-3">Mala</label>
+              </li>
+              <li class="option">
+                <input
+                  type="radio"
+                  class="option-input"
+                  name="valoracion"
+                  value="4"
+                  id="option-4"
+                />
+                <label class="option-label" for="option-4">Lamentable</label>
+              </li>
+            </ul>
+          </fieldset>
+        </div>
 
         <p class="field">
-          <label class="label" for="about">Comentario</label>
+          <label class="label" for="inpAbout">Comentario</label>
           <textarea
-            class="textarea"
-            id="about"
-            name="about"
+            class="text-input"
+            id="inpAbout"
+            name="comentario"
             cols="50"
             rows="4"
           ></textarea>
         </p>
         <p class="field">
-          <label class="label required" for="inpEmail">Correo electronico</label>
-          <input class="text-input" id="inpEmail" name="email|" autocomplete="email"/>
+          <label class="label required" for="inpEmail"
+            >Correo electronico</label
+          >
+          <input
+            class="text-input"
+            id="inpEmail"
+            name="correo electronico"
+            autocomplete="email"
+          />
         </p>
         <p class="fieldButtons">
-          <input class="button" id="btnSend" type="submit" value="Enviar" />
+          <input class="button" id="btnSubmit" type="submit" value="Enviar" />
           <input
             class="button"
             id="btnReset"
@@ -289,7 +326,7 @@
         class="map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11024.308670869192!2d-58.21021983184094!3d-34.767013104991904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a32f4b0ecdf4e7%3A0x1b58f856c0a0b4ea!2sBerazategui!5e0!3m2!1ses!2sar!4v1758248445027!5m2!1ses!2sar"
       ></iframe>
-      <h3>Mi domicilio</h3>
+      <h3>Mi empresa</h3>
       <p>
         <strong>Dirección:</strong> (Berazategui)<br />
         <strong>Teléfono:</strong> 11-6820-9470<br />

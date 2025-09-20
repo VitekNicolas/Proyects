@@ -16,6 +16,6 @@ export class BasePageHandler {
         this.render = new Render();
     }
 
-    AddEventHandler = () => { this.ShowPage(); }
-    ShowPage = () => { throw new Error("You must implement requiredMethod() in the child class"); }
+    ShowPage = () => { this.AddEventHandler(); }
+    AddEventHandler = () => { throw new Error("You must implement requiredMethod() in the child class"); }
 }

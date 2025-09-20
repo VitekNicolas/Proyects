@@ -5,6 +5,7 @@ import { Render } from "./Render.js";
 import { BasePageHandler } from "./BasePageHandler.js";
 
 export class CatalogPageHandler extends BasePageHandler {
+
     constructor() {
         super();
         this.render = new Render();
@@ -17,7 +18,7 @@ export class CatalogPageHandler extends BasePageHandler {
         this.localStorageHandler.CreateStorageForBooks("historical");
     }
 
-    AddEventHandler = () => {
+    ShowPage = () => {
         this.liCatalogPage.addEventListener("click", () => {
             this.container.removeAttribute("hidden");
             this.divFilterContainer.removeAttribute("hidden");
@@ -25,11 +26,11 @@ export class CatalogPageHandler extends BasePageHandler {
             this.divBookCartContainer.removeAttribute("hidden");
             this.divAdContainer.setAttribute("hidden", "");
             this.divFormContainer.setAttribute("hidden", "");
-            this.ShowPage();
+            this.AddEventHandler();
         });
     }
 
-    ShowPage = () => {
+    AddEventHandler = () => {
         //Render
         this.render.CheckCarousel();
         this.render.RenderBookInStorage("historical", ".listBookSeen");
