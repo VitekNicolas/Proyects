@@ -9,12 +9,13 @@ export class Render {
   constructor() {
     this.localStorageHandler = new LocalStorageHandler();
     this.fetch = new Fetch();
-    this.cardDiv = document.querySelector(".cardsDiv");
+    this.cardsDivCatalog = document.querySelector(".containerCatalog .cardsDiv");
+    this.cardsDivHome = document.querySelector(".containerHome .cardsDiv");
   }
 
   RenderCard = (indexMin, indexMax) => {
-    this.cardDiv.innerHTML = "";
-    const card = new Card(this.cardDiv);
+    this.cardsDivCatalog.innerHTML = "";
+    const card = new Card(this.cardsDivCatalog);
     const bookshelve = this.localStorageHandler.GetStorage("bookshelve");
     for (let index = indexMin; index <= indexMax; index++) {
       card.Append(bookshelve[index])
@@ -23,14 +24,14 @@ export class Render {
   };
 
   RenderPopularBookCard = () => {
-    this.cardDiv.innerHTML = "";
-    this.cardDiv.innerHTML += `<h2>Libros populares</h2>`;
-    const card = new Card(this.cardDiv);
+    this.cardsDivHome.innerHTML = "";
+    this.cardsDivHome.innerHTML = `<h2 class="titleHome">Libros populares</h2>`;
+    const card = new Card(this.cardsDivHome);
     const popularBooks = this.localStorageHandler.GetStorage("popular");
     popularBooks.forEach(book => {
       card.Append(book);
     });
-    const cards = this.cardDiv.querySelectorAll(".book");
+    const cards = this.cardsDivHome.querySelectorAll(".book");
     cards.forEach((card) => {
       let description = card.querySelector(".description");
       description.hidden = true;
@@ -41,6 +42,7 @@ export class Render {
   RenderBookInStorage = (storage, divName) => {
     const array = this.localStorageHandler.GetStorage(storage);
     const div = document.querySelector(divName);
+    div.innerHTML = "";
     let card;
     if (storage === "historical") {
       card = new Card(div);
@@ -65,8 +67,8 @@ export class Render {
   };
 
   RenderBooksFiltered = async (fetchMethod, ...args) => {
-    this.cardDiv.innerHTML = "";
-    let card = new Card(this.cardDiv);
+    this.cardsDivCatalog.innerHTML = "";
+    let card = new Card(this.cardsDivCatalog);
     const books = await fetchMethod.apply(this.fetch, args);
     const results = books.results.slice(0, 10);
     results.forEach(book => {

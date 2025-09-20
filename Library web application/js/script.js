@@ -3,16 +3,16 @@ import { HomePageHandler } from "./module/HomePageHandler.js";
 import { FormPageHandler } from "./module/FormPageHandler.js";
 
 $(document).ready(async function () {
-  const $liCatalogPage = $("#liCatalogPage");
-  const catalogPageHandler = new CatalogPageHandler($liCatalogPage[0]);
-  const $liHomePage = $("#liHomePage");
-  const homePageHandler = new HomePageHandler($liHomePage[0]);
-  const $liFormPage = $("#liFormPage");
-  const formPageHandler = new FormPageHandler($liFormPage[0]);
+  sessionStorage.setItem("currentPage", "home");
+  const homePageHandler = new HomePageHandler();
+  homePageHandler.AddEventHandler();
+  const catalogPageHandler = new CatalogPageHandler();
+  const formPageHandler = new FormPageHandler();
   // HomePage
   homePageHandler.ShowPage();
   // CatalogPage
   catalogPageHandler.ShowPage();
+  catalogPageHandler.AddEventHandler();
   // FormPage
   formPageHandler.ShowPage();
 });

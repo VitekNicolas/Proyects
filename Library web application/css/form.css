@@ -1,16 +1,16 @@
-.divForm {
+.containerForm {
   background-color: #111111;
   font-family: 'Titillium Web', sans-serif;
   padding: 2em;
 }
 
 @media screen and (min-width: 750px) {
-  .divForm {
+  .containerForm {
     font-size: 1.25em;
   }
 }
 
-.divForm h2 {
+.containerForm h2 {
   color: white;
   text-align: center;
   margin-bottom: 1em;

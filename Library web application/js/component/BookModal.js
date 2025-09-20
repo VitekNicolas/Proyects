@@ -24,7 +24,6 @@ export class BookModal {
     }
 
     AssignEventHandler = () => {
-        // Delegación de evento: cierra el modal cuando se hace clic en el botón de cerrar
         $(document).on("click", ".btnCloseModal", () => {
             $(".bookModal").remove();
         });

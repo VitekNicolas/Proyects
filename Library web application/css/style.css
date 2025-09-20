@@ -19,10 +19,10 @@ body {
   box-sizing: border-box;
 }
 
- .container {
-   display: flex; 
+.containerCatalog, .containerHome {
+  display: flex;
   align-items: stretch;
- }
+}
 
 main {
   flex: 1;

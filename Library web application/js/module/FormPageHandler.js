@@ -1,4 +1,5 @@
 import { BasePageHandler } from "./BasePageHandler.js";
+import { AlertModal } from "../component/AlertModal.js";
 
 export class FormPageHandler extends BasePageHandler {
 
@@ -10,13 +11,16 @@ export class FormPageHandler extends BasePageHandler {
         this.btnCancel = document.getElementById("btnCancel");
         this.form = document.querySelector(".form");
         this.options = document.querySelectorAll('input[type="radio"]');
+        this.cancelModal = document.querySelector(".cancelModal");
         this.alertMessage = [];
     }
 
     ShowPage = () => {
         this.liFormPage.addEventListener("click", () => {
-            this.divFormContainer.removeAttribute("hidden");
-            this.container.setAttribute("hidden", "");
+            this.containerForm.removeAttribute("hidden");
+            this.containerCatalog.setAttribute("hidden", "");
+            this.divBookCartContainer.setAttribute("hidden", "");
+            this.containerHome.setAttribute("hidden", "");
             this.AddEventHandler();
         });
     }
@@ -30,19 +34,24 @@ export class FormPageHandler extends BasePageHandler {
         });
         this.btnReset.addEventListener("click", (event) => {
             event.preventDefault();
-            this.divFormContainer.querySelectorAll(".text-input").forEach((input) => { input.value = "" });
-            this.divFormContainer.querySelectorAll('input[type="radio"]').forEach((input) => {
+            this.containerForm.querySelectorAll(".text-input").forEach((input) => { input.value = "" });
+            this.containerForm.querySelectorAll('input[type="radio"]').forEach((input) => {
                 input.checked = false;
             });
         });
+        this.btnCancel.addEventListener("click", (event) => {
+            event.preventDefault();
+            const alertModal = new AlertModal();
+            alertModal.Append();
+            alertModal.AssignEventHandler();
+        });
     }
-
     Validations = () => {
-        this.divFormContainer.querySelectorAll(".text-input").forEach((input) => {
+        this.containerForm.querySelectorAll(".text-input").forEach((input) => {
             if (input.value.trim() === "") {
                 this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
             }
-            else {
+            else if (input.value.trim() !== "") {
                 if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
                     this.alertMessage.push("El campo nombre solo debe contener letras.");
                 }
@@ -51,6 +60,9 @@ export class FormPageHandler extends BasePageHandler {
                 }
                 if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
                     this.alertMessage.push("El campo email no es valido.");
+                }
+                else {
+                    this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
                 }
             }
         });
@@ -66,7 +78,7 @@ export class FormPageHandler extends BasePageHandler {
     }
 
     ValidateInput = (inputName) => {
-        const inputValor = this.divFormContainer.querySelector(inputName).value.trim();
+        const inputValor = this.containerForm.querySelector(inputName).value.trim();
         const namePattern = /^[a-zA-Z]+$/;
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (inputName === "#inpEmail") {

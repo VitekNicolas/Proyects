@@ -104,7 +104,7 @@
 
 
 @media (max-width: 941px) {
-  .container {
+  .containerCatalog {
     max-width: 700px;
   }
   .book {

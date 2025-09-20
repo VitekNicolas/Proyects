@@ -14,6 +14,7 @@ export class SearchFilters {
             ".divFilterLang, .divFilterCopyRight, .divFilterYears, .divFilterName, .divFilterTopic"
         );
     }
+    
     LockSections(disabled, activeSection = null) {
         this.searchSections.forEach((section) => {
             if (section !== activeSection) {
@@ -88,7 +89,6 @@ export class SearchFilters {
             if (checkboxYes.checked) {
                 checkboxNo.disabled = true;
                 this.render.RenderBooksFilteredByCopyrights("true");
-                this.LockSections(true, section);
             }
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });

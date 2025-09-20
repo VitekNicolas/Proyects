@@ -8,7 +8,7 @@ export class Card {
     this.divName = divName;
     this.bookSeenDiv = document.querySelector(".listBookSeen");
     this.bookCartDiv = document.querySelector(".divBookCart")
-    this.containerDiv = document.querySelector(".container");
+    this.containerDiv = document.querySelector(".containerCatalog");
     this.localStorageHandler = new LocalStorageHandler();
     this.bookModal = new BookModal();
   }
