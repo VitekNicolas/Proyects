@@ -5,13 +5,14 @@ export class FormPageHandler extends BasePageHandler {
 
     constructor() {
         super();
+        this.divname = document.querySelector(".containerForm");
         this.liFormPage = document.getElementById("liFormPage");
-        this.btnReset = document.getElementById("btnReset");
-        this.btnSubmit = document.getElementById("btnSubmit");
-        this.btnCancel = document.getElementById("btnCancel");
+        this.btnReset = this.divname.querySelector("#btnReset");
+        this.btnSubmit = this.divname.querySelector("#btnSubmit");
+        this.btnCancel = this.divname.querySelector("#btnCancel");
         this.form = document.querySelector(".form");
-        this.options = document.querySelectorAll('input[type="radio"]');
-        this.cancelModal = document.querySelector(".cancelModal");
+        this.options = this.divname.querySelectorAll('input[type="radio"]');
+        this.cancelModal = this.divname.querySelector(".cancelModal");
         this.alertMessage = [];
     }
 
@@ -21,7 +22,6 @@ export class FormPageHandler extends BasePageHandler {
             this.containerCatalog.setAttribute("hidden", "");
             this.divBookCartContainer.setAttribute("hidden", "");
             this.containerHome.setAttribute("hidden", "");
-            this.AddEventHandler();
         });
     }
 
@@ -46,27 +46,24 @@ export class FormPageHandler extends BasePageHandler {
             alertModal.AssignEventHandler();
         });
     }
-    Validations = () => {
-        this.containerForm.querySelectorAll(".text-input").forEach((input) => {
-            if (input.value.trim() === "") {
-                this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
+Validations = () => {
+    this.containerForm.querySelectorAll(".text-input").forEach((input) => {
+        if (input.value.trim() === "") {
+            this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
+        } else {
+            if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
+                this.alertMessage.push("El campo nombre solo debe contener letras.");
+            } else if (input.id === "inpLastName" && !this.ValidateInput(`#${input.id}`)) {
+                this.alertMessage.push("El campo apellido solo debe contener letras.");
+            } else if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
+                this.alertMessage.push("El campo email no es valido.");
+            } else {
+                this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
             }
-            else if (input.value.trim() !== "") {
-                if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo nombre solo debe contener letras.");
-                }
-                if (input.id === "inpLastName" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo apellido solo debe contener letras.");
-                }
-                if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo email no es valido.");
-                }
-                else {
-                    this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
-                }
-            }
-        });
-    }
+        }
+    });
+}
+
     ValidateRadioInputs = (name) => {
         const radios = document.getElementsByName(name);
         for (let i = 0; i < radios.length; i++) {

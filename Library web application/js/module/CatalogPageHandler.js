@@ -12,24 +12,11 @@ export class CatalogPageHandler extends BasePageHandler {
         this.bookCart = new BookCart();
         this.divBookCart = document.querySelector(".divBookCart");
         this.paginationHandler = new PaginationHandler();
-        this.searchFilters = new SearchFilters(this.aside);
+        this.searchFilters = new SearchFilters(this.divFilterContainer);
         this.localStorageHandler.CreateStorageForBooks("bookshelve");
         this.localStorageHandler.CreateStorageForBooks("cart");
         this.localStorageHandler.CreateStorageForBooks("historical");
     }
-
-    // ShowPage = () => {
-    //     this.liCatalogPage.addEventListener("click", () => {
-    //         sessionStorage.setItem("currentPage", "catalog");
-    //         this.containerCatalog.removeAttribute("hidden");
-    //         this.divFilterContainer.removeAttribute("hidden");
-    //         this.divPagination.removeAttribute("hidden");
-    //         this.divBookCartContainer.removeAttribute("hidden");
-    //         this.divAdContainer.setAttribute("hidden", "");
-    //         this.containerForm.setAttribute("hidden", "");
-    //         this.AddEventHandler();
-    //     });
-    // }
 
     ShowPage = () => {
         this.liCatalogPage.addEventListener("click", () => {
@@ -38,28 +25,18 @@ export class CatalogPageHandler extends BasePageHandler {
             this.containerHome.setAttribute("hidden", "");
             this.divBookCartContainer.removeAttribute("hidden");
             this.containerCatalog.removeAttribute("hidden");
-                    //Render
-        this.render.CheckCarousel();
-        this.render.RenderBookInStorage("historical", ".listBookSeen");
-        this.render.RenderBookInStorage("cart", ".divBookCart");
-        // Pagination
-        this.paginationHandler.LoadPage(1);
-        this.paginationHandler.ChangePage();
+            this.RenderCatalogElements();
         });
 
     }
 
     ShowPageAfterForm = () => {
+        //Create storages
         sessionStorage.setItem("currentPage", "catalog");
         this.containerForm.setAttribute("hidden", "");
         this.containerCatalog.removeAttribute("hidden");
-                //Render
-        this.render.CheckCarousel();
-        this.render.RenderBookInStorage("historical", ".listBookSeen");
-        this.render.RenderBookInStorage("cart", ".divBookCart");
-        // Pagination
-        this.paginationHandler.LoadPage(1);
-        this.paginationHandler.ChangePage();
+        //Render
+        this.RenderCatalogElements();
     }
 
     AddEventHandler = () => {
@@ -74,5 +51,15 @@ export class CatalogPageHandler extends BasePageHandler {
         this.searchFilters.AddEventListenerToInpCopyright();
         this.searchFilters.AddEventListenerToInpLanguage();
         this.searchFilters.AddBehaviorToAside();
+    }
+
+    RenderCatalogElements = () => {
+        //Render
+        this.render.CheckCarousel();
+        this.render.RenderBookInStorage("historical", ".listBookSeen");
+        this.render.RenderBookInStorage("cart", ".divBookCart");
+        // Pagination
+        this.paginationHandler.LoadPage(1);
+        this.paginationHandler.ChangePage();
     }
 }

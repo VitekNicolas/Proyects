@@ -9,20 +9,6 @@ export class HomePageHandler extends BasePageHandler {
         this.localStorageHandler.FillPopular();
     }
 
-    // ShowPage = () => {
-    //     this.liHomePage.addEventListener("click", () => {
-    //         sessionStorage.setItem("currentPage", "home");
-    //         this.containerCatalog.removeAttribute("hidden");
-    //         this.divAdContainer.removeAttribute("hidden");
-    //         this.divFilterContainer.setAttribute("hidden", "");  
-    //         this.divPagination.setAttribute("hidden", "");           
-    //         this.divBookCartContainer.setAttribute("hidden", "");
-    //         this.carousel.setAttribute("hidden", "");
-    //         this.containerForm.setAttribute("hidden", "");
-    //         this.AddEventHandler();
-    //     });
-    // }
-
     ShowPage = () => {
         this.liHomePage.addEventListener("click", () => {
             sessionStorage.setItem("currentPage", "home");

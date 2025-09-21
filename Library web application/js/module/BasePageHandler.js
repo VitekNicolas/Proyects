@@ -4,7 +4,7 @@ export class BasePageHandler {
 
     constructor() {
         this.containerCatalog = document.querySelector(".containerCatalog");
-        this.aside = document.querySelector(".containerCatalog .aside");
+        this.divFilterContainer = document.querySelector(".divFilterContainer");
         this.carousel = document.querySelector(".carousel");
         this.divFilterContainer = document.querySelector(".divFilterContainer");
         this.divAdContainer = document.querySelector(".divAdContainer");

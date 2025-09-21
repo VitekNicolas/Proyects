@@ -1,7 +1,10 @@
 header {
+  display: flex;
+  justify-content: space-between; 
   align-items: center;
+  padding: 1rem 2rem;
   background: linear-gradient(to right, #003366, #3399ff);
-  padding: 10px 20px;
+  flex-wrap: wrap;
 }
 
 .nav {
@@ -11,15 +14,17 @@ header {
   padding-left: 10px;
 }
 
+.nav-icon {
+  display: none;
+}
+
 header img {
   height: 40px;
   width: 40px;
 }
 
 .divBookCartContainer {
-  position: absolute;
-  right: 10px;
-  top: 27px;
+  position: relative;
 }
 
 .cartBtn {
@@ -76,4 +81,29 @@ header img {
   max-height: 200px;
   overflow-y: auto;
   padding: 10px;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: row; /* header en columna */
+    align-items: flex-start; /* alineado a la izquierda */
+  }
+
+  header img {
+    margin-bottom: 1rem;
+  }
+
+  .nav {
+    display: block;
+    margin: 0.5rem 0;
+  }
+  .nav-text {
+    display: none; 
+  }
+  .nav-icon {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    color: white;
+  }
 }

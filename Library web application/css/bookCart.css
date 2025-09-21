@@ -1,3 +1,9 @@
+.divBookCart {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  height: 286px;
+}
+
 .cart-item {
   display: flex;
   align-items: center;
@@ -23,7 +29,7 @@
   margin: 0%;
 }
 
-.bookCartAuthor{
+.bookCartAuthor {
   margin: 0%;
 }
 

@@ -5,14 +5,15 @@ import { FormPageHandler } from "./module/FormPageHandler.js";
 $(document).ready(async function () {
   sessionStorage.setItem("currentPage", "home");
   const homePageHandler = new HomePageHandler();
-  homePageHandler.AddEventHandler();
   const catalogPageHandler = new CatalogPageHandler();
   const formPageHandler = new FormPageHandler();
   // HomePage
   homePageHandler.ShowPage();
+  homePageHandler.AddEventHandler();
   // CatalogPage
   catalogPageHandler.ShowPage();
   catalogPageHandler.AddEventHandler();
   // FormPage
   formPageHandler.ShowPage();
+  formPageHandler.AddEventHandler();
 });

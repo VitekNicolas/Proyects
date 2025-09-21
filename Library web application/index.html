@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/406a80a244.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header>
       <img src="./img/logo.jpg" alt="Logo" />
-      <a class="nav" id="liHomePage" href="#">Home</a>
-      <a class="nav" id="liCatalogPage" href="#">Catalogo</a>
-      <a class="nav" id="liFormPage" href="#">Dejanos tu comentario</a>
+      <a class="nav nav-text" id="liHomePage" href="#"> Home </a>
+      <a class="nav nav-icon" id="liHomePageIcon" href="#">
+        <i class="fas fa-home"></i>
+      </a>
+      <a class="nav nav-text" id="liCatalogPage" href="#"> Catalogo </a>
+      <a class="nav nav-icon" id="liHomePageIcon" href="#">
+        <i class="fa-solid fa-book"></i>
+      </a>
+      <a class="nav nav-text" id="liFormPage" href="#">
+        Dejanos tu comentario
+      </a>
+      <a class="nav nav-icon" id="liHomePageIcon" href="#">
+        <i class="fa-regular fa-comment"></i>
+      </a>
       <div class="divBookCartContainer" hidden>
         <button class="cartBtn">
           🛒 Carrito <span id="cart-count">0</span>
@@ -233,57 +248,57 @@
     <div class="containerCatalog" hidden>
       <aside class="aside">
         <div class="divFilterContainer">
-          <div class="divFilterLang">
+          <div class="divFilterLanguage">
             <h3>Idioma</h3>
             <label
               ><input
                 type="checkbox"
-                class="inpLanguage"
-                id="input"
+                class="input"
                 value="es"
+                id="inpEs"
               />Español</label
             >
             <label
               ><input
                 type="checkbox"
-                class="inpLanguage"
-                id="input"
+                class="input"
                 value="en"
+                id="inpEn"
               />Inglés</label
             >
             <label
               ><input
                 type="checkbox"
-                class="inpLanguage"
-                id="input"
+                class="input"
                 value="fr"
+                id="inpFr"
               />Francés</label
             >
             <label
               ><input
                 type="checkbox"
-                class="inpLanguage"
-                id="input"
+                class="input"
                 value="it"
+                id="inpIt"
               />Italiano</label
             >
             <label
               ><input
                 type="checkbox"
-                class="inpLanguage"
-                id="input"
+                class="input"
                 value="de"
+                id="inpDe"
               />Alemán</label
             >
           </div>
           <div class="divFilterCopyRight">
             <h3>Derechos de autor</h3>
             <label
-              ><input type="checkbox" class="inptTrue" id="input" value="yes" />
+              ><input type="checkbox" class="input" id="inpTrue" value="yes" />
               Si</label
             >
             <label
-              ><input type="checkbox" class="inpFalse" id="input" value="no" />
+              ><input type="checkbox" class="input" id="inpFalse" value="no" />
               No</label
             >
           </div>
@@ -312,7 +327,7 @@
           <h2>Inspirado en lo último que viste</h2>
           <ul class="listBookSeen"></ul>
         </section>
-        <div class="divPagination" hidden>
+        <div class="divPagination">
           <a href="#" data-page="back">&lsaquo; Atras</a>
           <a href="#" data-page="1">1</a>
           <a href="#" data-page="2">2</a>

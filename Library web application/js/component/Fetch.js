@@ -94,6 +94,6 @@ export class Fetch {
       return data;
     } catch (error) {
       console.error("Error al buscar libros:", error);
-    } 
+    }
   }
 }

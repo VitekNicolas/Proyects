@@ -43,10 +43,5 @@ export class BookCart {
         $cartBtn.on("click", () => {
             $cartDropdown.toggle();
         });
-        $(document).on("click", (e) => {
-            if (!$(e.target).closest(".cartBtn, #cart-dropdown").length) {
-                $cartDropdown.hide();
-            }
-        });
     }
 }
