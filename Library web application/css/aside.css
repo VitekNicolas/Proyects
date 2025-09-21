@@ -1,5 +1,7 @@
 aside {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 aside ul {
@@ -19,7 +21,7 @@ aside a {
 aside h3 {
   font-family: Courier, monospace;
   font-size: 18px;
-  color:firebrick
+  color: firebrick;
 }
 .divFilterYears,
 .divFilterName,
@@ -123,12 +125,12 @@ aside h3 {
 
 .btnSearchByAuthorYears:disabled,
 .btnSearchByAuthorName:disabled,
-.btnSearchByTopic:disabled {  
+.btnSearchByTopic:disabled {
   background-color: #cccccc !important; /* gris claro */
-  color: #666 !important;              /* texto gris */
+  color: #666 !important; /* texto gris */
   border: 1px solid #aaa !important;
-  cursor: not-allowed;                 /* cursor de prohibido */
-  opacity: 0.7;                        /* un poco transparente */
+  cursor: not-allowed; /* cursor de prohibido */
+  opacity: 0.7; /* un poco transparente */
 }
 
 input[type="checkbox"] {
@@ -140,8 +142,8 @@ input[type="checkbox"] {
   border-radius: 0.15em;
 }
 
-input:disabled{
-  cursor: not-allowed;  
+input:disabled {
+  cursor: not-allowed;
 }
 
 .divAdContainer {
@@ -153,10 +155,9 @@ input:disabled{
   border-radius: 6px;
 }
 
-.divAdContainer img{
-  border: 15px solid transparent ;
+.divAdContainer img {
+  border: 15px solid transparent;
   width: 150px;
-
 }
 
 .divAdContainer h3 {
@@ -171,7 +172,7 @@ input:disabled{
   object-fit: cover; /* recorta sin deformar */
   margin-bottom: 10px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
 

@@ -15,6 +15,7 @@ export class Render {
 
   RenderCard = (indexMin, indexMax) => {
     this.cardsDivCatalog.innerHTML = "";
+    this.cardsDivCatalog.innerHTML = `<h2 class="titleHome">Catalogo de libros</h2>`;
     const card = new Card(this.cardsDivCatalog);
     const bookshelve = this.localStorageHandler.GetStorage("bookshelve");
     for (let index = indexMin; index <= indexMax; index++) {

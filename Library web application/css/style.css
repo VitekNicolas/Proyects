@@ -15,25 +15,11 @@ html {
 body {
   margin: 0;
   padding: 0;
-}
-
-.containerCatalog {
-  display: flex;
-  align-items: stretch;
+  overflow-x: hidden;
 }
 
 main {
   background-color: #f0f0f0;
-}
-
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-footer .p {
-  width: 100px;
 }
 
 [hidden] {

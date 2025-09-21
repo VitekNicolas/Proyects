@@ -7,19 +7,22 @@
 }
 
 .book {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: white;
   overflow: hidden;
-  text-align: center;
-  border-radius: 8px solid;
 }
 
-.cardsDiv {
+.cardsDiv, .listBookSeen {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  padding: 1rem;
   margin: 0;
   padding: 0;
+
 }
 
 .cardsDiv h2 {
@@ -30,33 +33,34 @@
   padding: 10px 20px;
   margin: 20px 0;
   border-radius: 4px;
-  grid-column: 1 / -1; /* ocupa todas las columnas */
+  grid-column: 1 / -1;
   text-align: center;
   margin-bottom: 1rem;
 }
 
 .description {
-  height: 200px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  justify-content: left;
+  align-items: center;
+  background-color: #fff;
 }
 
 .title {
-  height: 100px;
+  max-height: 100px;
   overflow: hidden;
 }
 
 #btnShowDetails,
 .btn-remove {
-  position: absolute;
-  bottom: 5px;
-  left: 140px;
   padding: 8px 12px;
   border: none;
   cursor: pointer;
-  width: 100px;
   transition: background 0.3s;
   font-weight: bold;
   color: white;
-  background: #ad5389;
   background-image: linear-gradient(
     45deg,
     #ff512f 0%,
@@ -71,9 +75,16 @@
   touch-action: manipulation;
 }
 
+.btn-remove {
+      background-image: linear-gradient(
+      45deg,
+      #ff0000 0%,
+      #f01919 51%,
+      #ff512f 100%
+    );
+}
+
 #btnAddToCart {
-  position: absolute;
-  bottom: 5px;
   padding: 8px 12px;
   background: #777bcb;
   border: none;
@@ -125,13 +136,57 @@
 }
 
 @media (max-width: 768px) {
-  .containerHome {
+  .containerHome, .containerCatalog {
     grid-template-columns: 1fr; 
   }
-  .aisde {
+  .aside {
     grid-column: 1 / -1; 
   }
   .main {
     grid-column: 1 / -1; 
+  }
+}
+
+@media (max-width: 768px) {
+  .containerCatalog .aside {
+    grid-column: 1 / -1;
+    padding: 1rem;
+    background-color: #fff;
+  }
+
+  .divFilterContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .divFilterContainer h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .divFilterContainer label,
+  .divFilterContainer input,
+  .divFilterContainer button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .divFilterContainer input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .divFilterContainer button {
+    padding: 0.6rem;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btnReset {
+    background-color: #cc0000;
   }
 }

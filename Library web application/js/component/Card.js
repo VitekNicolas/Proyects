@@ -104,10 +104,12 @@ export class Card {
   };
 
   CreateDeleteButton = (card) => {
+    const description = card.querySelector(".description");
     const btnRemove = document.createElement("button");
     btnRemove.textContent = "Eliminar";
     btnRemove.classList.add("btn-remove");
-    card.appendChild(btnRemove);
+    btnRemove.style.backgroundImage=" #cc0000";
+    description.appendChild(btnRemove);
     btnRemove.addEventListener("click", () => {
       card.remove();
       const carrousel = document.querySelector(".carousel");
@@ -134,7 +136,7 @@ export class Card {
 
 //   Create({ json }) {
 //     return $(`
-//       <div class="book" 
+//       <div class="book"
 //           data-image="${json.image}"
 //           data-author="${json.author}"
 //           data-title="${json.title}"
