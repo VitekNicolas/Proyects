@@ -1,5 +1,15 @@
-.containerHome, .containerCatalog {
-  background-color:#f2f2f2;
+.containerHome,
+.containerCatalog {
+  background-color: #262626;
+  background-image: radial-gradient(
+      50% 50% at top center,
+      rgba(0, 0, 0, 0.66),
+      #262626
+    ),
+    var(--featured-img);
+  background-position: top 58px center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 1rem;
@@ -16,13 +26,13 @@
   overflow: hidden;
 }
 
-.cardsDiv, .listBookSeen {
+.cardsDiv,
+.listBookSeen {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
   margin: 0;
   padding: 0;
-
 }
 
 .cardsDiv h2 {
@@ -53,7 +63,7 @@
   overflow: hidden;
 }
 
-#btnShowDetails,
+.btnShowDetails,
 .btn-remove {
   padding: 8px 12px;
   border: none;
@@ -76,15 +86,15 @@
 }
 
 .btn-remove {
-      background-image: linear-gradient(
-      45deg,
-      #ff0000 0%,
-      #f01919 51%,
-      #ff512f 100%
-    );
+  background-image: linear-gradient(
+    45deg,
+    #ff0000 0%,
+    #f01919 51%,
+    #ff512f 100%
+  );
 }
 
-#btnAddToCart {
+.btnAddToCart {
   padding: 8px 12px;
   background: #777bcb;
   border: none;
@@ -135,19 +145,23 @@
   font-size: 15px;
 }
 
-@media (max-width: 768px) {
-  .containerHome, .containerCatalog {
-    grid-template-columns: 1fr; 
-  }
-  .aside {
-    grid-column: 1 / -1; 
-  }
-  .main {
-    grid-column: 1 / -1; 
-  }
+@media (mix-width: 768px) and (max-width: 1199px) {
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .containerHome,
+  .containerCatalog {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    grid-column: 1 / -1;
+  }
+
+  .main {
+    grid-column: 1 / -1;
+  }
+
   .containerCatalog .aside {
     grid-column: 1 / -1;
     padding: 1rem;

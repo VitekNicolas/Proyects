@@ -1,6 +1,5 @@
 import { CatalogPageHandler } from "../module/CatalogPageHandler.js";
 import { HomePageHandler } from "../module/HomePageHandler.js";
-import { BasePageHandler } from "../module/BasePageHandler.js";
 
 export class AlertModal {
     Create = () => {
@@ -35,6 +34,5 @@ export class AlertModal {
             }
             basePageHandler.ShowPageAfterForm();
         });
-
     }
 }

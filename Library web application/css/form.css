@@ -1,13 +1,7 @@
 .containerForm {
   background-color: #111111;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: "Titillium Web", sans-serif;
   padding: 2em;
-}
-
-@media screen and (min-width: 750px) {
-  .containerForm {
-    font-size: 1.25em;
-  }
 }
 
 .containerForm h2 {
@@ -36,11 +30,10 @@
 }
 
 .fieldButtons {
-  display: flex;
-  justify-content: space-between;
-  width: 750px;
-  margin: 0 auto;
-
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
 }
 
 
@@ -57,8 +50,8 @@
 }
 
 .required .label::after {
-  content: ' *';
-  color: #E8474C;
+  content: " *";
+  color: #e8474c;
   font-size: 0.75em;
   vertical-align: top;
 }
@@ -82,13 +75,12 @@
 }
 
 .button {
-  background: #E8474C;
+  background: #e8474c;
   color: white;
   font-weight: bold;
   padding: 0.75em 2em;
   cursor: pointer;
   border: none;
-  width: 240px;
 }
 
 .button:hover,
@@ -124,7 +116,7 @@
 .checkbox-label,
 .option-label {
   display: inline-block;
-  color: #4E4E4E;
+  color: #4e4e4e;
   cursor: pointer;
   padding: 0.75em 1em;
 }
@@ -169,14 +161,14 @@ li.option {
 }
 
 input[type="radio"]:checked + .option-label {
-  background-color: #E8474C;
+  background-color: #e8474c;
   color: white;
-  border-color: #E8474C;
+  border-color: #e8474c;
   box-shadow: 0 0 0 2px rgba(232, 71, 76, 0.4);
 }
 
 fieldset {
-  border: none;        /* saca el recuadro */
-  margin: 0;           /* opcional: elimina márgenes extras */
-  padding: 0;          /* opcional: elimina relleno */
+  border: none; 
+  margin: 0; 
+  padding: 0;
 }

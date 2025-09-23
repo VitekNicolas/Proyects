@@ -1,7 +1,10 @@
+/*Aside of catalog page*/
+
 aside {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  color: #aaa;
 }
 
 aside ul {
@@ -14,7 +17,7 @@ aside ul {
 }
 
 aside a {
-  color: rgb(0, 0, 0);
+  color: rgb(111, 101, 101);
   text-decoration: none;
 }
 
@@ -23,12 +26,12 @@ aside h3 {
   font-size: 18px;
   color: firebrick;
 }
+
 .divFilterYears,
 .divFilterName,
 .divFilterTopic {
   display: block;
   gap: 5px;
-  background-color: #f2f2f2;
   padding-left: 10px;
 }
 
@@ -94,15 +97,14 @@ aside h3 {
 .btnSearchByAuthorYears,
 .btnSearchByAuthorName,
 .btnSearchByTopic {
-  background-color: #13aa52;
+  background-color: #5e5e5e;
   border: 1px solid #13aa52;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont,
-    sans-serif;
+  font: italic, Georgia, Serif;
   font-size: 16px;
   font-weight: 400;
   outline: none;
@@ -126,11 +128,11 @@ aside h3 {
 .btnSearchByAuthorYears:disabled,
 .btnSearchByAuthorName:disabled,
 .btnSearchByTopic:disabled {
-  background-color: #cccccc !important; /* gris claro */
-  color: #666 !important; /* texto gris */
+  background-color: #cccccc !important; 
+  color: #666 !important; 
   border: 1px solid #aaa !important;
-  cursor: not-allowed; /* cursor de prohibido */
-  opacity: 0.7; /* un poco transparente */
+  cursor: not-allowed; 
+  opacity: 0.7; 
 }
 
 input[type="checkbox"] {
@@ -146,30 +148,34 @@ input:disabled {
   cursor: not-allowed;
 }
 
+/*Aside of home page*/
 .divAdContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 20px;
-  padding: 10px;
-  background: #fafafa;
-  border: 1px solid #ddd;
-  text-align: center;
-  border-radius: 6px;
+  padding: 1rem;
+   background-color: #f2f2f2;
+  align-items: center;
 }
 
 .divAdContainer img {
-  border: 15px solid transparent;
-  width: 150px;
+  border: 10px solid transparent;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
 }
 
 .divAdContainer h3 {
   font-size: 16px;
   margin-bottom: 10px;
-  color: #b22222; /* rojo a tono con tus filtros */
+  color: #b22222; 
 }
 
 .ad-banner {
   width: 100%;
-  max-height: 120px; /* altura máxima para que no desborde */
-  object-fit: cover; /* recorta sin deformar */
+  max-height: 120px; 
+  object-fit: cover; 
   margin-bottom: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -177,5 +183,19 @@ input:disabled {
 }
 
 .ad-banner:hover {
-  transform: scale(1.05); /* efecto hover */
+  transform: scale(1.05); 
+}
+
+@media (max-width: 768px) {
+  .divAdContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+  }
+
+.divAdContainer img  {
+    width: 100%;
+    max-width: 120px;
+  }
 }

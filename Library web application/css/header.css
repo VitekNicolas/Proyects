@@ -1,17 +1,27 @@
 header {
   display: flex;
-  justify-content: space-between; 
   align-items: center;
-  padding: 1rem 2rem;
-  background: linear-gradient(to right, #003366, #3399ff);
-  flex-wrap: wrap;
+  padding: 0.5rem;
+  background: #111;
+  border-bottom: 1px solid #676767;
 }
 
 .nav {
-  color: #ccc;
-  font-family: "Akzidenz Grotesk BQ Medium";
-  font-size: 25px;
+  color: #fff;
+  font-family: MD Primer Bold, Rubik, Lato, Lucida Grande, Lucida Sans Unicode,
+    Tahoma, Sans-Serif;
+  font-style: normal;
+  font-weight: 500;
   padding-left: 10px;
+      text-transform: uppercase;
+      font-size: .8rem;
+}
+
+.nav:hover {
+  color: #ff9900; /* naranja vibrante */
+  text-shadow: 0 0 6px #ff9900, 0 0 12px #ff6600;
+  transform: scale(1.03);
+  cursor: pointer;
 }
 
 .nav-icon {
@@ -24,7 +34,8 @@ header img {
 }
 
 .divBookCartContainer {
-  position: relative;
+  position: fixed;
+  right: 10px;
 }
 
 .cartBtn {
@@ -83,10 +94,24 @@ header img {
   padding: 10px;
 }
 
-@media (max-width: 768px) {
+/*Tablets en horizontal y escritorios normales */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .nav-text {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+
   header {
-    flex-direction: row; /* header en columna */
-    align-items: flex-start; /* alineado a la izquierda */
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/*Celulares en horizontal o tablet en vertical*/
+@media (max-width: 767px) {
+  header {
+    flex-direction: row;
+    align-items: flex-start;
   }
 
   header img {
@@ -97,9 +122,11 @@ header img {
     display: block;
     margin: 0.5rem 0;
   }
+
   .nav-text {
-    display: none; 
+    display: none;
   }
+
   .nav-icon {
     display: inline-block;
     font-size: 1.5rem;

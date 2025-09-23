@@ -1,6 +1,15 @@
 footer {
-  background-color: #f0f0f0;
   padding-top: 20px;
+    background-color: #262626;
+  background-image: radial-gradient(
+      50% 50% at top center,
+      rgba(0, 0, 0, 0.66),
+      #262626
+    ),
+    var(--featured-img);
+  background-position: top 58px center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
 }
 
 .grid {
@@ -9,6 +18,14 @@ footer {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 200px repeat(2, minmax(0, 1fr));
+  --fleck-seed: 35458;
+  --fleck-count: 500;
+  --fleck-size-base: 3px;
+  --fleck-color-1: #434343;
+  --fleck-color-2: #262626;
+  --fleck-color-3: #434343;
+  --fleck-color-4: #262626;
+  background-color: #111;
 }
 
 .wrapper {
@@ -27,19 +44,28 @@ footer {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #eaeaea;
+  border: 1px solid #dfbe02;
   font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
+  --fleck-seed: 35458;
+  --fleck-count: 500;
+  --fleck-size-base: 3px;
+  --fleck-color-1: #434343;
+  --fleck-color-2: #262626;
+  --fleck-color-3: #434343;
+  --fleck-color-4: #262626;
+  background-color: #111;
 }
 
 .divMap h3 {
   line-height: 26px;
   margin: 20px 20px 5px;
   font-size: 23px;
-  color: #333;
+  color: #ff7a18;
   align-self: baseline;
 }
 
 .divMap p {
+  color: #a9a39f;
   font-size: 15px;
   margin: 0 20px 20px;
 }
@@ -50,12 +76,12 @@ footer {
 
 .section-head h2 {
   font-size: 2rem;
-  color: #003366;
+  color: #ffffff;
   margin-bottom: 20px;
   font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   footer {
     padding: 50px 0 80px;
   }

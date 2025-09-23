@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  background-color: #f0f0f0;
+  background-color: linear-gradient(180deg, #fff, #262626);
 }
 
 [hidden] {
