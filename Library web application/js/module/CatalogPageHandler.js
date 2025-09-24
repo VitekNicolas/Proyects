@@ -21,21 +21,15 @@ export class CatalogPageHandler extends BasePageHandler {
     ShowPage = () => {
         this.liCatalogPage.addEventListener("click", () => {
             sessionStorage.setItem("currentPage", "catalog");
-            this.containerForm.setAttribute("hidden", "");
-            this.containerHome.setAttribute("hidden", "");
-            this.divBookCartContainer.removeAttribute("hidden");
-            this.containerCatalog.removeAttribute("hidden");
+            this.DisplayContainer(this.containerCatalog);
             this.RenderCatalogElements();
         });
 
     }
 
     ShowPageAfterForm = () => {
-        //Create storages
         sessionStorage.setItem("currentPage", "catalog");
-        this.containerForm.setAttribute("hidden", "");
-        this.containerCatalog.removeAttribute("hidden");
-        //Render
+        this.DisplayContainer(this.containerCatalog);
         this.RenderCatalogElements();
     }
 

@@ -1,15 +1,16 @@
 import { LocalStorageHandler } from "./LocalStorageHandler.js";
 import { BookCart } from "./BookCart.js";
-import { BookModal } from "./BookModal.js";
+import { BookDescription } from "./BookDescription.js";
 
 export class Card {
   constructor($divName) {
-    this.$divName = $divName; // ahora es un objeto jQuery
+    this.$divName = $divName;
     this.$bookSeenDiv = $(".listBookSeen");
     this.$bookCartDiv = $(".divBookCart");
     this.$containerDiv = $(".containerCatalog");
+    this.$bookDescriptionDiv = $(".containerBookDescription");
     this.localStorageHandler = new LocalStorageHandler();
-    this.bookModal = new BookModal();
+    this.bookDescription = new BookDescription(this.$bookDescriptionDiv);
   }
 
   Create(json) {
@@ -52,11 +53,9 @@ export class Card {
     this.$divName.find(".book").each(function () {
       const $card = $(this);
       if ($card.data("eventsAttached") === true) return;
-
       const isHistorical = $card.data("origin") === "historical";
       self.AttachOriginalHandlers($card);
       if (isHistorical) self.CreateDeleteButton($card);
-
       $card.data("eventsAttached", true);
     });
   }
@@ -77,14 +76,13 @@ export class Card {
 
     $card.find(".btnShowDetails").on("click", () => {
       const $bookCard = this.$bookSeenDiv.find(`[data-title="${json.title}"]`);
-      this.bookModal.Append(json);
-      this.bookModal.AssignEventHandler();
-
+      this.bookDescription.Append(json);
+      this.$bookDescriptionDiv.removeAttr("hidden");
+      this.$containerDiv.prop("hidden", true)
       if ($bookCard.length === 0) {
         const clonedCard = new Card(this.$bookSeenDiv);
         clonedCard.Append(json, "historical");
         clonedCard.AssignEventHandler();
-
         const $carousel = $(".carousel");
         if ($carousel.find(".listBookSeen").children().length > 0) {
           $carousel.removeAttr("hidden");
@@ -98,7 +96,6 @@ export class Card {
       const array = this.localStorageHandler.GetStorage("cart");
       const $bookCard = this.$bookCartDiv.find(`[data-title="${json.title}"]`);
       const $cartCount = $("#cart-count");
-
       if ($bookCard.length === 0) {
         const bookCart = new BookCart(this.$bookCartDiv);
         bookCart.Append(json, "cart");
@@ -110,8 +107,8 @@ export class Card {
 
   CreateDeleteButton($card) {
     const $btnRemove = $('<button class="btn-remove">Eliminar</button>');
-    const $description= $card.find(".description")
-     $description.append($btnRemove);
+    const $description = $card.find(".description")
+    $description.append($btnRemove);
     $btnRemove.on("click", () => {
       $card.remove();
       const $carousel = $(".carousel");

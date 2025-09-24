@@ -12,17 +12,13 @@ export class HomePageHandler extends BasePageHandler {
     ShowPage = () => {
         this.liHomePage.addEventListener("click", () => {
             sessionStorage.setItem("currentPage", "home");
-            this.containerForm.setAttribute("hidden", "");
-            this.containerCatalog.setAttribute("hidden", "");
-            this.divBookCartContainer.setAttribute("hidden", "");
-            this.containerHome.removeAttribute("hidden");
+            this.DisplayContainer(this.containerHome)
         })
     }
 
     ShowPageAfterForm = () => {
         sessionStorage.setItem("currentPage", "home");
-        this.containerForm.setAttribute("hidden","");
-        this.containerHome.removeAttribute("hidden");
+        this.DisplayContainer(this.containerHome)
         this.render.RenderPopularBookCard();
     }
 

@@ -37,7 +37,137 @@
         </div>
       </div>
     </header>
-    <div class="containerForm" hidden>
+    <div class="containerHome">
+      <aside class="aside">
+        <div class="divAdContainer">
+          <a
+            href="https://www.yenny-elateneo.com/?srsltid=AfmBOoo3sdVX14UT4jvxgYKuzy5cG9q5ZsDUmQre2kTd9zsx5tQGPIle"
+            target="_blank"
+          >
+            <img src="./img/banner1.jpg" alt="Publicidad 1" class="ad-banner" />
+          </a>
+          <a
+            href="https://www.libreriamayorista.com.ar/index.php"
+            target="_blank"
+          >
+            <img src="./img/banner2.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+          <a href="https://cuspide.com/" target="_blank">
+            <img src="./img/banner3.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+          <a href="https://einsteinlibreria.com.ar/" target="_blank">
+            <img src="./img/banner4.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+          <a href="https://batik.com.ar/" target="_blank">
+            <img src="./img/banner5.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+          <a href="https://www.lsf.com.ar/" target="_blank">
+            <img src="./img/banner6.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+          <a href="https://libreriasanpablo.com.ar/" target="_blank">
+            <img src="./img/banner7.jpg" alt="Publicidad 2" class="ad-banner" />
+          </a>
+        </div>
+      </aside>
+      <main>
+        <div class="cardsDiv"></div>
+      </main>
+    </div>
+    <div class="containerCatalog" hidden>
+      <aside class="aside">
+        <div class="divFilterContainer">
+          <div class="divFilterLanguage">
+            <h3>Idioma</h3>
+            <label
+              ><input
+                type="checkbox"
+                class="input"
+                value="es"
+                id="inpEs"
+              />Español</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="input"
+                value="en"
+                id="inpEn"
+              />Inglés</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="input"
+                value="fr"
+                id="inpFr"
+              />Francés</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="input"
+                value="it"
+                id="inpIt"
+              />Italiano</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="input"
+                value="de"
+                id="inpDe"
+              />Alemán</label
+            >
+          </div>
+          <div class="divFilterCopyRight">
+            <h3>Derechos de autor</h3>
+            <label
+              ><input type="checkbox" class="input" id="inpTrue" value="yes" />
+              Si</label
+            >
+            <label
+              ><input type="checkbox" class="input" id="inpFalse" value="no" />
+              No</label
+            >
+          </div>
+          <div class="divFilterYears">
+            <h3>Rango de años</h3>
+            <input class="input" id="inpMinYear" placeholder="Mínimo" />
+            <input class="input" id="inpMaxYear" placeholder="Máximo" />
+            <button class="btnSearchByAuthorYears">Buscar</button>
+          </div>
+          <div class="divFilterName">
+            <h3>Nombre de autor</h3>
+            <input class="input" id="inpAuthorName" placeholder="Nombre" />
+            <button class="btnSearchByAuthorName">Buscar</button>
+          </div>
+          <div class="divFilterTopic">
+            <h3>Tematica</h3>
+            <input class="input" id="inpTopic" placeholder="Tematica" />
+            <button class="btnSearchByTopic">Buscar</button>
+          </div>
+          <button class="btnReset">Resetear</button>
+        </div>
+      </aside>
+      <main>
+        <div class="cardsDiv"></div>
+        <section class="carousel" hidden>
+          <h2>Inspirado en lo último que viste</h2>
+          <ul class="listBookSeen"></ul>
+        </section>
+        <div class="divPagination">
+          <a href="#" data-page="back">&lsaquo; Atras</a>
+          <a href="#" data-page="1">1</a>
+          <a href="#" data-page="2">2</a>
+          <a href="#" data-page="3">3</a>
+          <a href="#" data-page="4">4</a>
+          <a href="#" data-page="5">5</a>
+          <a href="#" data-page="next">Siguiente &rsaquo;</a>
+        </div>
+      </main>
+    </div>
+    <div class="containerBookDescription" hidden></div>
+        <div class="containerForm" hidden>
       <h2>Dejanos tu comentario</h2>
       <form class="form" action="">
         <p class="field half">
@@ -192,140 +322,16 @@
           />
         </p>
         <p class="fieldButtons">
-          <input class="button" id="btnSubmit" type="submit" value="Enviar"/>
-          <input class="button" id="btnReset" type="submit" value="Restablecer"/>
-          <input class="button" id="btnCancel" type="submit" value="Cancelar"/>
+          <input class="button" id="btnSubmit" type="submit" value="Enviar" />
+          <input
+            class="button"
+            id="btnReset"
+            type="submit"
+            value="Restablecer"
+          />
+          <input class="button" id="btnCancel" type="submit" value="Cancelar" />
         </p>
       </form>
-    </div>
-    <div class="containerHome">
-      <aside class="aside">
-        <div class="divAdContainer">
-          <a
-            href="https://www.yenny-elateneo.com/?srsltid=AfmBOoo3sdVX14UT4jvxgYKuzy5cG9q5ZsDUmQre2kTd9zsx5tQGPIle"
-            target="_blank"
-          >
-            <img src="./img/banner1.jpg" alt="Publicidad 1" class="ad-banner" />
-          </a>
-          <a
-            href="https://www.libreriamayorista.com.ar/index.php"
-            target="_blank"
-          >
-            <img src="./img/banner2.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-          <a href="https://cuspide.com/" target="_blank">
-            <img src="./img/banner3.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-          <a href="https://einsteinlibreria.com.ar/" target="_blank">
-            <img src="./img/banner4.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-          <a href="https://batik.com.ar/" target="_blank">
-            <img src="./img/banner5.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-          <a href="https://www.lsf.com.ar/" target="_blank">
-            <img src="./img/banner6.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-          <a href="https://libreriasanpablo.com.ar/" target="_blank">
-            <img src="./img/banner7.jpg" alt="Publicidad 2" class="ad-banner" />
-          </a>
-        </div>
-      </aside>
-      <main>
-        <div class="cardsDiv"></div>
-      </main>
-    </div>
-    <div class="containerCatalog" hidden>
-      <aside class="aside">
-        <div class="divFilterContainer">
-          <div class="divFilterLanguage">
-            <h3>Idioma</h3>
-            <label
-              ><input
-                type="checkbox"
-                class="input"
-                value="es"
-                id="inpEs"
-              />Español</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="input"
-                value="en"
-                id="inpEn"
-              />Inglés</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="input"
-                value="fr"
-                id="inpFr"
-              />Francés</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="input"
-                value="it"
-                id="inpIt"
-              />Italiano</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="input"
-                value="de"
-                id="inpDe"
-              />Alemán</label
-            >
-          </div>
-          <div class="divFilterCopyRight">
-            <h3>Derechos de autor</h3>
-            <label
-              ><input type="checkbox" class="input" id="inpTrue" value="yes" />
-              Si</label
-            >
-            <label
-              ><input type="checkbox" class="input" id="inpFalse" value="no" />
-              No</label
-            >
-          </div>
-          <div class="divFilterYears">
-            <h3>Rango de años</h3>
-            <input class="input" id="inpMinYear" placeholder="Mínimo" />
-            <input class="input" id="inpMaxYear" placeholder="Máximo" />
-            <button class="btnSearchByAuthorYears">Buscar</button>
-          </div>
-          <div class="divFilterName">
-            <h3>Nombre de autor</h3>
-            <input class="input" id="inpAuthorName" placeholder="Nombre" />
-            <button class="btnSearchByAuthorName">Buscar</button>
-          </div>
-          <div class="divFilterTopic">
-            <h3>Tematica</h3>
-            <input class="input" id="inpTopic" placeholder="Tematica" />
-            <button class="btnSearchByTopic">Buscar</button>
-          </div>
-          <button class="btnReset">Resetear</button>
-        </div>
-      </aside>
-      <main>
-        <div class="cardsDiv"></div>
-        <section class="carousel" hidden>
-          <h2>Inspirado en lo último que viste</h2>
-          <ul class="listBookSeen"></ul>
-        </section>
-        <div class="divPagination">
-          <a href="#" data-page="back">&lsaquo; Atras</a>
-          <a href="#" data-page="1">1</a>
-          <a href="#" data-page="2">2</a>
-          <a href="#" data-page="3">3</a>
-          <a href="#" data-page="4">4</a>
-          <a href="#" data-page="5">5</a>
-          <a href="#" data-page="next">Siguiente &rsaquo;</a>
-        </div>
-      </main>
     </div>
   </body>
   <footer>

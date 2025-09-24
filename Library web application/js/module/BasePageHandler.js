@@ -5,8 +5,8 @@ export class BasePageHandler {
     constructor() {
         this.containerCatalog = document.querySelector(".containerCatalog");
         this.divFilterContainer = document.querySelector(".divFilterContainer");
+        this.containerBookDescription = document.querySelector(".containerBookDescription")
         this.carousel = document.querySelector(".carousel");
-        this.divFilterContainer = document.querySelector(".divFilterContainer");
         this.divAdContainer = document.querySelector(".divAdContainer");
         this.liCatalogPage = document.getElementById("liCatalogPage");
         this.divPagination = document.querySelector(".divPagination");
@@ -20,4 +20,13 @@ export class BasePageHandler {
     ShowPage = () => { throw new Error("You must implement requiredMethod() in the child class"); }
     ShowPageAfterForm = () => { throw new Error("You must implement requiredMethod() in the child class"); }
     AddEventHandler = () => { throw new Error("You must implement requiredMethod() in the child class"); }
+    DisplayContainer = (divName) => {
+        const divs = document.querySelectorAll(
+            ".containerHome, .containerCatalog, .containerBookDescription, .containerForm"
+        );
+        divs.forEach(div => {
+            if (div === divName) { div.removeAttribute("hidden") }
+            else { div.setAttribute("hidden", "") }
+        });
+    }
 }

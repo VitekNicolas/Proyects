@@ -18,10 +18,7 @@ export class FormPageHandler extends BasePageHandler {
 
     ShowPage = () => {
         this.liFormPage.addEventListener("click", () => {
-            this.containerForm.removeAttribute("hidden");
-            this.containerCatalog.setAttribute("hidden", "");
-            this.divBookCartContainer.setAttribute("hidden", "");
-            this.containerHome.setAttribute("hidden", "");
+            this.DisplayContainer(this.containerForm)
         });
     }
 
@@ -46,23 +43,23 @@ export class FormPageHandler extends BasePageHandler {
             alertModal.AssignEventHandler();
         });
     }
-Validations = () => {
-    this.containerForm.querySelectorAll(".text-input").forEach((input) => {
-        if (input.value.trim() === "") {
-            this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
-        } else {
-            if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
-                this.alertMessage.push("El campo nombre solo debe contener letras.");
-            } else if (input.id === "inpLastName" && !this.ValidateInput(`#${input.id}`)) {
-                this.alertMessage.push("El campo apellido solo debe contener letras.");
-            } else if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
-                this.alertMessage.push("El campo email no es valido.");
+    Validations = () => {
+        this.containerForm.querySelectorAll(".text-input").forEach((input) => {
+            if (input.value.trim() === "") {
+                this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
             } else {
-                this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
+                if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
+                    this.alertMessage.push("El campo nombre solo debe contener letras.");
+                } else if (input.id === "inpLastName" && !this.ValidateInput(`#${input.id}`)) {
+                    this.alertMessage.push("El campo apellido solo debe contener letras.");
+                } else if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
+                    this.alertMessage.push("El campo email no es valido.");
+                } else {
+                    this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
+                }
             }
-        }
-    });
-}
+        });
+    }
 
     ValidateRadioInputs = (name) => {
         const radios = document.getElementsByName(name);
