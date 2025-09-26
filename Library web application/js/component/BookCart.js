@@ -26,7 +26,7 @@ export class BookCart {
     }
 
     AssignEventHandler = () => {
-        let $cartCount = $("#cart-count");
+        let $cartCount = $(".bookCartCount");
         this.$divName.on("click", ".btnCartRemove", (e) => {
             const $bookCart = $(e.target).closest(".bookCart");
             const title = $bookCart.data("title");
@@ -38,7 +38,7 @@ export class BookCart {
     }
 
     AssignEventHandlerContainer = () => {
-        const $cartBtn = $(".cartBtn");
+        const $cartBtn = $("#cartBtn");
         const $cartDropdown = $("#cart-dropdown");
         $cartBtn.on("click", () => {
             $cartDropdown.toggle();

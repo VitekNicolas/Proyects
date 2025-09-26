@@ -95,7 +95,7 @@ export class Card {
       this.localStorageHandler.AppendBookDataToStorage("cart", json);
       const array = this.localStorageHandler.GetStorage("cart");
       const $bookCard = this.$bookCartDiv.find(`[data-title="${json.title}"]`);
-      const $cartCount = $("#cart-count");
+      const $cartCount = $(".bookCartCount");
       if ($bookCard.length === 0) {
         const bookCart = new BookCart(this.$bookCartDiv);
         bookCart.Append(json, "cart");

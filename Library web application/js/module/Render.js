@@ -50,7 +50,7 @@ export class Render {
       this.CheckCarousel();
       card = new BookCart($div);
 
-      $("#cart-count").text(array.length);
+      $(".bookCartCount").text(array.length);
     }
     array.forEach(item => {
       card.Append(item, storage);

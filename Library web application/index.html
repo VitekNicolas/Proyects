@@ -13,24 +13,25 @@
   <body>
     <header>
       <img src="./img/logo.jpg" alt="Logo" />
-      <a class="nav nav-text" id="liHomePage" href="#"> Home </a>
-      <a class="nav nav-icon" id="liHomePageIcon" href="#">
-        <i class="fas fa-home"></i>
+      <a class="nav" id="liHomePage" href="#">
+        <span class="nav-text">Home</span>
+        <i class="fas fa-home nav-icon"></i>
       </a>
-      <a class="nav nav-text" id="liCatalogPage" href="#"> Catalogo </a>
-      <a class="nav nav-icon" id="liHomePageIcon" href="#">
-        <i class="fa-solid fa-book"></i>
+      <a class="nav" id="liCatalogPage" href="#">
+        <span class="nav-text">Catalogo</span>
+        <i class="fa-solid fa-book nav-icon"></i>
       </a>
-      <a class="nav nav-text" id="liFormPage" href="#">
-        Dejanos tu comentario
-      </a>
-      <a class="nav nav-icon" id="liHomePageIcon" href="#">
-        <i class="fa-regular fa-comment"></i>
+      <a class="nav" id="liFormPage" href="#">
+        <span class="nav-text">Dejanos tu comentario</span>
+        <i class="fa-regular fa-comment nav-icon"></i>
       </a>
       <div class="divBookCartContainer" hidden>
-        <button class="cartBtn">
-          🛒 Carrito <span id="cart-count">0</span>
-        </button>
+        <a class="nav" id="cartBtn" href="#">
+          <button class="nav-text">
+            🛒 Carrito <span class="bookCartCount">0</span>
+          </button>
+          <i class="fa-solid fa-cart-shopping nav-icon"><span class="bookCartCount">0</span></i>
+        </a>
         <div class="cart-dropdown" id="cart-dropdown">
           <h3>Carrito</h3>
           <div class="divBookCart" id="cart-items"></div>
