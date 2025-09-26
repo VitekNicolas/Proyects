@@ -145,7 +145,10 @@
   font-size: 15px;
 }
 
-@media (mix-width: 768px) and (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cardsDiv, .listBookSeen {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 767px) {
@@ -162,45 +165,14 @@
     grid-column: 1 / -1;
   }
 
-  .containerCatalog .aside {
-    grid-column: 1 / -1;
-    padding: 1rem;
-    background-color: #fff;
+  .cardsDiv, .listBookSeen {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .divFilterContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+}
 
-  .divFilterContainer h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .divFilterContainer label,
-  .divFilterContainer input,
-  .divFilterContainer button {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .divFilterContainer input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .divFilterContainer button {
-    padding: 0.6rem;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .btnReset {
-    background-color: #cc0000;
+@media (max-width: 480px) {
+  .cardsDiv, .listBookSeen {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

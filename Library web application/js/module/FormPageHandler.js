@@ -2,90 +2,79 @@ import { BasePageHandler } from "./BasePageHandler.js";
 import { AlertModal } from "../component/AlertModal.js";
 
 export class FormPageHandler extends BasePageHandler {
+  constructor() {
+    super();
+    this.$containerForm = $(".containerForm");
+    this.$liFormPage = $("#liFormPage");
+    this.$btnReset = this.$containerForm.find("#btnReset");
+    this.$btnSubmit = this.$containerForm.find("#btnSubmit");
+    this.$btnCancel = this.$containerForm.find("#btnCancel");
+    this.$form = $(".form");
+    this.$options = this.$containerForm.find('input[type="radio"]');
+    this.$cancelModal = this.$containerForm.find(".cancelModal");
+    this.alertMessage = [];
+  }
 
-    constructor() {
-        super();
-        this.divname = document.querySelector(".containerForm");
-        this.liFormPage = document.getElementById("liFormPage");
-        this.btnReset = this.divname.querySelector("#btnReset");
-        this.btnSubmit = this.divname.querySelector("#btnSubmit");
-        this.btnCancel = this.divname.querySelector("#btnCancel");
-        this.form = document.querySelector(".form");
-        this.options = this.divname.querySelectorAll('input[type="radio"]');
-        this.cancelModal = this.divname.querySelector(".cancelModal");
-        this.alertMessage = [];
-    }
+  ShowPage = () => {
+    this.$liFormPage.on("click", () => {
+      this.DisplayContainer([this.containerForm]);
+    });
+  };
 
-    ShowPage = () => {
-        this.liFormPage.addEventListener("click", () => {
-            this.DisplayContainer(this.containerForm)
-        });
-    }
+  AddEventHandler = () => {
+    this.$btnSubmit.on("click", (event) => {
+      event.preventDefault();
+      this.Validations();
+      alert(this.alertMessage.join("\n"));
+      this.alertMessage = [];
+    });
 
-    AddEventHandler = () => {
-        this.btnSubmit.addEventListener("click", (event) => {
-            event.preventDefault();
-            this.Validations();
-            alert(this.alertMessage.join("\n"));
-            this.alertMessage = [];
-        });
-        this.btnReset.addEventListener("click", (event) => {
-            event.preventDefault();
-            this.containerForm.querySelectorAll(".text-input").forEach((input) => { input.value = "" });
-            this.containerForm.querySelectorAll('input[type="radio"]').forEach((input) => {
-                input.checked = false;
-            });
-        });
-        this.btnCancel.addEventListener("click", (event) => {
-            event.preventDefault();
-            const alertModal = new AlertModal();
-            alertModal.Append();
-            alertModal.AssignEventHandler();
-        });
-    }
-    Validations = () => {
-        this.containerForm.querySelectorAll(".text-input").forEach((input) => {
-            if (input.value.trim() === "") {
-                this.alertMessage.push(`El campo ${input.name} es obligatorio.`);
-            } else {
-                if (input.id === "inpFirstName" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo nombre solo debe contener letras.");
-                } else if (input.id === "inpLastName" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo apellido solo debe contener letras.");
-                } else if (input.id === "inpEmail" && !this.ValidateInput(`#${input.id}`)) {
-                    this.alertMessage.push("El campo email no es valido.");
-                } else {
-                    this.alertMessage.push(`El campo ${input.name} es correcto: ${input.value}.`);
-                }
-            }
-        });
-    }
+    this.$btnReset.on("click", (event) => {
+      event.preventDefault();
+      this.$containerForm.find(".text-input").val("");
+      this.$containerForm.find('input[type="radio"]').prop("checked", false);
+    });
 
-    ValidateRadioInputs = (name) => {
-        const radios = document.getElementsByName(name);
-        for (let i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                return true;
-            }
+    this.$btnCancel.on("click", (event) => {
+      event.preventDefault();
+      const alertModal = new AlertModal();
+      alertModal.Append();
+      alertModal.AssignEventHandler();
+    });
+  };
+
+  Validations = () => {
+    this.$containerForm.find(".text-input").each((_, input) => {
+      const $input = $(input);
+      if ($input.val().trim() === "") {
+        this.alertMessage.push(`El campo ${$input.attr("name")} es obligatorio.`);
+      } else {
+        if ($input.attr("id") === "inpFirstName" && !this.ValidateInput(`#${$input.attr("id")}`)) {
+          this.alertMessage.push("El campo nombre solo debe contener letras.");
+        } else if ($input.attr("id") === "inpLastName" && !this.ValidateInput(`#${$input.attr("id")}`)) {
+          this.alertMessage.push("El campo apellido solo debe contener letras.");
+        } else if ($input.attr("id") === "inpEmail" && !this.ValidateInput(`#${$input.attr("id")}`)) {
+          this.alertMessage.push("El campo email no es válido.");
+        } else {
+          this.alertMessage.push(`El campo ${$input.attr("name")} es correcto: ${$input.val()}.`);
         }
-        return false;
-    }
+      }
+    });
+  };
 
-    ValidateInput = (inputName) => {
-        const inputValor = this.containerForm.querySelector(inputName).value.trim();
-        const namePattern = /^[a-zA-Z]+$/;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (inputName === "#inpEmail") {
-            if (emailPattern.test(inputValor)) {
-                return true;
-            }
-            return false;
-        }
-        else {
-            if (namePattern.test(inputValor)) {
-                return true;
-            }
-            return false;
-        }
+  ValidateRadioInputs = (name) => {
+    return this.$containerForm.find(`input[name="${name}"]:checked`).length > 0;
+  };
+
+  ValidateInput = (inputName) => {
+    const inputValor = this.$containerForm.find(inputName).val().trim();
+    const namePattern = /^[a-zA-Z]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (inputName === "#inpEmail") {
+      return emailPattern.test(inputValor);
+    } else {
+      return namePattern.test(inputValor);
     }
+  };
 }

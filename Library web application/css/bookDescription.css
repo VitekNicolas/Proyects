@@ -1,5 +1,5 @@
 .containerBookDescription {
-font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
+  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
   margin: 0;
   background-color: #262626;
   background-image: radial-gradient(
@@ -21,17 +21,17 @@ font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
   align-items: start;
 }
 
-/* Left image card */
 .bookDescriptionImage {
   background: transparent;
   padding: 18px;
   border-radius: 10px;
   border: 6px solid #dfbe02;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .bookDescriptionImage img {
   width: 100%;
   height: auto;
@@ -46,11 +46,12 @@ font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
 }
 
 .hBookDescriptionTitle {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 700;
   margin: 0 0 12px 0;
   line-height: 1.05;
   color: #ff7a18;
+    max-width: 520px;
 }
 
 .bookDescriptionDetailsContainer {
@@ -64,10 +65,8 @@ font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
 
 .bookDescriptionDetailsTitle {
   display: flex;
-  gap: 10px;
   align-items: center;
   font-weight: 700;
-  margin-bottom: 12px;
   color: #0b1220;
 }
 
@@ -82,19 +81,87 @@ font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
   font-size: 14px;
 }
 
-.delivery-note {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 10px;
+.product-secondary-actions-bar {
+  background: #fff6f7;
+  border-bottom: 1px solid #eee;
+  padding: 5px 10px;
+  box-shadow: 0 0 25px #eee;
+  max-width: 520px;
 }
 
-@media (max-width: 880px) {
+.share-btn {
+  text-decoration: none;
+  color: #d32f2f;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.actions {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 25px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  min-width: 220px;
+  z-index: 100;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.dropdown li {
+  padding: 8px 15px;
+}
+
+.dropdown li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+.actions:hover .dropdown {
+  display: block;
+}
+
+.dropdown.show {
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1299px) {
+  .actions {
+    text-align: right !important;
+  }
+  .hBookDescriptionTitle {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
   .bookDescription {
     grid-template-columns: 1fr;
   }
   .bookDescriptionImage {
     order: 0;
-    margin-bottom: 18px;
+  }
+  .hBookDescriptionTitle {
+    font-size: 25px;
   }
   .bookDetails {
     order: 1;
@@ -102,14 +169,7 @@ font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
 }
 
 @media (max-width: 480px) {
-  containerBookDescription {
+  .containerBookDescription {
     padding: 18px;
-  }
-  .hBookDescriptionTitle {
-    font-size: 22px;
-  }
-  .bookDescriptionImage {
-    padding: 12px;
-    border-width: 5px;
   }
 }

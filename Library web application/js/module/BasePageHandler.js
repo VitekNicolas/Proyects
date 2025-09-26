@@ -1,18 +1,20 @@
 import { LocalStorageHandler } from "../component/LocalStorageHandler.js";
 import { Render } from "./Render.js";
+
 export class BasePageHandler {
 
     constructor() {
-        this.containerCatalog = document.querySelector(".containerCatalog");
-        this.divFilterContainer = document.querySelector(".divFilterContainer");
-        this.containerBookDescription = document.querySelector(".containerBookDescription")
-        this.carousel = document.querySelector(".carousel");
-        this.divAdContainer = document.querySelector(".divAdContainer");
-        this.liCatalogPage = document.getElementById("liCatalogPage");
-        this.divPagination = document.querySelector(".divPagination");
-        this.divBookCartContainer = document.querySelector(".divBookCartContainer");
-        this.containerForm = document.querySelector(".containerForm");
-        this.containerHome = document.querySelector(".containerHome");
+        this.containerCatalog = $(".containerCatalog");
+        this.divFilterContainer = $(".divFilterContainer");
+        this.containerBookDescription = $(".containerBookDescription");
+        this.carousel = $(".carousel");
+        this.divAdContainer = $(".divAdContainer");
+        this.liCatalogPage = $("#liCatalogPage");
+        this.divPagination = $(".divPagination");
+        this.divBookCartContainer = $(".divBookCartContainer");
+        this.containerForm = $(".containerForm");
+        this.containerHome = $(".containerHome");
+
         this.localStorageHandler = new LocalStorageHandler();
         this.render = new Render();
     }
@@ -20,13 +22,16 @@ export class BasePageHandler {
     ShowPage = () => { throw new Error("You must implement requiredMethod() in the child class"); }
     ShowPageAfterForm = () => { throw new Error("You must implement requiredMethod() in the child class"); }
     AddEventHandler = () => { throw new Error("You must implement requiredMethod() in the child class"); }
-    DisplayContainer = (divName) => {
-        const divs = document.querySelectorAll(
-            ".containerHome, .containerCatalog, .containerBookDescription, .containerForm"
-        );
-        divs.forEach(div => {
-            if (div === divName) { div.removeAttribute("hidden") }
-            else { div.setAttribute("hidden", "") }
+
+    DisplayContainer = (divsToShow) => {
+        const divs = $(".containerHome, .containerCatalog, .containerBookDescription, .containerForm, .divBookCartContainer");
+        divs.each((_, div) => {
+            if (divsToShow.some(d => d[0] === div)) {
+                $(div).removeAttr("hidden");
+            } else {
+                $(div).attr("hidden", "");
+            }
         });
     }
+
 }

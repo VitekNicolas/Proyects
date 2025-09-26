@@ -14,6 +14,32 @@ export class BookDescription {
         </div>
         <section class="bookDetails">
           <h1 class="hBookDescriptionTitle">${json.title}</h1>
+          <div class="product-secondary-actions-bar">
+            <div class="product-secondary-actions-bar">
+              <div class="actions">
+                <a href="#" class="share-btn">🔗 Enviar este producto</a>
+                <div class="dropdown">
+                  <ul>				 
+                  <li>
+                    <a href="whatsapp://send?text=${this.GetMessage(json)}" target="_blank">
+                      <i class="fa-brands fa-whatsapp"></i>Enviar por WhatsApp
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(this.GetMessage(json))}"  target="_blank">
+                       <i class="fa-brands fa-facebook"></i>Publicar en Facebook
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(this.GetMessage(json))}"  target="_blank">
+                       <i class="fa-brands fa-twitter"></i>Compartir en Twitter
+                    </a>
+                  </li>
+								</ul>
+							</div>
+						</span>		
+					</div>				
+				</div>
           <div class="bookDescriptionDetailsContainer">
             <div class="bookDescriptionDetailsTitle">
               <span>Descripcion:</span>
@@ -38,5 +64,9 @@ export class BookDescription {
     this.$divName.empty();
     const $card = this.Create(json);
     this.$divName.append($card);
+  }
+
+  GetMessage(json) {
+    return `Mira el libro que vi!! ${json.title} de ${json.author} en ${json.language}`;
   }
 }

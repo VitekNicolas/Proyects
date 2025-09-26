@@ -1,6 +1,6 @@
 footer {
   padding-top: 20px;
-    background-color: #262626;
+  background-color: #262626;
   background-image: radial-gradient(
       50% 50% at top center,
       rgba(0, 0, 0, 0.66),
@@ -82,17 +82,23 @@ footer {
 }
 
 @media (max-width: 767px) {
+  .section-head {
+    grid-column: 1 / -1;
+  }
+  .divMap {
+    grid-column: 1 / -1;
+  }
+  .divMap p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
   footer {
     padding: 50px 0 80px;
   }
   .section-head h2 {
     font-size: 2em;
     margin: 0 0 0.67em 0;
-  }
-  .section-head {
-    grid-column: 1 / -1;
-  }
-  .divMap {
-    grid-column: 1 / -1;
   }
 }

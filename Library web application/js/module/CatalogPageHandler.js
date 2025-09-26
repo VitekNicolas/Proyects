@@ -10,7 +10,7 @@ export class CatalogPageHandler extends BasePageHandler {
         super();
         this.render = new Render();
         this.bookCart = new BookCart();
-        this.divBookCart = document.querySelector(".divBookCart");
+        this.divBookCartContainer = $(".divBookCartContainer");
         this.paginationHandler = new PaginationHandler();
         this.searchFilters = new SearchFilters(this.divFilterContainer);
         this.localStorageHandler.CreateStorageForBooks("bookshelve");
@@ -19,17 +19,16 @@ export class CatalogPageHandler extends BasePageHandler {
     }
 
     ShowPage = () => {
-        this.liCatalogPage.addEventListener("click", () => {
+        $(this.liCatalogPage).on("click", () => {
             sessionStorage.setItem("currentPage", "catalog");
-            this.DisplayContainer(this.containerCatalog);
+            this.DisplayContainer([this.containerCatalog, this.divBookCartContainer]);
             this.RenderCatalogElements();
         });
-
     }
 
     ShowPageAfterForm = () => {
         sessionStorage.setItem("currentPage", "catalog");
-        this.DisplayContainer(this.containerCatalog);
+        this.DisplayContainer([this.containerCatalog, this.divBookCart]);
         this.RenderCatalogElements();
     }
 
@@ -48,7 +47,7 @@ export class CatalogPageHandler extends BasePageHandler {
     }
 
     RenderCatalogElements = () => {
-        //Render
+        // Render
         this.render.CheckCarousel();
         this.render.RenderBookInStorage("historical", ".listBookSeen");
         this.render.RenderBookInStorage("cart", ".divBookCart");
