@@ -78,6 +78,7 @@ export class Card {
       const $bookCard = this.$bookSeenDiv.find(`[data-title="${json.title}"]`);
       this.bookDescription.Append(json);
       this.$bookDescriptionDiv.removeAttr("hidden");
+      
       this.$containerDiv.prop("hidden", true)
       if ($bookCard.length === 0) {
         const clonedCard = new Card(this.$bookSeenDiv);

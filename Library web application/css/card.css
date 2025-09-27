@@ -36,10 +36,11 @@
 }
 
 .cardsDiv h2 {
+  font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(to right, #737529, #fff700);
+  background: linear-gradient(130deg, #ff7a18, #af002d 41.07%, #319197 76.05%);
   padding: 10px 20px;
   margin: 20px 0;
   border-radius: 4px;
