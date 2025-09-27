@@ -15,12 +15,15 @@ export class FormPageHandler extends BasePageHandler {
     this.$cancelModal = this.$containerForm.find(".cancelModal");
     this.alertMessage = [];
     this.formModal = new FormModal();
+    this.alertModal = new AlertModal();
+    this.alertModal.AssignEventHandler();
   }
 
   ShowPage = () => {
     this.$liFormPage.on("click", () => {
+      this.CleanForm();
       this.DisplayContainer([this.containerForm]);
-      $(".bookModal").remove();
+      $(".formModal").remove();
     });
   };
 
@@ -37,17 +40,18 @@ export class FormPageHandler extends BasePageHandler {
 
     this.$btnReset.on("click", (event) => {
       event.preventDefault();
-      this.$containerForm.find(".text-input").val("");
-      this.$containerForm.find('input[type="radio"]').prop("checked", false);
+      this.CleanForm();
     });
-
     this.$btnCancel.on("click", (event) => {
       event.preventDefault();
-      const alertModal = new AlertModal();
-      alertModal.Append();
-      alertModal.AssignEventHandler();
+      this.alertModal.Append();
     });
   };
+
+  CleanForm = () => {
+    this.$containerForm.find(".text-input").val("");
+    this.$containerForm.find('input[type="radio"]').prop("checked", false);
+  }
 
   Validations = () => {
     this.$containerForm.find(".text-input").each((_, input) => {

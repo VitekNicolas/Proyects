@@ -6,7 +6,7 @@ export class FormModal {
   Create = (message = "") => {
     const safeMessage = String(message).replace(/\n/g, "<br>");
     this.html = `
-      <div class="bookModal">
+      <div class="formModal">
         <div class="modal-content">
           <span class="btnCloseModal">&times;</span>
           <p class="formModalText">${safeMessage}</p>
@@ -21,7 +21,7 @@ export class FormModal {
 
   AssignEventHandler = () => {
     $(".btnCloseModal").on("click", () => {
-      $(".bookModal").remove();
+      $(".formModal").remove();
     });
   }
 }

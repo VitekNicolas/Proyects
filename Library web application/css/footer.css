@@ -12,9 +12,14 @@ footer {
   background-blend-mode: overlay;
 }
 
-.grid {
+footer .wrapper {
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.wrapper .grid {
   padding: 10px;
-  background-color: #f0f0f0;
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 200px repeat(2, minmax(0, 1fr));
@@ -28,19 +33,7 @@ footer {
   background-color: #111;
 }
 
-.wrapper {
-  width: 100%;
-  margin: auto;
-  position: relative;
-}
-
-.map {
-  border: 0;
-  width: 100%;
-  display: block;
-}
-
-.divMap {
+.grid .divMap {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -54,6 +47,23 @@ footer {
   --fleck-color-3: #434343;
   --fleck-color-4: #262626;
   background-color: #111;
+}
+
+.grid .section-head {
+  padding-bottom: 0;
+}
+
+.grid .section-head h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.divMap .map {
+  border: 0;
+  width: 100%;
+  display: block;
 }
 
 .divMap h3 {
@@ -70,22 +80,11 @@ footer {
   margin: 0 20px 20px;
 }
 
-.section-head {
-  padding-bottom: 0;
-}
-
-.section-head h2 {
-  font-size: 2rem;
-  color: #ffffff;
-  margin-bottom: 20px;
-  font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-}
-
 @media (max-width: 767px) {
-  .section-head {
+  .grid .section-head {
     grid-column: 1 / -1;
   }
-  .divMap {
+  .grid .divMap {
     grid-column: 1 / -1;
   }
   .divMap p {
@@ -97,7 +96,7 @@ footer {
   footer {
     padding: 50px 0 80px;
   }
-  .section-head h2 {
+  .grid .section-head h2 {
     font-size: 2em;
     margin: 0 0 0.67em 0;
   }

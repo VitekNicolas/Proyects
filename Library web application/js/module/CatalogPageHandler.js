@@ -16,6 +16,7 @@ export class CatalogPageHandler extends BasePageHandler {
         this.localStorageHandler.CreateStorageForBooks("bookshelve");
         this.localStorageHandler.CreateStorageForBooks("cart");
         this.localStorageHandler.CreateStorageForBooks("historical");
+        this.paginationHandler.ChangePage();
     }
 
     ShowPage = () => {
@@ -23,13 +24,13 @@ export class CatalogPageHandler extends BasePageHandler {
             sessionStorage.setItem("currentPage", "catalog");
             this.DisplayContainer([this.containerCatalog, this.divBookCartContainer]);
             this.RenderCatalogElements();
-            $(".bookModal").remove();
+            $(".formModal").remove();
         });
     }
 
     ShowPageAfterForm = () => {
         sessionStorage.setItem("currentPage", "catalog");
-        this.DisplayContainer([this.containerCatalog, this.divBookCart]);
+        this.DisplayContainer([this.containerCatalog, this.divBookCartContainer]);
         this.RenderCatalogElements();
     }
 
@@ -54,6 +55,5 @@ export class CatalogPageHandler extends BasePageHandler {
         this.render.RenderBookInStorage("cart", ".divBookCart");
         // Pagination
         this.paginationHandler.LoadPage(1);
-        this.paginationHandler.ChangePage();
     }
 }

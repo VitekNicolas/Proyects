@@ -20,10 +20,10 @@ export class AlertModal {
     }
 
     AssignEventHandler = () => {
-        $(document).on("click", "#confirmNo", () => {
+        $("body").on("click", ".btn-no", () => {
             $(".cancelModal").remove();
         });
-        $(document).on("click", "#confirmYes", () => {
+        $("body").on("click", ".btn-yes", () => {
             const currentPage = sessionStorage.getItem("currentPage");
             let basePageHandler;
             $(".cancelModal").remove();
