@@ -1,23 +1,26 @@
 import { BasePageHandler } from "./BasePageHandler.js";
 import { AlertModal } from "../component/AlertModal.js";
+import { FormModal } from "../component/FormModal.js";
 
 export class FormPageHandler extends BasePageHandler {
   constructor() {
     super();
     this.$containerForm = $(".containerForm");
     this.$liFormPage = $("#liFormPage");
+    this.$form = $(".form");
     this.$btnReset = this.$containerForm.find("#btnReset");
     this.$btnSubmit = this.$containerForm.find("#btnSubmit");
     this.$btnCancel = this.$containerForm.find("#btnCancel");
-    this.$form = $(".form");
     this.$options = this.$containerForm.find('input[type="radio"]');
     this.$cancelModal = this.$containerForm.find(".cancelModal");
     this.alertMessage = [];
+    this.formModal = new FormModal();
   }
 
   ShowPage = () => {
     this.$liFormPage.on("click", () => {
       this.DisplayContainer([this.containerForm]);
+      $(".bookModal").remove();
     });
   };
 
@@ -25,7 +28,10 @@ export class FormPageHandler extends BasePageHandler {
     this.$btnSubmit.on("click", (event) => {
       event.preventDefault();
       this.Validations();
-      alert(this.alertMessage.join("\n"));
+      let message = this.alertMessage.join("\n");
+      this.formModal.Create(message);
+      this.formModal.Append();
+      this.formModal.AssignEventHandler();
       this.alertMessage = [];
     });
 
@@ -60,6 +66,18 @@ export class FormPageHandler extends BasePageHandler {
         }
       }
     });
+    if (!this.ValidateRadioInputs("sexo")) {
+      this.alertMessage.push("Debe seleccionar un sexo.");
+    } else {
+      const valorSexo = this.$containerForm.find('input[name="sexo"]:checked').val();
+      this.alertMessage.push(`El campo sexo fue seleccionado correctamente: ${valorSexo}.`);
+    }
+    if (!this.ValidateRadioInputs("valoracion")) {
+      this.alertMessage.push("Debe seleccionar una valoración.");
+    } else {
+      const valorValoracion = this.$containerForm.find('input[name="valoracion"]:checked').val();
+      this.alertMessage.push(`El campo valoración fue seleccionada correctamente: ${valorValoracion}.`);
+    }
   };
 
   ValidateRadioInputs = (name) => {
@@ -70,7 +88,6 @@ export class FormPageHandler extends BasePageHandler {
     const inputValor = this.$containerForm.find(inputName).val().trim();
     const namePattern = /^[a-zA-Z]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (inputName === "#inpEmail") {
       return emailPattern.test(inputValor);
     } else {

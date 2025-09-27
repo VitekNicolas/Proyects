@@ -61,11 +61,53 @@
   background-color: #95a5a6;
 }
 
+/*Form modal*/
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 80%;
+  padding: 2rem;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 90vh;
+  background-color: #262626;
+  background-position: top 0 center;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(
+      50% 50% at top center,
+      rgba(24, 24, 24, 0.66),
+      #262626
+    ),
+    linear-gradient(180deg, #fff, #414141);
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(235, 237, 244);
+  border: 3px solid #6a4001;
+}
+
+.modal-content .formModalText {
+  margin: 0;
+}
+
+.btnCloseModal {
+  color: #fb0303f1;
+  float: right;
+  font-size: 30px;
+}
+
+.btnCloseModal:hover,
+.btnCloseModal:focus {
+  cursor: pointer;
+}
+
 @media (max-width: 767px) {
   .modal {
     max-width: auto;
   }
-  .modal-content{
+  .modal-content {
     font-size: 12px;
   }
 }

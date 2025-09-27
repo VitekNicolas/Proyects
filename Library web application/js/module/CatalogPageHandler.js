@@ -23,6 +23,7 @@ export class CatalogPageHandler extends BasePageHandler {
             sessionStorage.setItem("currentPage", "catalog");
             this.DisplayContainer([this.containerCatalog, this.divBookCartContainer]);
             this.RenderCatalogElements();
+            $(".bookModal").remove();
         });
     }
 

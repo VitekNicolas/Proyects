@@ -35,7 +35,7 @@
   padding: 0;
 }
 
-.cardsDiv h2 {
+.cardsDiv h2, .containerForm h2 {
   font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
   font-size: 28px;
   font-weight: 700;
@@ -147,12 +147,14 @@
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
+
   .cardsDiv, .listBookSeen {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 767px) {
+
   .containerHome,
   .containerCatalog {
     grid-template-columns: 1fr;
@@ -169,10 +171,10 @@
   .cardsDiv, .listBookSeen {
     grid-template-columns: repeat(2, 1fr);
   }
-
 }
 
 @media (max-width: 480px) {
+  
   .cardsDiv, .listBookSeen {
     grid-template-columns: repeat(1, 1fr);
   }

@@ -12,6 +12,7 @@ export class HomePageHandler extends BasePageHandler {
     this.$liHomePage.on("click", () => {
       sessionStorage.setItem("currentPage", "home");
       this.DisplayContainer([this.containerHome]);
+      $(".bookModal").remove();
     });
   };
 
