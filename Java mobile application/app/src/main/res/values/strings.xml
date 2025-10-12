@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My Application</string>
+             <!--    Login activity-->
+    <string name="hint_user_title">Usuario</string>
+    <string name="hint_password_title">Contraseña</string>
+    <string name="text_enter_title">Igresar</string>
+    <string name="text_register_title">Registrarse</string>
+    <string name="description_login_title">login image</string>
+    <string name="title_login">Login</string>
+    <string name="tutorial">Tutorial</string>
+</resources>
