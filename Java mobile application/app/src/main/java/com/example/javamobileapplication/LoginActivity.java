@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
 
 
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         myAuth = FirebaseAuth.getInstance();
     }
     private final View.OnClickListener registerListener = v -> {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     };
 
@@ -59,5 +58,4 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

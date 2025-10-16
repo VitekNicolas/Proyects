@@ -3,13 +3,19 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 android {
     namespace 'com.example.javamobileapplication'
-
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.javamobileapplication"
+        minSdk 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
