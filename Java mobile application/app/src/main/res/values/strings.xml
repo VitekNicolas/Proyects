@@ -3,8 +3,8 @@
     <!--    Login activity-->
     <string name="hint_user_title">Usuario</string>
     <string name="hint_password_title">Contraseña</string>
-    <string name="text_enter_title">Igresar</string>
-    <string name="text_register_title">Registrarse</string>
+    <string name="btn_enter_title">Igresar</string>
+    <string name="btn_register_title">Registrarse</string>
     <string name="description_login_title">login image</string>
     <string name="title_login">Login</string>
     <string name="tutorial">Tutorial</string>
@@ -12,4 +12,6 @@
     <string name="hint_name">Nombre</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="hint_username">Nombre</string>
+    <string name="title_welcome">Bienvenido</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

@@ -8,10 +8,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="#F86401"
         android:titleTextColor="@android:color/white"
-        app:titleTextColor="@android:color/white"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:titleTextColor="@android:color/white" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
