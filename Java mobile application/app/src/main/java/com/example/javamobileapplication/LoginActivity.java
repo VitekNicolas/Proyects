@@ -29,19 +29,18 @@ public class LoginActivity extends AppCompatActivity {
         et_userPassword=findViewById(R.id.et_userPassword);
         Button btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(registerListener);
-        Button btn_login = findViewById(R.id.btn_login);
+        Button btn_login = findViewById(R.id.btn_loginUser);
         btn_login.setOnClickListener(v->loginUser());
         myAuth = FirebaseAuth.getInstance();
     }
     private final View.OnClickListener registerListener = v -> {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     };
 
     private void loginUser() {
         String email = et_userEmail.getText().toString().trim();
         String password = et_userPassword.getText().toString().trim();
-
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Debe ingresar un email y una contraseña", Toast.LENGTH_SHORT).show();
             return;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, LoginActivity.class));
+                        startActivity(new Intent(this, MapActivity.class));
                         finish();
                     } else {
                         Toast.makeText(this, "Error al iniciar sesión: " +

@@ -29,22 +29,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_user_title"
-        android:inputType="text"/>
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/et_userPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_password_title"
-        android:inputType="numberPassword" />
+        android:inputType="textPassword" />
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_loginUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

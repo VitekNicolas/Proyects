@@ -7,11 +7,14 @@
     <string name="btn_register_title">Registrarse</string>
     <string name="description_login_title">login image</string>
     <string name="title_login">Login</string>
-    <string name="tutorial">Tutorial</string>
     <!--    Register activity-->
     <string name="hint_name">Nombre</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="hint_username">Nombre</string>
     <string name="title_welcome">Bienvenido</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="et_emailUser">Email</string>
+    <string name="et_userPassword">Contraseña</string>
+    <string name="et_userPasswordRepeat">Repetir contraseña</string>
+    <string name="btn_regiterUser">Registrarse</string>
 </resources>
