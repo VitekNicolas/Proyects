@@ -19,10 +19,6 @@ body {
   overflow-x: hidden;
 }
 
-main {
-  background-color: linear-gradient(180deg, #fff, #262626);
-}
-
 [hidden] {
   display: none !important;
 }

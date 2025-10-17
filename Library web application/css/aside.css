@@ -1,9 +1,17 @@
-/*Aside of catalog page*/
-
 aside {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+/*Aside of catalog page*/
+
+.divFilterContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  gap: 1rem;
+  margin-top: 20px;
   color: #aaa;
 }
 
@@ -13,18 +21,10 @@ aside {
   color: firebrick;
 }
 
-.divFilterContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 20px;
-}
-
 .divFilterYears,
 .divFilterName,
 .divFilterTopic {
   display: block;
-  padding-left: 10px;
 }
 
 .divFilterYears input,
@@ -38,7 +38,6 @@ aside {
 
 .divFilterLanguage,
 .divFilterCopyRight {
-  padding-left: 10px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -49,7 +48,6 @@ aside {
 }
 
 .divFilterContainer .btnReset {
-  display: block;
   margin-top: 20px;
   background: #ff4742;
   border: 1px solid #ff4742;
@@ -65,29 +63,26 @@ aside {
   line-height: 16px;
   min-height: 40px;
   outline: 0;
-  padding: 12px 14px;
   text-align: center;
   text-rendering: geometricprecision;
   text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
 }
 
-.btnReset:hover,
-.btnReset:active {
+.divFilterContainer .btnReset:hover,
+.divFilterContainer .btnReset:active {
   background-color: initial;
   background-position: 0 0;
   color: #ff4742;
 }
 
-.btnReset:active {
+.divFilterContainer .btnReset:active {
   opacity: 0.5;
 }
 
-.btnSearchByAuthorYears,
-.btnSearchByAuthorName,
-.btnSearchByTopic {
+.divFilterContainer .btnSearchByAuthorYears,
+.divFilterContainer .btnSearchByAuthorName,
+.divFilterContainer .btnSearchByTopic {
   background-color: #5e5e5e;
   border: 1px solid #13aa52;
   border-radius: 4px;
@@ -108,17 +103,17 @@ aside {
   touch-action: manipulation;
 }
 
-.btnSearchByAuthorYears:hover,
-.btnReset:hover,
-.btnSearchByAuthorName:hover,
-.btnSearchByTopic:hover {
+.divFilterContainer .btnSearchByAuthorYears:hover,
+.divFilterContainer .btnReset:hover,
+.divFilterContainer .btnSearchByAuthorName:hover,
+.divFilterContainer .btnSearchByTopic:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
   transform: translateY(-2px);
 }
 
-.btnSearchByAuthorYears:disabled,
-.btnSearchByAuthorName:disabled,
-.btnSearchByTopic:disabled {
+.divFilterContainer .btnSearchByAuthorYears:disabled,
+.divFilterContainer .btnSearchByAuthorName:disabled,
+.divFilterContainer .btnSearchByTopic:disabled {
   background-color: #cccccc !important;
   color: #666 !important;
   border: 1px solid #aaa !important;
@@ -126,7 +121,7 @@ aside {
   opacity: 0.7;
 }
 
-input[type="checkbox"] {
+.divFilterContainer input[type="checkbox"] {
   margin: 0;
   font: inherit;
   color: currentColor;
@@ -135,7 +130,7 @@ input[type="checkbox"] {
   border-radius: 0.15em;
 }
 
-input:disabled {
+.divFilterContainer input:disabled {
   cursor: not-allowed;
 }
 
@@ -220,6 +215,13 @@ input:disabled {
     margin-right: 20px;
   }
 }
+
+@media (max-width: 767px) {
+  .aside {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 480px) {
   .divAdContainer {
     display: grid;

@@ -8,13 +8,13 @@ export class BookCart {
 
     Create = ({ json }) => {
         return `
-            <div class="bookCart" id="bookId" data-title="${json.title}">
-                <img class="cart-img" src="${json.image}"/>
-                <div class="cart-info">
+            <div class="bookCart" data-title="${json.title}">
+                <img class="bookCartImage" src="${json.image}"/>
+                <div class="bookCartInfo">
                     <h4 class="bookCartTitle"><strong>${json.title}</strong></h4>
                     <p class="bookCartAuthor">${json.author}</p>
-                    <div class="cart-actions">
-                        <button class="btnCartRemove">Eliminar</button>
+                    <div class="divBtnRemoveBookCart">
+                        <button class="btnRemoveBookCart">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@ export class BookCart {
 
     AssignEventHandler = () => {
         let $cartCount = $(".bookCartCount");
-        this.$divName.on("click", ".btnCartRemove", (e) => {
+        this.$divName.on("click", ".btnRemoveBookCart", (e) => {
             const $bookCart = $(e.target).closest(".bookCart");
             const title = $bookCart.data("title");
             this.localStorageHandler.DeleteBookDataFromStorage("cart", title);
@@ -38,17 +38,17 @@ export class BookCart {
     }
 
     AssignEventHandlerContainer = () => {
-        const $cartBtn = $("#cartBtn");
-        const $cartDropdown = $("#cart-dropdown");
-        $cartBtn.on("click", () => {
+        const $btnBookCart = $("#btnBookCart");
+        const $cartDropdown = $("#bookCartDropdown");
+        $btnBookCart.on("click", () => {
             $cartDropdown.toggle();
         });
         $(document).on("click", function (e) {
             if (
                 !$cartDropdown.is(e.target) &&
                 $cartDropdown.has(e.target).length === 0 &&
-                !$cartBtn.is(e.target) &&
-                $cartBtn.has(e.target).length === 0
+                !$btnBookCart.is(e.target) &&
+                $btnBookCart.has(e.target).length === 0
             ) {
                 $cartDropdown.hide();
             }

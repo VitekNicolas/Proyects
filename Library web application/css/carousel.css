@@ -2,35 +2,13 @@
   margin-top: 20px;
 }
 
-.carousel h2 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #fff; 
-  background: linear-gradient(to right, #737529, #fff700);
-  padding: 10px 20px; 
-  margin-left: 20px; 
-  border-radius: 4px; 
-}
-
-.carousel ul {
-  display: grid;
+.carousel .listBookSeen {
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   padding-left: 0;
+  max-height: 570px;
 }
 
-ul .card {
+.listBookSeen .book {
   scroll-snap-align: center;
-}
-
-.btnDangerBookSeen {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  background-color: #f13030;
-  border: 2px black;
-  border-style: solid;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
 }

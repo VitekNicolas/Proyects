@@ -8,11 +8,11 @@ export class BookData {
     this.image = json.formats["image/jpeg"];
     this.copyright = json.copyright;
     this.subjects = json.subjects;
-    this.summary = json.summaries[0];
+    this.summaries = json.summaries[0];
     this.bookshelves = json.bookshelves;
     this.TranslateCopyright();
     this.Translatelanguage();
-    //this.TruncateSummary();
+    this.Truncatesummaries();
     this.ConvertSubjectsToString();
     //this.ReverseAuthorName();
     this.ConvertBookshelvesToString();
@@ -30,8 +30,8 @@ export class BookData {
     this.language = language;
   }
 
-  SetSummary(summary) {
-    this.summary = summary;
+  Setsummaries(summaries) {
+    this.summaries = summaries;
   }
 
   SetSubjects(subjects) {
@@ -66,10 +66,10 @@ export class BookData {
     }
   }
 
-  TruncateSummary() {
-    const firstDot = this.summary.indexOf(".");
-    const secondSentence = this.summary.substring(firstDot + 1).split(".")[0].trim();
-    this.SetSummary(secondSentence);
+  Truncatesummaries() {
+    const firstDot = this.summaries.indexOf(".");
+    const secondSentence = this.summaries.substring(firstDot + 1).split(".")[0].trim();
+    this.Setsummaries(secondSentence);
   }
 
   ConvertSubjectsToString() {

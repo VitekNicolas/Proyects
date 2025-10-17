@@ -21,15 +21,15 @@ export class Card {
         data-title="${json.title}"
         data-birthYear="${json.birthYear}"
         data-deathYear="${json.deathYear}"
-        data-summary="${json.summary}"
+        data-summaries="${json.summaries}"
         data-copyright="${json.copyright}"
         data-language="${json.language}"
         data-subjects="${json.subjects}"
         data-bookshelves="${json.bookshelves}">
-      <div class="cover">
+      <div class="coverImage">
         <img class="bookImage" src="${json.image}"/>
       </div>
-      <div class="description">
+      <div class="bookCardDescription">
         <p class="title">
           ${json.title}<br/>
           ${json.author}
@@ -67,7 +67,7 @@ export class Card {
       title: $card.data("title"),
       birthYear: $card.data("birthyear") ?? "desconocido",
       deathYear: $card.data("deathYear") ?? "desconocido",
-      summary: $card.data("summary"),
+      summaries: $card.data("summaries"),
       copyright: $card.data("copyright"),
       language: $card.data("language"),
       subjects: $card.data("subjects"),
@@ -78,7 +78,6 @@ export class Card {
       const $bookCard = this.$bookSeenDiv.find(`[data-title="${json.title}"]`);
       this.bookDescription.Append(json);
       this.$bookDescriptionDiv.removeAttr("hidden");
-      
       this.$containerDiv.prop("hidden", true)
       if ($bookCard.length === 0) {
         const clonedCard = new Card(this.$bookSeenDiv);
@@ -107,9 +106,9 @@ export class Card {
   }
 
   CreateDeleteButton($card) {
-    const $btnRemove = $('<button class="btn-remove">Eliminar</button>');
-    const $description = $card.find(".description")
-    $description.append($btnRemove);
+    const $btnRemove = $('<button class="btnRemoveBookCard">Eliminar</button>');
+    const $bookCardDescription = $card.find(".bookCardDescription")
+    $bookCardDescription.append($btnRemove);
     $btnRemove.on("click", () => {
       $card.remove();
       const $carousel = $(".carousel");

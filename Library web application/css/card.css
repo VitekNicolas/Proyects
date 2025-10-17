@@ -16,19 +16,9 @@
   align-items: start;
 }
 
-.book {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  overflow: hidden;
-    border: 3px solid gray;
-}
-
-.cardsDiv,
-.listBookSeen {
+.containerCatalog .cardsDiv,
+.containerHome .cardsDiv,
+.containerCatalog .listBookSeen {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
@@ -36,8 +26,11 @@
   padding: 0;
 }
 
-.cardsDiv h2, .containerForm h2 {
-  font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
+.cardsDiv h2,
+.containerForm h2,
+.carousel h2 {
+  font-family: MD Primer Bold, Rubik, Lato, Lucida Grande, Lucida Sans Unicode,
+    Tahoma, Sans-Serif;
   font-size: 28px;
   font-weight: 700;
   color: #fff;
@@ -50,7 +43,45 @@
   margin-bottom: 1rem;
 }
 
-.description {
+.containerCatalog .book,
+.containerHome .book {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  overflow: hidden;
+  border: 3px solid gray;
+}
+
+.book .coverImage {
+  overflow: hidden;
+  height: 100%;
+}
+
+.coverImage img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.book p {
+  font-weight: bold;
+  margin-top: 2px;
+  font-size: 14px;
+}
+
+.book .author {
+  font-size: 15px;
+}
+
+.book .title {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.book .bookCardDescription {
   padding: 1rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -60,13 +91,8 @@
   background-color: #fff;
 }
 
-.title {
-  max-height: 100px;
-  overflow: hidden;
-}
-
-.btnShowDetails,
-.btn-remove {
+.bookCardDescription .btnShowDetails,
+.bookCardDescription .btnRemoveBookCard {
   padding: 8px 12px;
   border: none;
   cursor: pointer;
@@ -87,7 +113,7 @@
   touch-action: manipulation;
 }
 
-.btn-remove {
+.bookCardDescription .btnRemoveBookCard {
   background-image: linear-gradient(
     45deg,
     #ff0000 0%,
@@ -96,7 +122,7 @@
   );
 }
 
-.btnAddToCart {
+.bookCardDescription .btnAddToCart {
   padding: 8px 12px;
   background: #777bcb;
   border: none;
@@ -124,57 +150,28 @@
   touch-action: manipulation;
 }
 
-.cover {
-  overflow: hidden;
-  height: 100%;
-}
-
-.cover img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.book p {
-  font-weight: bold;
-  margin-top: 2px;
-  font-size: 14px;
-}
-
-.book .author {
-  font-size: 15px;
-}
-
 @media (min-width: 768px) and (max-width: 1199px) {
-
-  .cardsDiv, .listBookSeen {
+  .cardsDiv,
+  .listBookSeen {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 767px) {
-
   .containerHome,
   .containerCatalog {
     grid-template-columns: 1fr;
   }
 
-  .aside {
-    grid-column: 1 / -1;
-  }
-
-  .main {
-    grid-column: 1 / -1;
-  }
-
-  .cardsDiv, .listBookSeen {
+  .cardsDiv,
+  .listBookSeen {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  
-  .cardsDiv, .listBookSeen {
+  .cardsDiv,
+  .listBookSeen {
     grid-template-columns: repeat(1, 1fr);
   }
 }

@@ -5,7 +5,7 @@ import { appendContainersToDivMain, createContainer } from "../../component/DivH
 var divProductList;
 const btnProductSearch = document.getElementById("btnProductSearch");
 
-export const appendFilteredProductsToDOM  = (FilteredProductsList) => {
+export const appendFilteredProductsToDOM = (FilteredProductsList) => {
     divProductList = document.getElementById('divProductList');
     for (let i = 0; i < FilteredProductsList.length; i++) {
         const { productId, image, name, brand, price, code, description } = FilteredProductsList[i];
@@ -14,9 +14,9 @@ export const appendFilteredProductsToDOM  = (FilteredProductsList) => {
 };
 
 export const renderFilteredProducts = async () => {
-    divProductList=createContainer('divProductList');
+    divProductList = createContainer('divProductList');
     appendContainersToDivMain(divProductList);
-    await searchProduct(appendFilteredProductsToDOM ); 
+    await searchProduct(appendFilteredProductsToDOM);
 };
 
 export const initializeFilteredProducts = () => {

@@ -6,6 +6,7 @@
     <string name="btn_enter_title">Igresar</string>
     <string name="btn_register_title">Registrarse</string>
     <string name="description_login_title">login image</string>
+    <string name="default_web_client_id">182611265235-1dtfarmk7na6creiivm540d15d8b9vv5.apps.googleusercontent.com</string>
     <string name="title_login">Login</string>
     <!--    Register activity-->
     <string name="hint_name">Nombre</string>

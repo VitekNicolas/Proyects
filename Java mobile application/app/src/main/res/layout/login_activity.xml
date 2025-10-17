@@ -61,5 +61,9 @@
             android:text="@string/btn_register_title"
             app:iconPadding="2dp" />
     </LinearLayout>
-
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+/>
 </LinearLayout>

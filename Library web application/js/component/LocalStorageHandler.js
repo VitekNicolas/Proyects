@@ -37,6 +37,7 @@ export class LocalStorageHandler {
         this.AppendBookDataToStorage("bookshelve", book);
         console.log(i + " agregado");
       }
+      console.log("Libros subidos");
     }
   }
 

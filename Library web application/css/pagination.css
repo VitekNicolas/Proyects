@@ -2,9 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 500px;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
   pointer-events: auto;
   font-family: Arial, sans-serif;
   margin: 0 auto;

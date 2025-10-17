@@ -34,7 +34,7 @@ export class Render {
 
     this.$cardsDivHome.find(".book").each((_, el) => {
       const $el = $(el);
-      $el.find(".description").prop("hidden", true);
+      $el.find(".bookCardDescription").prop("hidden", true);
       $el.css("height", "390px");
     });
     card.AssignEventHandler();

@@ -1,50 +1,103 @@
-.bookCart {
+.divBookCartContainer {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.divBookCartContainer .nav-text {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 25px;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  height: auto;
+}
+
+.divBookCartContainer .bookCartDropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  max-width: 300px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  max-height: 350px;
+  background-color: #262626;
+  background-position: top 0 center;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(
+      50% 50% at top center,
+      rgba(24, 24, 24, 0.66),
+      #262626
+    ),
+    linear-gradient(180deg, #fff, #414141);
+}
+
+.bookCartDropdown h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 3px solid #ddd;
+  color: #ff7a18;
+  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
+}
+
+#btnBookCart .bookCartCount {
+  background: red;
+  color: white;
+  border-radius: 100%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.divBookCart .bookCart {
   padding-top: 10px;
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-}
-
-.cart-img {
+.bookCart .bookCartImage {
   width: 50px;
   height: 70px;
   object-fit: cover;
   margin-right: 10px;
 }
 
-.cart-info {
+.bookCart .bookCartInfo {
   color: #fffbf8;
   flex-grow: 1;
   padding-bottom: 10px;
 }
 
-.bookCartTitle {
+.bookCartInfo .bookCartTitle {
   text-transform: uppercase;
   font-size: 14px;
   margin: 0%;
 }
 
-.bookCartAuthor {
+.bookCartInfo .bookCartAuthor {
   margin: 0%;
-}
-
-.bookCartAuthor {
   font-size: 15px;
 }
 
-.cart-actions {
+.bookCartInfo .divBtnRemoveBookCart {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-top: 5px;
 }
 
-.btnCartRemove {
+.divBtnRemoveBookCart .btnRemoveBookCart {
   background: red;
   color: white;
   border: none;
@@ -52,17 +105,17 @@
   cursor: pointer;
   border-radius: 4px;
   font-size: 10px;
-    font-weight: 800;
-    line-height: 16px;
+  font-weight: 800;
+  line-height: 16px;
 }
 
 @media (max-width: 767px) {
-  .cart-dropdown {
+  .divBookCartContainer .bookCartDropdown {
     position: fixed;
-    top: 0;
+    top: 72px;
     right: 0;
     bottom: 0;
-    width: 100%;          
+    width: 80%;
     max-height: 100%;
     border-radius: 0;
     box-shadow: none;
@@ -70,9 +123,20 @@
     z-index: 200;
     animation: slideIn 0.3s ease-out;
   }
+  .divBookCartContainer .nav .nav-text {
+    display: none;
+  }
+
+  .divBookCartContainer .nav .nav-icon {
+    display: inline;
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

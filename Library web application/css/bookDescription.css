@@ -12,7 +12,7 @@
   padding: 32px;
 }
 
-.bookDescription {
+.containerBookDescription .bookDescription {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
@@ -21,7 +21,7 @@
   align-items: start;
 }
 
-.bookDescriptionImage {
+.bookDescription .bookDescriptionImage {
   background: transparent;
   padding: 18px;
   border-radius: 10px;
@@ -30,6 +30,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bookDescription .bookDetails {
+  padding-top: 6px;
 }
 
 .bookDescriptionImage img {
@@ -41,17 +45,13 @@
   background: #fff;
 }
 
-.bookDetails {
-  padding-top: 6px;
-}
-
-.hBookDescriptionTitle {
+.bookDetails .hBookDescriptionTitle {
   font-size: 25px;
   font-weight: 700;
   margin: 0 0 12px 0;
   line-height: 1.05;
   color: #ff7a18;
-    max-width: 520px;
+  max-width: 520px;
 }
 
 .bookDescriptionDetailsContainer {
@@ -63,17 +63,11 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
 }
 
-.bookDescriptionDetailsTitle {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  color: #0b1220;
-}
-
-.ulBookDescriptionDetails {
+.bookDescriptionDetailsContainer .ulBookDescriptionDetails {
   margin: 0;
   padding: 0 0 0 18px;
 }
+
 .ulBookDescriptionDetails li {
   margin: 8px 0;
   color: #6b7280;
@@ -81,27 +75,28 @@
   font-size: 14px;
 }
 
-.product-secondary-actions-bar {
-  background: #fff6f7;
-  border-bottom: 1px solid #eee;
-  padding: 5px 10px;
-  box-shadow: 0 0 25px #eee;
-  max-width: 520px;
+
+.bookDescriptionDetailsTitle {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: #0b1220;
 }
 
-.share-btn {
+
+.bookDescriptionDetailsCard .shareBookActions {
+  display: inline-block;
+  position: relative;
+}
+
+.shareBookActions .btnShareBook {
   text-decoration: none;
   color: #d32f2f;
   font-weight: bold;
   cursor: pointer;
 }
 
-.actions {
-  display: inline-block;
-  position: relative;
-}
-
-.dropdown {
+.shareBookActions .shareBookDropdown {
   display: none;
   position: absolute;
   right: 0;
@@ -114,38 +109,38 @@
   z-index: 100;
 }
 
-.dropdown ul {
+.shareBookDropdown ul {
   list-style: none;
   margin: 0;
   padding: 10px 0;
 }
 
-.dropdown li {
+.shareBookDropdown li {
   padding: 8px 15px;
 }
 
-.dropdown li a {
+.shareBookDropdown li a {
   color: #333;
   text-decoration: none;
   display: block;
 }
 
-.dropdown li a {
+.shareBookDropdown li a {
   color: #333;
   text-decoration: none;
   display: block;
 }
 
-.actions:hover .dropdown {
+.shareBookActions:hover .shareBookDropdown {
   display: block;
 }
 
-.dropdown.show {
+.shareBookDropdown.show {
   display: block;
 }
 
 @media (min-width: 768px) and (max-width: 1299px) {
-  .actions {
+  .shareBookActions {
     text-align: right !important;
   }
   .hBookDescriptionTitle {
