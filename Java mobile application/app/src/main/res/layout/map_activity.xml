@@ -11,8 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="Mapa"
+        android:title="@string/toolbar_map_title"
         android:titleTextColor="@android:color/white" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:hint="@string/et_hint_direction"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:text="@string/btn_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"

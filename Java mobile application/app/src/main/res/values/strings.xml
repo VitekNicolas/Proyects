@@ -18,4 +18,7 @@
     <string name="et_userPassword">Contraseña</string>
     <string name="et_userPasswordRepeat">Repetir contraseña</string>
     <string name="btn_regiterUser">Registrarse</string>
+    <string name="toolbar_map_title">Mapa</string>
+    <string name="et_hint_direction">Buscar dirección</string>
+    <string name="btn_search_title">Buscar</string>
 </resources>
