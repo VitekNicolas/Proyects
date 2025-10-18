@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:title="@string/toolbar_map_title"
-        android:titleTextColor="@android:color/white" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:titleTextColor="@android:color/white"
+        android:fitsSystemWindows="true"/>
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <EditText
-            android:id="@+id/et_search"
-            android:hint="@string/et_hint_direction"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
+<!--        <EditText-->
+<!--            android:id="@+id/et_search"-->
+<!--            android:hint="@string/et_hint_direction"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="text" />-->
 
-        <Button
-            android:id="@+id/btn_search"
-            android:text="@string/btn_search_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/btn_search"-->
+<!--            android:text="@string/btn_search_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--    </LinearLayout>-->
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"

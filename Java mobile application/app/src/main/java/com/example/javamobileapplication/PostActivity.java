@@ -12,12 +12,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import java.io.File;
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends MenuActivity {
 
     private static final int REQUEST_CAMERA = 100;
     private static final int REQUEST_GALLERY = 100;
@@ -42,6 +43,8 @@ public class PostActivity extends AppCompatActivity {
         });
         btnGaleria.setOnClickListener(v -> abrirGaleria());
         btnSavePost.setOnClickListener(v -> guardarPublicacion());
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void abrirCamara() {

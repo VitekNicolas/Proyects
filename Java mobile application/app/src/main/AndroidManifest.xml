@@ -59,7 +59,8 @@
         <activity
             android:name=".PostActivity"
             android:exported="false"
-            android:label="Publicar reclamo" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="Publicar reclamo"/>
     </application>
 
 </manifest>

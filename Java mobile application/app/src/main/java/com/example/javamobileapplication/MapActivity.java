@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.multidex.BuildConfig;
 import androidx.preference.PreferenceManager;
 import org.osmdroid.config.Configuration;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends MenuActivity {
 
     private MapView mapView;
     private EditText etSearch;
@@ -32,13 +33,15 @@ public class MapActivity extends AppCompatActivity {
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         setContentView(R.layout.map_activity);
         mapView = findViewById(R.id.map);
-        etSearch = findViewById(R.id.et_search);
-        Button btnSearch = findViewById(R.id.btn_search);
+        //etSearch = findViewById(R.id.et_search);
+        //Button btnSearch = findViewById(R.id.btn_search);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.getController().setZoom(14);
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
-        btnSearch.setOnClickListener(v -> searchLocation());
+        //btnSearch.setOnClickListener(v -> searchLocation());
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void searchLocation() {
