@@ -21,4 +21,8 @@
     <string name="toolbar_map_title">Mapa</string>
     <string name="et_hint_direction">Buscar dirección</string>
     <string name="btn_search_title">Buscar</string>
+    <string name="et_description">Escribe una descripción...</string>
+    <string name="iv_description">Imagen de la publcacion</string>
+    <string name="btn_selectImage">Elegir imagen</string>
+    <string name="btn_publish">Publicar</string>
 </resources>

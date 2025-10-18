@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
@@ -61,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MapActivity.class));
+                        startActivity(new Intent(this, PostActivity.class));
                         finish();
                     } else {
                         Toast.makeText(this, "Error al iniciar sesión: " +
@@ -92,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MapActivity.class));
+                        startActivity(new Intent(this, PostActivity.class));
                         finish();
                     } else {
                         Toast.makeText(this, "Error en la autenticación con Google", Toast.LENGTH_SHORT).show();

@@ -27,22 +27,17 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Configuración inicial de osmdroid
         Configuration.getInstance().load(getApplicationContext(),
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         setContentView(R.layout.map_activity);
-        // Referencias a vistas
         mapView = findViewById(R.id.map);
         etSearch = findViewById(R.id.et_search);
         Button btnSearch = findViewById(R.id.btn_search);
-        // Configuración del mapa
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.getController().setZoom(14);
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
-        // Evento de búsqueda
         btnSearch.setOnClickListener(v -> searchLocation());
     }
 
