@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Bera reclama</string>
+    <!--    Main menu-->
+    <string name="it_publish_title">Publicar</string>
+    <string name="it_map_title">Mapa</string>
     <!--    Login activity-->
     <string name="hint_user_title">Usuario</string>
     <string name="hint_password_title">Contraseña</string>
@@ -23,13 +26,19 @@
     <string name="toolbar_map_title">Mapa</string>
     <string name="et_hint_direction">Buscar dirección</string>
     <!--    Post activity-->
-    <string name="btn_search_title">Buscar</string>
-    <string name="et_description">Escribe una descripción…</string>
+    <string name="toolbar_post_title">Nuevo reclamo</string>
+    <string name="et_location">Escriba la direccion</string>
+    <string-array name="tipos_reclamos">
+        <item>Bache</item>
+        <item>Basura acumulada</item>
+        <item>Iluminación</item>
+        <item>Árbol caído</item>
+        <item>Otros</item>
+    </string-array>
+    <string name="et_selectDate">Seleccionar fecha</string>
     <string name="iv_description">Imagen de la publcacion</string>
     <string name="btn_selectImage">Elegir imagen</string>
+    <string name="btn_camera">Tomar foto</string>
+    <string name="btn_gallery">Elegir imagen de galería</string>
     <string name="btn_publish">Publicar</string>
-    <!--    Main menu-->
-    <string name="it_publish_title">Publicar</string>
-    <string name="it_map_title">Mapa</string>
-    <string name="toolbar_post_title">Nuevo reclamo</string>
 </resources>
