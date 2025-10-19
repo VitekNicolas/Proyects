@@ -19,6 +19,8 @@ public class PostRepository {
         values.put(DatabaseHelper.COLUMN_TIPO, post.getTipo());
         values.put(DatabaseHelper.COLUMN_FECHA, post.getFecha());
         values.put(DatabaseHelper.COLUMN_IMAGEN_URI, post.getImagenUri());
+        values.put(DatabaseHelper.COLUMN_LATITUD, post.getLatitud());
+        values.put(DatabaseHelper.COLUMN_LONGITUD, post.getLongitud());
         long id = db.insert(DatabaseHelper.TABLE_POSTS, null, values);
         db.close();
         return id;

@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,8 +20,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class PostActivity extends MenuActivity {
 
@@ -29,6 +36,7 @@ public class PostActivity extends MenuActivity {
     private Uri imageUri;
     private Spinner spinnerTipo;
     private EditText etFecha;
+    private PostRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,8 @@ public class PostActivity extends MenuActivity {
         btnGaleria.setOnClickListener(v -> abrirGaleria());
         btnSavePost.setOnClickListener(v -> guardarPublicacion());
         etFecha.setOnClickListener(v -> mostrarSelectorFecha());
+        repository = new PostRepository(this);
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -114,23 +124,33 @@ public class PostActivity extends MenuActivity {
 
     private void guardarPublicacion() {
         EditText et_description=findViewById(R.id.et_description);
-        String descripcion = et_description.getText().toString().trim();
+        String direccion = et_description.getText().toString();
         String tipo = spinnerTipo.getSelectedItem().toString();
-        String fecha = etFecha.getText().toString();
-        if (descripcion.isEmpty() || imageUri == null || tipo.isEmpty() || fecha.isEmpty()) {
-            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
+        String fecha = etFecha.getText().toString().trim();
+        if (direccion.isEmpty() || tipo.isEmpty() || fecha.isEmpty() || imageUri == null) {
+            Toast.makeText(this, "Complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else{
-            Toast.makeText(this, "Reclamos guardado correctamente", Toast.LENGTH_SHORT).show();
-        }
-        Post post = new Post(descripcion, tipo, fecha, imageUri.toString());
-        PostRepository repository = new PostRepository(this);
-        long id = repository.insertarPost(post);
 
-        if (id > 0) {
-            Toast.makeText(this, "Reclamo guardado correctamente", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Error al guardar el reclamo", Toast.LENGTH_SHORT).show();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(direccion, 1);
+            assert addresses != null;
+            Address address = addresses.get(0);
+            double lat = address.getLatitude();
+            double lon = address.getLongitude();
+            Post post = new Post(direccion, tipo, fecha, imageUri.toString(), lat, lon);
+            long id = repository.insertarPost(post);
+            if (id > 0) {
+                Toast.makeText(this, "Reclamo guardado correctamente", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Error al guardar el reclamo", Toast.LENGTH_SHORT).show();
+            }
+
         }
-}
+        catch (IOException e){
+            Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 }

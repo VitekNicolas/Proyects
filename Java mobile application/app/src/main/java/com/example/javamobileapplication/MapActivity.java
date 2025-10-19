@@ -3,10 +3,8 @@ package com.example.javamobileapplication;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.multidex.BuildConfig;
 import androidx.preference.PreferenceManager;
@@ -50,7 +48,6 @@ public class MapActivity extends MenuActivity {
             Toast.makeText(this, "Ingrese una dirección", Toast.LENGTH_SHORT).show();
             return;
         }
-
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
@@ -59,10 +56,8 @@ public class MapActivity extends MenuActivity {
                 double lat = address.getLatitude();
                 double lon = address.getLongitude();
                 GeoPoint point = new GeoPoint(lat, lon);
-                // Mover el mapa
                 mapView.getController().setZoom(16);
                 mapView.getController().animateTo(point);
-                // Si ya hay un marcador anterior, lo eliminamos
                 if (currentMarker != null) {
                     mapView.getOverlays().remove(currentMarker);
                 }

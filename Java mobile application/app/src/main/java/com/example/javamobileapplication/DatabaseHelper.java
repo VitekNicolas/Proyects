@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TIPO = "tipo";
     public static final String COLUMN_FECHA = "fecha";
     public static final String COLUMN_IMAGEN_URI = "imagenUri";
+    public static final String COLUMN_LATITUD = "latitud";
+    public static final String COLUMN_LONGITUD= "longitud";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_POSTS + " (" +
@@ -23,7 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_DIRECCION + " TEXT, " +
                     COLUMN_TIPO + " TEXT, " +
                     COLUMN_FECHA + " TEXT, " +
-                    COLUMN_IMAGEN_URI + " TEXT" +
+                    COLUMN_IMAGEN_URI + " TEXT, " +
+                    COLUMN_LATITUD + " REAL, " +
+                    COLUMN_LONGITUD + " REAL" +
                     ");";
 
     public DatabaseHelper(Context context) {
