@@ -2,8 +2,12 @@ package com.example.javamobileapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -43,5 +47,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_POSTS);
         onCreate(db);
+    }
+    public List<Post> getAllReclamos() {
+        List<Post> reclamos = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM posts", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Post r = new Post();
+                r.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                r.setTipo(cursor.getString(cursor.getColumnIndexOrThrow("tipo")));
+                r.setDireccion(cursor.getString(cursor.getColumnIndexOrThrow("direccion")));
+                r.setFecha(cursor.getString(cursor.getColumnIndexOrThrow("fecha")));
+                r.setImagenUri(cursor.getString(cursor.getColumnIndexOrThrow("imagenUri")));
+                r.setLatitud(cursor.getDouble(cursor.getColumnIndexOrThrow("latitud")));
+                r.setLongitud(cursor.getDouble(cursor.getColumnIndexOrThrow("longitud")));
+                reclamos.add(r);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return reclamos;
     }
 }

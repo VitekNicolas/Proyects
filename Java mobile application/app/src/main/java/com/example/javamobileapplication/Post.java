@@ -8,6 +8,7 @@ public class Post {
     private String imagenUri;
     private double latitud, longitud;
 
+    public Post(){}
     public Post(String direccion, String tipo, String fecha, String imagenUri, double latitud, double longitud) {
         this.direccion = direccion;
         this.tipo = tipo;

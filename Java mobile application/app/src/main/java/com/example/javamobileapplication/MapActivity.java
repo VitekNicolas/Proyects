@@ -40,6 +40,31 @@ public class MapActivity extends MenuActivity {
         //btnSearch.setOnClickListener(v -> searchLocation());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        List<Post> reclamos = dbHelper.getAllReclamos();
+        for (Post r : reclamos) {
+            Marker marker = new Marker(mapView);
+            marker.setPosition(new GeoPoint(r.getLatitud(), r.getLongitud()));
+            marker.setTitle(r.getTipo() + " - " + r.getDireccion());
+            marker.setSnippet("Fecha: " + r.getFecha());
+            switch (r.getTipo().toLowerCase()) {
+                case "bache":
+                    marker.setIcon(getResources().getDrawable(R.drawable.marker_green));
+                    break;
+                case "basura acumulada":
+                    marker.setIcon(getResources().getDrawable(R.drawable.marker_yellow));
+                    break;
+                case "iluminación":
+                    marker.setIcon(getResources().getDrawable(R.drawable.marker_red));
+                    break;
+                default:
+                    marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
+                    break;
+            }
+
+            mapView.getOverlays().add(marker);
+        }
+        mapView.invalidate();
     }
 
     private void searchLocation() {

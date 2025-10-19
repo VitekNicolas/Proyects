@@ -29,11 +29,10 @@
     <string name="toolbar_post_title">Nuevo reclamo</string>
     <string name="et_location">Escriba la direccion</string>
     <string-array name="tipos_reclamos">
-        <item>Bache</item>
-        <item>Basura acumulada</item>
-        <item>Iluminación</item>
-        <item>Árbol caído</item>
-        <item>Otros</item>
+        <item>bache</item>
+        <item>basura acumulada</item>
+        <item>iluminación</item>
+        <item>otros</item>
     </string-array>
     <string name="et_selectDate">Seleccionar fecha</string>
     <string name="iv_description">Imagen de la publcacion</string>
