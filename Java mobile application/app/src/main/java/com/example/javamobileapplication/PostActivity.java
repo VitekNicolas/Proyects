@@ -123,8 +123,14 @@ public class PostActivity extends MenuActivity {
         else{
             Toast.makeText(this, "Reclamos guardado correctamente", Toast.LENGTH_SHORT).show();
         }
-        // Aquí guardarías en tu base de datos SQLite
-        // Ejemplo: new Publicacion(descripcion, imageUri.toString(), ubicacion);
-        //finish();
-    }
+        Post post = new Post(descripcion, tipo, fecha, imageUri.toString());
+        PostRepository repository = new PostRepository(this);
+        long id = repository.insertarPost(post);
+
+        if (id > 0) {
+            Toast.makeText(this, "Reclamo guardado correctamente", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error al guardar el reclamo", Toast.LENGTH_SHORT).show();
+        }
+}
 }
