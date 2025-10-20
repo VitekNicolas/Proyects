@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -48,7 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                         finish(); // Cierra esta Activity y vuelve al login
                     } else {
-                        Toast.makeText(this, "Error al registrar: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,
+                                "Error al registrar: " + Objects.requireNonNull(task.getException()).getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }

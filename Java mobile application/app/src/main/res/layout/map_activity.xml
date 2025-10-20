@@ -3,6 +3,7 @@
     android:id="@+id/map_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -10,32 +11,52 @@
         android:background="?attr/colorPrimary"
         android:title="@string/toolbar_map_title"
         android:titleTextColor="@android:color/white"
-        android:fitsSystemWindows="true"/>
-<!--    <LinearLayout-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="8dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/et_search"-->
-<!--            android:hint="@string/et_hint_direction"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:inputType="text" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_search"-->
-<!--            android:text="@string/btn_search_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
-<!--    </LinearLayout>-->
+        android:fitsSystemWindows="true" />
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         android:layout_below="@id/toolbar"
+        android:layout_above="@+id/bottonToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bottonToolbar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_alignParentBottom="true">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="@string/et_location"
+                android:background="@drawable/edittext_background"
+                android:paddingHorizontal="12dp"
+                android:inputType="text"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:text="@string/btn_search_title"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#00796B"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="10dp"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 </RelativeLayout>

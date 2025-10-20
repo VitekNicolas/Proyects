@@ -3,6 +3,7 @@ package com.example.javamobileapplication;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -31,13 +32,13 @@ public class MapActivity extends MenuActivity {
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         setContentView(R.layout.map_activity);
         mapView = findViewById(R.id.map);
-        //etSearch = findViewById(R.id.et_search);
-        //Button btnSearch = findViewById(R.id.btn_search);
+        etSearch = findViewById(R.id.et_search);
+        Button btnSearch = findViewById(R.id.btn_search);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.getController().setZoom(14);
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
-        //btnSearch.setOnClickListener(v -> searchLocation());
+        btnSearch.setOnClickListener(v -> searchLocation());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -61,7 +62,6 @@ public class MapActivity extends MenuActivity {
                     marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
                     break;
             }
-
             mapView.getOverlays().add(marker);
         }
         mapView.invalidate();
@@ -86,7 +86,6 @@ public class MapActivity extends MenuActivity {
                 if (currentMarker != null) {
                     mapView.getOverlays().remove(currentMarker);
                 }
-                // Crear nuevo marcador
                 currentMarker = new Marker(mapView);
                 currentMarker.setPosition(point);
                 currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -100,7 +99,6 @@ public class MapActivity extends MenuActivity {
             }
         } catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
         }
     }
 }

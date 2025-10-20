@@ -46,13 +46,13 @@ public class PostActivity extends MenuActivity {
         etFecha = findViewById(R.id.et_fecha);
         spinnerTipo = findViewById(R.id.spinner_tipo_reclamo);
         Button btnCamera = findViewById(R.id.btnCamera);
-        Button btnSavePost=findViewById(R.id.btn_publish);
+        Button btnSavePost = findViewById(R.id.btn_publish);
         Button btnGaleria = findViewById(R.id.btn_choose_image);
         btnCamera.setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+                        new String[] { Manifest.permission.CAMERA }, REQUEST_CAMERA);
             } else {
                 abrirCamara();
             }
@@ -78,6 +78,7 @@ public class PostActivity extends MenuActivity {
             Toast.makeText(this, "No se encontró una aplicación de cámara", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void abrirGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_GALLERY);
@@ -95,10 +96,11 @@ public class PostActivity extends MenuActivity {
                 }, año, mes, dia);
         dialog.show();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -115,15 +117,14 @@ public class PostActivity extends MenuActivity {
         ImageView imageView = findViewById(R.id.img_preview);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             imageView.setImageURI(imageUri);
-        }
-        else if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
+        } else if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
         }
     }
 
     private void guardarPublicacion() {
-        EditText et_description=findViewById(R.id.et_description);
+        EditText et_description = findViewById(R.id.et_description);
         String direccion = et_description.getText().toString();
         String tipo = spinnerTipo.getSelectedItem().toString();
         String fecha = etFecha.getText().toString().trim();
@@ -147,8 +148,7 @@ public class PostActivity extends MenuActivity {
                 Toast.makeText(this, "Error al guardar el reclamo", Toast.LENGTH_SHORT).show();
             }
 
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }

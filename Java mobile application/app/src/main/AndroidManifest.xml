@@ -55,12 +55,11 @@
         <activity
             android:name=".MapActivity"
             android:exported="false"
-            android:label="Mapa" />
+            android:label="Mapa de reclamos" />
         <activity
             android:name=".PostActivity"
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="Publicar reclamo"/>
     </application>
-
 </manifest>

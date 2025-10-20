@@ -16,15 +16,15 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="hint_username">Nombre</string>
     <string name="title_welcome">Bienvenido</string>
-    <!--    Map activity-->
     <string name="et_emailUser">Email</string>
     <string name="et_userPassword">Contraseña</string>
     <string name="et_userPasswordRepeat">Repetir contraseña</string>
     <string name="btn_regiterUser">Registrarse</string>
     <!--    Map activity-->
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="toolbar_map_title">Mapa</string>
+    <string name="toolbar_map_title">Mapa de reclamos</string>
     <string name="et_hint_direction">Buscar dirección</string>
+    <string name="btn_search_title">Buscar</string>
     <!--    Post activity-->
     <string name="toolbar_post_title">Nuevo reclamo</string>
     <string name="et_location">Escriba la direccion</string>

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "reclamos.db";
     private static final int DATABASE_VERSION = 1;
-
     public static final String TABLE_POSTS = "posts";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_DIRECCION = "direccion";
@@ -21,18 +19,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FECHA = "fecha";
     public static final String COLUMN_IMAGEN_URI = "imagenUri";
     public static final String COLUMN_LATITUD = "latitud";
-    public static final String COLUMN_LONGITUD= "longitud";
+    public static final String COLUMN_LONGITUD = "longitud";
 
-    private static final String TABLE_CREATE =
-            "CREATE TABLE " + TABLE_POSTS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_DIRECCION + " TEXT, " +
-                    COLUMN_TIPO + " TEXT, " +
-                    COLUMN_FECHA + " TEXT, " +
-                    COLUMN_IMAGEN_URI + " TEXT, " +
-                    COLUMN_LATITUD + " REAL, " +
-                    COLUMN_LONGITUD + " REAL" +
-                    ");";
+    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_POSTS + " (" +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_DIRECCION + " TEXT, " +
+            COLUMN_TIPO + " TEXT, " +
+            COLUMN_FECHA + " TEXT, " +
+            COLUMN_IMAGEN_URI + " TEXT, " +
+            COLUMN_LATITUD + " REAL, " +
+            COLUMN_LONGITUD + " REAL" +
+            ");";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_POSTS);
         onCreate(db);
     }
+
     public List<Post> getAllReclamos() {
         List<Post> reclamos = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
