@@ -41,14 +41,53 @@ public class MapActivity extends MenuActivity {
         btnSearch.setOnClickListener(v -> searchLocation());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        addMarkers();
+    }
+
+    private void searchLocation() {
+        String locationName = etSearch.getText().toString();
+        if (locationName.isEmpty()) {
+            Toast.makeText(this, "Ingrese una dirección", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address location = addresses.get(0);
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                GeoPoint point = new GeoPoint(latitude, longitude);
+                mapView.getController().setZoom(16);
+                mapView.getController().animateTo(point);
+                if (currentMarker != null) {
+                    mapView.getOverlays().remove(currentMarker);
+                }
+                currentMarker = new Marker(mapView);
+                currentMarker.setPosition(point);
+                currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                currentMarker.setTitle(location.getAddressLine(0));
+                currentMarker.setSnippet("Latitud: " + latitude + ", Longitud: " + longitude);
+                mapView.getOverlays().add(currentMarker);
+                mapView.invalidate();
+                Toast.makeText(this, "Ubicación encontrada", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void addMarkers() {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        List<Post> reclamos = dbHelper.getAllReclamos();
-        for (Post r : reclamos) {
+        List<Post> complaints = dbHelper.getAllComplaints();
+        for (Post complaint : complaints) {
             Marker marker = new Marker(mapView);
-            marker.setPosition(new GeoPoint(r.getLatitud(), r.getLongitud()));
-            marker.setTitle(r.getTipo() + " - " + r.getDireccion());
-            marker.setSnippet("Fecha: " + r.getFecha());
-            switch (r.getTipo().toLowerCase()) {
+            marker.setPosition(new GeoPoint(complaint.getLatitude(), complaint.getLongitude()));
+            marker.setTitle(complaint.getCategory() + " - " + complaint.getAddress());
+            marker.setSnippet("Fecha: " + complaint.getDate());
+            switch (complaint.getCategory().toLowerCase()) {
                 case "bache":
                     marker.setIcon(getResources().getDrawable(R.drawable.marker_green));
                     break;
@@ -65,40 +104,5 @@ public class MapActivity extends MenuActivity {
             mapView.getOverlays().add(marker);
         }
         mapView.invalidate();
-    }
-
-    private void searchLocation() {
-        String locationName = etSearch.getText().toString();
-        if (locationName.isEmpty()) {
-            Toast.makeText(this, "Ingrese una dirección", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                double lat = address.getLatitude();
-                double lon = address.getLongitude();
-                GeoPoint point = new GeoPoint(lat, lon);
-                mapView.getController().setZoom(16);
-                mapView.getController().animateTo(point);
-                if (currentMarker != null) {
-                    mapView.getOverlays().remove(currentMarker);
-                }
-                currentMarker = new Marker(mapView);
-                currentMarker.setPosition(point);
-                currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                currentMarker.setTitle(address.getAddressLine(0));
-                currentMarker.setSnippet("Lat: " + lat + ", Lon: " + lon);
-                mapView.getOverlays().add(currentMarker);
-                mapView.invalidate();
-                Toast.makeText(this, "Ubicación encontrada", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show();
-            }
-        } catch (IOException e) {
-            Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
-        }
     }
 }

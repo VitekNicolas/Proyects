@@ -54,23 +54,23 @@ public class PostActivity extends MenuActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[] { Manifest.permission.CAMERA }, REQUEST_CAMERA);
             } else {
-                abrirCamara();
+                openCamera();
             }
         });
-        btnGaleria.setOnClickListener(v -> abrirGaleria());
-        btnSavePost.setOnClickListener(v -> guardarPublicacion());
-        etFecha.setOnClickListener(v -> mostrarSelectorFecha());
+        btnGaleria.setOnClickListener(v -> openImageGallery());
+        btnSavePost.setOnClickListener(v -> savePost());
+        etFecha.setOnClickListener(v -> showDateSelector());
         repository = new PostRepository(this);
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
-    private void abrirCamara() {
+    private void openCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            File foto = new File(getExternalFilesDir(null), "temp.jpg");
-            imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", foto);
+            File photo = new File(getExternalFilesDir(null), "temp.jpg");
+            imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", photo);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
@@ -79,21 +79,21 @@ public class PostActivity extends MenuActivity {
         }
     }
 
-    private void abrirGaleria() {
+    private void openImageGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_GALLERY);
     }
 
-    private void mostrarSelectorFecha() {
-        final Calendar calendario = Calendar.getInstance();
-        int año = calendario.get(Calendar.YEAR);
-        int mes = calendario.get(Calendar.MONTH);
-        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+    private void showDateSelector() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(this,
-                (view, year, month, dayOfMonth) -> {
-                    String fechaSeleccionada = dayOfMonth + "/" + (month + 1) + "/" + year;
-                    etFecha.setText(fechaSeleccionada);
-                }, año, mes, dia);
+                (view, yr, mon, dayOfMonth) -> {
+                    String selectDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                    etFecha.setText(selectDate);
+                }, year, month, day);
         dialog.show();
     }
 
@@ -104,7 +104,7 @@ public class PostActivity extends MenuActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                abrirCamara();
+                openCamera();
             } else {
                 Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_LONG).show();
             }
@@ -123,25 +123,25 @@ public class PostActivity extends MenuActivity {
         }
     }
 
-    private void guardarPublicacion() {
+    private void savePost() {
         EditText et_description = findViewById(R.id.et_description);
-        String direccion = et_description.getText().toString();
-        String tipo = spinnerTipo.getSelectedItem().toString();
-        String fecha = etFecha.getText().toString().trim();
-        if (direccion.isEmpty() || tipo.isEmpty() || fecha.isEmpty() || imageUri == null) {
+        String address = et_description.getText().toString();
+        String category = spinnerTipo.getSelectedItem().toString();
+        String date = etFecha.getText().toString().trim();
+        if (address.isEmpty() || category.isEmpty() || date.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
-            List<Address> addresses = geocoder.getFromLocationName(direccion, 1);
+            List<Address> addresses = geocoder.getFromLocationName(address, 1);
             assert addresses != null;
-            Address address = addresses.get(0);
-            double lat = address.getLatitude();
-            double lon = address.getLongitude();
-            Post post = new Post(direccion, tipo, fecha, imageUri.toString(), lat, lon);
-            long id = repository.insertarPost(post);
+            Address location = addresses.get(0);
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude);
+            long id = repository.insertPost(post);
             if (id > 0) {
                 Toast.makeText(this, "Reclamo guardado correctamente", Toast.LENGTH_SHORT).show();
             } else {

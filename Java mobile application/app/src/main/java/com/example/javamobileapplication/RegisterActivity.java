@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                        finish(); // Cierra esta Activity y vuelve al login
+                        finish(); 
                     } else {
                         Toast.makeText(this,
                                 "Error al registrar: " + Objects.requireNonNull(task.getException()).getMessage(),

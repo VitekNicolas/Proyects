@@ -12,17 +12,17 @@ public class PostRepository {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public long insertarPost(Post post) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public long insertPost(Post post) {
+        SQLiteDatabase dataBase = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_DIRECCION, post.getDireccion());
-        values.put(DatabaseHelper.COLUMN_TIPO, post.getTipo());
-        values.put(DatabaseHelper.COLUMN_FECHA, post.getFecha());
-        values.put(DatabaseHelper.COLUMN_IMAGEN_URI, post.getImagenUri());
-        values.put(DatabaseHelper.COLUMN_LATITUD, post.getLatitud());
-        values.put(DatabaseHelper.COLUMN_LONGITUD, post.getLongitud());
-        long id = db.insert(DatabaseHelper.TABLE_POSTS, null, values);
-        db.close();
+        values.put(DatabaseHelper.COLUMN_ADDRESS, post.getAddress());
+        values.put(DatabaseHelper.COLUMN_CATEGORY, post.getCategory());
+        values.put(DatabaseHelper.COLUMN_DATE, post.getDate());
+        values.put(DatabaseHelper.COLUMN_IMAGE_URI, post.getImageUri());
+        values.put(DatabaseHelper.COLUMN_LATITUDE, post.getLatitude());
+        values.put(DatabaseHelper.COLUMN_LONGITUDE, post.getLongitude());
+        long id = dataBase.insert(DatabaseHelper.TABLE_COMPLAINT, null, values);
+        dataBase.close();
         return id;
     }
 }

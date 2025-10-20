@@ -2,22 +2,22 @@ package com.example.javamobileapplication;
 
 public class Post {
     private long id;
-    private String direccion;
-    private String tipo;
-    private String fecha;
-    private String imagenUri;
-    private double latitud, longitud;
+    private String address;
+    private String category;
+    private String date;
+    private String imageUri;
+    private double latitude, longitude;
 
     public Post() {
     }
 
-    public Post(String direccion, String tipo, String fecha, String imagenUri, double latitud, double longitud) {
-        this.direccion = direccion;
-        this.tipo = tipo;
-        this.fecha = fecha;
-        this.imagenUri = imagenUri;
-        this.latitud = latitud;
-        this.longitud = longitud;
+    public Post(String address, String category, String date, String imageUri, double latitude, double longitude) {
+        this.address = address;
+        this.category = category;
+        this.date = date;
+        this.imageUri = imageUri;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public long getId() {
@@ -28,51 +28,51 @@ public class Post {
         this.id = id;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getDate() {
+        return date;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getImagenUri() {
-        return imagenUri;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setImagenUri(String imagenUri) {
-        this.imagenUri = imagenUri;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public double getLongitud() {
-        return longitud;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
