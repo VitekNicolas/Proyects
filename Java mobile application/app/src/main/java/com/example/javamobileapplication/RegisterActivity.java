@@ -1,9 +1,12 @@
 package com.example.javamobileapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
@@ -11,7 +14,9 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_email, et_password, et_repeatPassword;
+    private Uri imageUri;
     private FirebaseAuth myAuth;
+    private ImageView imgUserProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

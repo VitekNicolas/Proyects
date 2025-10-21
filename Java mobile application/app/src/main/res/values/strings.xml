@@ -41,4 +41,8 @@
     <string name="btn_gallery">Elegir imagen de galería</string>
     <string name="btn_publish">Publicar</string>
     <string name="iv_postimage_description">Post image</string>
+    <string name="btn_addPhoto_title">Foto</string>
+    <string name="btn_deletePhoto_title">Borrar</string>
+    <string name="Iv_photoUser_title">User profile photo</string>
+    <string name="btn_loginGoogle_title">Ingresar con Google</string>
 </resources>
