@@ -23,6 +23,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,9 +40,12 @@ public class PostActivity extends MenuActivity {
     private static final int REQUEST_GALLERY = 100;
     private static final int REQUEST_IMAGE_CAPTURE = 101;
     private Uri imageUri;
+
+
     private Spinner spinnerTipo;
     private EditText etFecha;
     private PostRepository repository;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,7 @@ public class PostActivity extends MenuActivity {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     private void openCamera() {
@@ -183,4 +189,5 @@ public class PostActivity extends MenuActivity {
             e.printStackTrace();
         }
     }
+
 }

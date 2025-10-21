@@ -45,4 +45,7 @@
     <string name="btn_deletePhoto_title">Borrar</string>
     <string name="Iv_photoUser_title">User profile photo</string>
     <string name="btn_loginGoogle_title">Ingresar con Google</string>
+    <string name="tv_fecha_title">Fecha</string>
+    <string name="tv_tipo_title">Tipo</string>
+    <string name="tv_address_title">Direccion</string>
 </resources>

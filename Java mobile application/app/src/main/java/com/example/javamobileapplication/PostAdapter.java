@@ -1,6 +1,5 @@
 package com.example.javamobileapplication;
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
-import java.io.InputStream;
 import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
@@ -54,14 +50,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAddress = itemView.findViewById(R.id.tvAddress);
-            tvCategory = itemView.findViewById(R.id.tvCategory);
-            tvDate = itemView.findViewById(R.id.tvDate);
+            tvDate = itemView.findViewById(R.id.tv_fecha);
             imgThumbnail = itemView.findViewById(R.id.iv_preview);
         }
 
         public void bind(Post post, OnPostClickListener listener) {
             tvAddress.setText(post.getAddress());
-            tvCategory.setText(post.getCategory());
             tvDate.setText(post.getDate());
             Glide.with(itemView.getContext())
                     .load(Uri.parse(post.getImageUri()))

@@ -1,49 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:layout_marginBottom="8dp"
-    android:elevation="2dp">
-
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:id="@+id/iv_preview"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:contentDescription="@string/iv_postimage_description"
-        android:scaleType="centerCrop"
-        android:background="#E0E0E0"
-        android:layout_marginEnd="10dp" />
+    android:layout_marginBottom="10dp"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvAddress"
-            android:text="Dirección"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="#212121"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp">
 
-        <TextView
-            android:id="@+id/tvCategory"
-            android:text="Categoría"
-            android:textSize="14sp"
-            android:textColor="#555"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+            <ImageView
+                android:id="@+id/iv_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:text="Fecha"
-            android:textSize="13sp"
-            android:textColor="#757575"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_address_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_fecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tv_fecha_title"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btn_editar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#3F6BF1"
+            android:contentDescription="TODO"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_download" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/btn_eliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#EFD912"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_location" />
+
     </LinearLayout>
+
+
 </LinearLayout>
