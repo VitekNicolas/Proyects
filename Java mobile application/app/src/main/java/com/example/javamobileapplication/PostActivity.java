@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,10 @@ import androidx.core.content.FileProvider;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -80,7 +84,10 @@ public class PostActivity extends MenuActivity {
     }
 
     private void openImageGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("image/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(intent, REQUEST_GALLERY);
     }
 
@@ -118,11 +125,34 @@ public class PostActivity extends MenuActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             imageView.setImageURI(imageUri);
         } else if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
+            Uri sourceUri = data.getData();
+            assert sourceUri != null;
+            Log.d("PostActivity", "Uri authority: " + sourceUri.getAuthority());
+            try {
+                getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                InputStream inputStream = getContentResolver().openInputStream(sourceUri);
+                File file = new File(getFilesDir(), "imagen_" + System.currentTimeMillis() + ".jpg");
+                OutputStream outputStream = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int length;
+                while (true) {
+                    assert inputStream != null;
+                    if (!((length = inputStream.read(buffer)) > 0)) break;
+                    outputStream.write(buffer, 0, length);
+                }
+                inputStream.close();
+                outputStream.close();
+                imageUri = Uri.fromFile(file);
+                imageView.setImageURI(imageUri);
+            } catch (SecurityException se) {
+                Toast.makeText(this, "No se puede acceder a la imagen seleccionada", Toast.LENGTH_SHORT).show();
+                se.printStackTrace();
+            } catch (IOException e) {
+                Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
     }
-
     private void savePost() {
         EditText et_description = findViewById(R.id.et_description);
         String address = et_description.getText().toString();

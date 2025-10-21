@@ -10,4 +10,9 @@
         android:title="@string/it_publish_title"
         android:icon="@drawable/ic_add"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_historical"
+        android:title="@string/it_publish_title"
+        android:icon="@drawable/ic_historical"
+        app:showAsAction="ifRoom" />
 </menu>

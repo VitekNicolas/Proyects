@@ -40,4 +40,5 @@
     <string name="btn_camera">Tomar foto</string>
     <string name="btn_gallery">Elegir imagen de galería</string>
     <string name="btn_publish">Publicar</string>
+    <string name="iv_postimage_description">Post image</string>
 </resources>

@@ -22,6 +22,9 @@ public class MenuActivity extends AppCompatActivity {
         } else if (id == R.id.action_post) {
             startActivity(new Intent(this, PostActivity.class));
             return true;
+        } else if (id == R.id.action_historical) {
+            startActivity(new Intent(this, PostListActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

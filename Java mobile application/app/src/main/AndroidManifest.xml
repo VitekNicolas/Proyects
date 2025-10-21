@@ -61,5 +61,13 @@
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="Publicar reclamo"/>
+        <activity
+            android:name=".PostDetailActivity"
+            android:exported="false"
+            android:label="Detalle" />
+        <activity
+            android:name=".PostListActivity"
+            android:exported="false"
+            android:label="Lista de reclamos" />
     </application>
 </manifest>

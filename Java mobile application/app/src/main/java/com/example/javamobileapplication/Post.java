@@ -1,6 +1,8 @@
 package com.example.javamobileapplication;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
     private long id;
     private String address;
     private String category;
