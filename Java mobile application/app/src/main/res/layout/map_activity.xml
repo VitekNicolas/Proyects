@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:titleTextColor="@android:color/white">
 
         <LinearLayout
             android:id="@+id/search_bar"

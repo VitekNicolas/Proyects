@@ -4,15 +4,23 @@
         android:id="@+id/action_map"
         android:title="@string/it_map_title"
         android:icon="@drawable/ic_map"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_post"
         android:title="@string/it_publish_title"
         android:icon="@drawable/ic_add"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_historical"
         android:title="@string/it_publish_title"
         android:icon="@drawable/ic_historical"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/it_settings_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/it_logOut_title"
+        app:showAsAction="never" />
 </menu>

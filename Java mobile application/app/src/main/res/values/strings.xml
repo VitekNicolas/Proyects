@@ -48,4 +48,7 @@
     <string name="tv_fecha_title">Fecha</string>
     <string name="tv_tipo_title">Tipo</string>
     <string name="tv_address_title">Direccion</string>
+    <string name="it_logOut_title">Cerrar sesión</string>
+    <string name="it_settings_title">Ajustes</string>
+    <string name="iv_logo_description">Berazategui logo\n</string>
 </resources>
