@@ -23,8 +23,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,12 +40,8 @@ public class PostActivity extends MenuActivity {
     private static final int REQUEST_GALLERY = 100;
     private static final int REQUEST_IMAGE_CAPTURE = 101;
     private Uri imageUri;
-
-
     private Spinner spinnerTipo;
     private EditText etFecha;
-    private PostRepository repository;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +51,7 @@ public class PostActivity extends MenuActivity {
         etFecha = findViewById(R.id.et_fecha);
         spinnerTipo = findViewById(R.id.spinner_tipo_reclamo);
         Button btnCamera = findViewById(R.id.btnCamera);
-        Button btnSavePost = findViewById(R.id.btn_publish);
+        Button btnSavePost = findViewById(R.id.btn_publish_title);
         Button btnGaleria = findViewById(R.id.btn_choose_image);
         btnCamera.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this,
@@ -69,11 +65,9 @@ public class PostActivity extends MenuActivity {
         btnGaleria.setOnClickListener(v -> openImageGallery());
         btnSavePost.setOnClickListener(v -> savePost());
         etFecha.setOnClickListener(v -> showDateSelector());
-        repository = new PostRepository(this);
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     private void openCamera() {
@@ -160,6 +154,7 @@ public class PostActivity extends MenuActivity {
         }
     }
     private void savePost() {
+        FirebaseApp.initializeApp(this);
         EditText et_description = findViewById(R.id.et_description);
         String address = et_description.getText().toString();
         String category = spinnerTipo.getSelectedItem().toString();
@@ -168,22 +163,28 @@ public class PostActivity extends MenuActivity {
             Toast.makeText(this, "Complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
-
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocationName(address, 1);
-            assert addresses != null;
+            if (addresses == null || addresses.isEmpty()) {
+                Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Address location = addresses.get(0);
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude);
-            long id = repository.insertPost(post);
-            if (id > 0) {
-                Toast.makeText(this, "Reclamo guardado correctamente", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Error al guardar el reclamo", Toast.LENGTH_SHORT).show();
-            }
-
+            // 🔹 Guardar en Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("posts")
+                    .add(post)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Reclamo subido correctamente", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Error al subir el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    });
         } catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
             e.printStackTrace();

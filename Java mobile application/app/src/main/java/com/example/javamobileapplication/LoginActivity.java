@@ -30,7 +30,7 @@ import com.google.firebase.auth.*;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;
-    private EditText et_userEmail, et_userPassword;
+    private EditText et_userEmail, et_password_hint;
     private FirebaseAuth myAuth;
 
     private SharedPreferences preferences;
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         et_userEmail=findViewById(R.id.et_userEmail);
-        et_userPassword=findViewById(R.id.et_userPassword);
+        et_password_hint=findViewById(R.id.et_password_hint);
         Button btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(registerListener);
         Button btn_login = findViewById(R.id.btn_loginUser);
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         String email = et_userEmail.getText().toString().trim();
-        String password = et_userPassword.getText().toString().trim();
+        String password = et_password_hint.getText().toString().trim();
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Debe ingresar un email y una contraseña", Toast.LENGTH_SHORT).show();
             return;
@@ -124,12 +124,14 @@ public class LoginActivity extends AppCompatActivity {
             Glide.with(this)
                     .asBitmap()
                     .load(bytes)
+                    .circleCrop()
                     .placeholder(R.drawable.user)
                     .into(imgUserProfile);
         } else if (user.getPhotoUrl() != null) {
             Uri photoUrl = user.getPhotoUrl();
             Glide.with(this)
                     .load(photoUrl)
+                    .circleCrop()
                     .placeholder(R.drawable.user)
                     .into(imgUserProfile);
             new Thread(() -> {

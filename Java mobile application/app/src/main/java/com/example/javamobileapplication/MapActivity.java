@@ -3,12 +3,17 @@ package com.example.javamobileapplication;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.multidex.BuildConfig;
 import androidx.preference.PreferenceManager;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -80,29 +85,39 @@ public class MapActivity extends MenuActivity {
     }
 
     private void addMarkers() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        List<Post> complaints = dbHelper.getAllComplaints();
-        for (Post complaint : complaints) {
-            Marker marker = new Marker(mapView);
-            marker.setPosition(new GeoPoint(complaint.getLatitude(), complaint.getLongitude()));
-            marker.setTitle(complaint.getCategory() + " - " + complaint.getAddress());
-            marker.setSnippet("Fecha: " + complaint.getDate());
-            switch (complaint.getCategory().toLowerCase()) {
-                case "bache":
-                    marker.setIcon(getResources().getDrawable(R.drawable.marker_green));
-                    break;
-                case "basura acumulada":
-                    marker.setIcon(getResources().getDrawable(R.drawable.marker_yellow));
-                    break;
-                case "iluminación":
-                    marker.setIcon(getResources().getDrawable(R.drawable.marker_red));
-                    break;
-                default:
-                    marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
-                    break;
-            }
-            mapView.getOverlays().add(marker);
-        }
-        mapView.invalidate();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    mapView.getOverlays().clear();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Post complaint = document.toObject(Post.class);
+                        Marker marker = new Marker(mapView);
+                        marker.setPosition(new GeoPoint(complaint.getLatitude(), complaint.getLongitude()));
+                        marker.setTitle(complaint.getCategory() + " - " + complaint.getAddress());
+                        marker.setSnippet("Fecha: " + complaint.getDate());
+                        switch (complaint.getCategory().toLowerCase()) {
+                            case "bache":
+                                marker.setIcon(getResources().getDrawable(R.drawable.marker_green));
+                                break;
+                            case "basura acumulada":
+                                marker.setIcon(getResources().getDrawable(R.drawable.marker_yellow));
+                                break;
+                            case "iluminación":
+                                marker.setIcon(getResources().getDrawable(R.drawable.marker_red));
+                                break;
+                            default:
+                                marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
+                                break;
+                        }
+
+                        mapView.getOverlays().add(marker);
+                    }
+                    mapView.invalidate();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error al cargar los posts", e);
+                    Toast.makeText(this, "Error al cargar marcadores", Toast.LENGTH_SHORT).show();
+                });
     }
 }

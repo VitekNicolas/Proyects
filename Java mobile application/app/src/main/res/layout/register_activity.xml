@@ -27,7 +27,7 @@
                     android:id="@+id/iv_profile_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="@string/Iv_photoUser_title"
+                    android:contentDescription="@string/iv_photoUser_title"
                     app:srcCompat="@android:drawable/sym_def_app_icon" />
             </androidx.cardview.widget.CardView>
             <LinearLayout
@@ -61,21 +61,21 @@
             android:id="@+id/et_userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/et_emailUser"
+            android:hint="@string/et_email_hint"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/et_userPassword"
+            android:id="@+id/et_password_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/et_userPassword"
+            android:hint="@string/et_password_hint"
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/et_userPasswordRepeat"
+            android:id="@+id/et_passwordRepeat_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/et_userPasswordRepeat"
+            android:hint="@string/et_passwordRepeat_hint"
             android:inputType="textPassword" />
 
         <Button
@@ -83,7 +83,7 @@
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/btn_regiterUser" />
+            android:text="@string/btn_register_title" />
 
 
 </LinearLayout>

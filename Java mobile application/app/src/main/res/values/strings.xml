@@ -1,54 +1,48 @@
 <resources>
     <string name="app_name">Bera reclama</string>
     <!--    Main menu-->
+    <string name="iv_logo_description">Berazategui logo\n</string>
     <string name="it_publish_title">Publicar</string>
     <string name="it_map_title">Mapa</string>
+    <string name="it_settings_title">Ajustes</string>
+    <string name="it_logOut_title">Cerrar sesión</string>
     <!--    Login activity-->
-    <string name="hint_user_title">Usuario</string>
-    <string name="hint_password_title">Contraseña</string>
-    <string name="btn_enter_title">Igresar</string>
+    <string name="et_user_hint">Usuario</string>
+    <string name="et_password_hint">Contraseña</string>
+    <string name="btn_login_title">Igresar</string>
     <string name="btn_register_title">Registrarse</string>
-    <string name="description_login_title">login image</string>
+    <string name="iv_login_description">login image</string>
+    <string name="btn_loginGoogle_title">Ingresar con Google</string>
     <string name="default_web_client_id">182611265235-1dtfarmk7na6creiivm540d15d8b9vv5.apps.googleusercontent.com</string>
-    <string name="title_login">Login</string>
     <!--    Register activity-->
-    <string name="hint_name">Nombre</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="hint_username">Nombre</string>
     <string name="title_welcome">Bienvenido</string>
-    <string name="et_emailUser">Email</string>
-    <string name="et_userPassword">Contraseña</string>
-    <string name="et_userPasswordRepeat">Repetir contraseña</string>
-    <string name="btn_regiterUser">Registrarse</string>
+    <string name="iv_photoUser_title">User profile photo</string>
+    <string name="btn_addPhoto_title">Foto</string>
+    <string name="btn_deletePhoto_title">Borrar</string>
+    <string name="et_email_hint">Email</string>
+    <string name="et_passwordRepeat_hint">Repetir contraseña</string>
     <!--    Map activity-->
     <string name="title_activity_maps">MapsActivity</string>
     <string name="toolbar_map_title">Mapa de reclamos</string>
-    <string name="et_hint_direction">Buscar dirección</string>
     <string name="btn_search_title">Buscar</string>
+    <string name="et_location_hint">Escriba la direccion</string>
     <!--    Post activity-->
     <string name="toolbar_post_title">Nuevo reclamo</string>
-    <string name="et_location">Escriba la direccion</string>
-    <string-array name="tipos_reclamos">
+    <string-array name="sp_reclaims_name">
         <item>bache</item>
         <item>basura acumulada</item>
         <item>iluminación</item>
         <item>otros</item>
     </string-array>
-    <string name="et_selectDate">Seleccionar fecha</string>
-    <string name="iv_description">Imagen de la publcacion</string>
-    <string name="btn_selectImage">Elegir imagen</string>
-    <string name="btn_camera">Tomar foto</string>
-    <string name="btn_gallery">Elegir imagen de galería</string>
-    <string name="btn_publish">Publicar</string>
-    <string name="iv_postimage_description">Post image</string>
-    <string name="btn_addPhoto_title">Foto</string>
-    <string name="btn_deletePhoto_title">Borrar</string>
-    <string name="Iv_photoUser_title">User profile photo</string>
-    <string name="btn_loginGoogle_title">Ingresar con Google</string>
+    <string name="et_date_hint">Seleccionar fecha</string>
+    <string name="iv_image_description">Imagen de la publcacion</string>
+    <string name="btn_camera_title">Tomar foto</string>
+    <string name="btn_gallery_title">Elegir imagen de galería</string>
+    <string name="btn_publish_title">Publicar</string>
+    <!--    Reclaim details activity-->
     <string name="tv_fecha_title">Fecha</string>
     <string name="tv_tipo_title">Tipo</string>
     <string name="tv_address_title">Direccion</string>
-    <string name="it_logOut_title">Cerrar sesión</string>
-    <string name="it_settings_title">Ajustes</string>
-    <string name="iv_logo_description">Berazategui logo\n</string>
+
 </resources>

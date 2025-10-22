@@ -48,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_email, et_password, et_repeatPassword;
     private ImageView imgUserProfile;
-    private Uri imageUri;
     private FirebaseAuth myAuth;
     private static final int PICK_IMAGE_REQUEST = 100;
     private static final int REQUEST_CAMERA = 101;
@@ -62,8 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
         myAuth = FirebaseAuth.getInstance();
         preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         et_email = findViewById(R.id.et_userEmail);
-        et_password = findViewById(R.id.et_userPassword);
-        et_repeatPassword = findViewById(R.id.et_userPasswordRepeat);
+        et_password = findViewById(R.id.et_password_hint);
+        et_repeatPassword = findViewById(R.id.et_passwordRepeat_hint);
         imgUserProfile = findViewById(R.id.iv_profile_photo);
         Button btn_register = findViewById(R.id.btn_registerUser);
         Button btn_add_photo = findViewById(R.id.btn_add_photo);
@@ -141,6 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         Uri uri = guardarBitmapTemporal(bitmap);
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(uri)
+
                 .build();
         user.updateProfile(profileUpdates)
                 .addOnCompleteListener(task -> {
