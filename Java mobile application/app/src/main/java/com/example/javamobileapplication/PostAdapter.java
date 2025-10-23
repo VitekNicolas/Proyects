@@ -44,7 +44,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAddress, tvCategory, tvDate;
+        TextView tvAddress, tvDate;
         ImageView imgThumbnail;
 
         public PostViewHolder(@NonNull View itemView) {

@@ -3,17 +3,13 @@ package com.example.javamobileapplication;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 import androidx.multidex.BuildConfig;
 import androidx.preference.PreferenceManager;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -22,6 +18,8 @@ import org.osmdroid.views.overlay.Marker;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class MapActivity extends MenuActivity {
 
@@ -44,8 +42,6 @@ public class MapActivity extends MenuActivity {
         mapView.getController().setZoom(14);
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
         btnSearch.setOnClickListener(v -> searchLocation());
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         addMarkers();
     }
 
@@ -116,7 +112,7 @@ public class MapActivity extends MenuActivity {
                     mapView.invalidate();
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("Firestore", "Error al cargar los posts", e);
+                    Timber.tag("Firestore").e(e, "Error al cargar los posts");
                     Toast.makeText(this, "Error al cargar marcadores", Toast.LENGTH_SHORT).show();
                 });
     }

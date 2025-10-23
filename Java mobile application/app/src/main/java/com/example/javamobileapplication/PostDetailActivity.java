@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 public class PostDetailActivity extends MenuActivity {
 
@@ -25,7 +24,5 @@ public class PostDetailActivity extends MenuActivity {
                 imgPreview.setImageURI(Uri.parse(post.getImageUri()));
             }
         }
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 }

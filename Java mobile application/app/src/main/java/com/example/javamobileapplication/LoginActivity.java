@@ -27,12 +27,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 
+import timber.log.Timber;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;
     private EditText et_userEmail, et_password_hint;
     private FirebaseAuth myAuth;
-
     private SharedPreferences preferences;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         et_userEmail=findViewById(R.id.et_userEmail);
         et_password_hint=findViewById(R.id.et_password_hint);
         Button btn_register = findViewById(R.id.btn_register);
@@ -143,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                     String imagen64 = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                     preferences.edit().putString("profile_image", imagen64).apply();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e,"Error al procesar");
                 }
             }).start();
         } else {

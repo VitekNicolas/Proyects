@@ -3,27 +3,25 @@ package com.example.javamobileapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class PostListActivity extends MenuActivity {
 
     private PostAdapter adapter;
-    private List<Post> postList = new ArrayList<>();
+    private final List<Post> postList = new ArrayList<>();
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_list);
-
         RecyclerView recyclerView = findViewById(R.id.recyclerViewPosts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PostAdapter(postList, post -> {
@@ -32,8 +30,6 @@ public class PostListActivity extends MenuActivity {
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         db = FirebaseFirestore.getInstance();
         loadPostsFromFirestore();
     }
@@ -59,7 +55,7 @@ public class PostListActivity extends MenuActivity {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                    Timber.e(e,"Se produjo un error");
                 });
     }
 }

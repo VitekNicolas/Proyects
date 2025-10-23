@@ -1,6 +1,7 @@
 package com.example.javamobileapplication;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -33,6 +33,8 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class PostActivity extends MenuActivity {
 
@@ -66,8 +68,6 @@ public class PostActivity extends MenuActivity {
         btnSavePost.setOnClickListener(v -> savePost());
         etFecha.setOnClickListener(v -> showDateSelector());
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     private void openCamera() {
@@ -118,6 +118,7 @@ public class PostActivity extends MenuActivity {
         }
     }
 
+    @SuppressLint("TimberExceptionLogging")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,7 +128,7 @@ public class PostActivity extends MenuActivity {
         } else if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
             Uri sourceUri = data.getData();
             assert sourceUri != null;
-            Log.d("PostActivity", "Uri authority: " + sourceUri.getAuthority());
+            Timber.tag("PostActivity").d("Uri authority: %s", sourceUri.getAuthority());
             try {
                 getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 InputStream inputStream = getContentResolver().openInputStream(sourceUri);
@@ -146,10 +147,10 @@ public class PostActivity extends MenuActivity {
                 imageView.setImageURI(imageUri);
             } catch (SecurityException se) {
                 Toast.makeText(this, "No se puede acceder a la imagen seleccionada", Toast.LENGTH_SHORT).show();
-                se.printStackTrace();
+                Timber.e(se,"Se produjo un error");
             } catch (IOException e) {
                 Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
+                Timber.e(e,"Se produjo un error");
             }
         }
     }
@@ -174,7 +175,6 @@ public class PostActivity extends MenuActivity {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude);
-            // 🔹 Guardar en Firestore
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("posts")
                     .add(post)
@@ -183,11 +183,11 @@ public class PostActivity extends MenuActivity {
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Error al subir el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
+                        Timber.e(e,"Se produjo un error");
                     });
         } catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            Timber.e(e,"Se produjo un error");
         }
     }
 
