@@ -173,20 +173,22 @@ public class PostActivity extends MenuActivity {
             Address location = addresses.get(0);
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude, userId);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("posts")
-                    .add(post)
-                    .addOnSuccessListener(documentReference -> {
+            String postId = db.collection("posts").document().getId();
+            Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude, userId);
+            post.setId(postId);
+            db.collection("posts").document(postId)
+                    .set(post)
+                    .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Reclamo subido correctamente", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Error al subir el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Timber.e(e,"Se produjo un error");
+                        Timber.e(e, "Se produjo un error");
                     });
         } catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
-            Timber.e(e,"Se produjo un error");
+            Timber.e(e, "Se produjo un error");
         }
     }
 

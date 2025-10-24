@@ -3,8 +3,8 @@ package com.example.javamobileapplication;
 import java.io.Serializable;
 
 public class Post implements Serializable {
-    private long id;
-    private String address, category, date, imageUri, userId;
+    private String id;
+    private String address, category, date, imageUri, userId, status;
     private double latitude, longitude;
 
     public Post() {
@@ -18,13 +18,14 @@ public class Post implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.userId=userId;
+        this.status="pending";
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,15 +68,14 @@ public class Post implements Serializable {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-
     public double getLongitude() {
         return longitude;
     }
-
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

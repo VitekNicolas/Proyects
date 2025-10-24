@@ -48,9 +48,14 @@ public class PostListActivity extends MenuActivity {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) return;
         Query query = db.collection("posts");
-        if (!isAdmin) {
-            // 👤 Solo ver los posts del usuario actual
-            query = query.whereEqualTo("userId", user.getUid());
+        if (isAdmin) {
+            // 👑 El admin ve los pendientes
+            query = query.whereEqualTo("status", "pending");
+        }
+        else{
+            query = query
+                    .whereEqualTo("userId", user.getUid())
+                    .whereEqualTo("status", "approved");
         }
         query.get().addOnSuccessListener(querySnapshot -> {
             List<Post> posts = new ArrayList<>();

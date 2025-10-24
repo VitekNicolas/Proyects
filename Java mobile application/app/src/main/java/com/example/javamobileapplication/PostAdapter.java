@@ -1,6 +1,7 @@
 package com.example.javamobileapplication;
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
+
+import timber.log.Timber;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private final List<Post> postList;
@@ -60,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         public void bind(Post post, OnPostClickListener listener, boolean isAdmin) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
             tvAddress.setText(post.getAddress());
             tvDate.setText(post.getDate());
             Glide.with(itemView.getContext())
@@ -73,10 +80,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 btnRechazar.setVisibility(View.GONE);
             }
             itemView.setOnClickListener(v -> listener.onPostClick(post));
-            btnAprobar.setOnClickListener(v ->
-                    Toast.makeText(itemView.getContext(), "Post aprobado", Toast.LENGTH_SHORT).show());
-            btnRechazar.setOnClickListener(v ->
-                    Toast.makeText(itemView.getContext(), "Post rechazado", Toast.LENGTH_SHORT).show());
+            btnAprobar.setOnClickListener(v -> {
+                db.collection("posts").document(post.getId())
+                        .update("status", "approved")
+                        .addOnSuccessListener(aVoid ->
+                                Toast.makeText(itemView.getContext(), "Post aprobado", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e ->
+                                Timber.tag("Firestore").e(e, "Error al aprobar post"));
+            });
+            btnRechazar.setOnClickListener(v -> {
+                db.collection("posts").document(post.getId())
+                        .update("status", "rejected")
+                        .addOnSuccessListener(aVoid ->
+                                Toast.makeText(itemView.getContext(), "Post rechazado", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e ->
+                                Toast.makeText(itemView.getContext(), "Error al rechazar post", Toast.LENGTH_SHORT).show());
+            });
+
             
         }
     }

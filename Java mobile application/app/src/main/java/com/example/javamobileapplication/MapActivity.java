@@ -83,6 +83,7 @@ public class MapActivity extends MenuActivity {
     private void addMarkers() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posts")
+                .whereEqualTo("status", "approved")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     mapView.getOverlays().clear();
