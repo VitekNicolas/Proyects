@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -14,14 +15,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     private final List<Post> postList;
     private final OnPostClickListener listener;
+    private final boolean isAdmin; // ✅ nuevo campo
 
     public interface OnPostClickListener {
         void onPostClick(Post post);
     }
 
-    public PostAdapter(List<Post> postList, OnPostClickListener listener) {
+    public PostAdapter(List<Post> postList, OnPostClickListener listener, boolean isAdmin) {
         this.postList = postList;
         this.listener = listener;
+        this.isAdmin = isAdmin;
     }
 
     @NonNull
@@ -35,7 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postList.get(position);
-        holder.bind(post, listener);
+        holder.bind(post, listener, isAdmin);
     }
 
     @Override
@@ -45,22 +48,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         TextView tvAddress, tvDate;
-        ImageView imgThumbnail;
+        ImageView imgThumbnail, btnAprobar, btnRechazar;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tv_fecha);
             imgThumbnail = itemView.findViewById(R.id.iv_preview);
+            btnAprobar = itemView.findViewById(R.id.btn_check);
+            btnRechazar = itemView.findViewById(R.id.btn_delete);
         }
 
-        public void bind(Post post, OnPostClickListener listener) {
+        public void bind(Post post, OnPostClickListener listener, boolean isAdmin) {
             tvAddress.setText(post.getAddress());
             tvDate.setText(post.getDate());
             Glide.with(itemView.getContext())
                     .load(Uri.parse(post.getImageUri()))
                     .into(imgThumbnail);
+            if (isAdmin) {
+                btnAprobar.setVisibility(View.VISIBLE);
+                btnRechazar.setVisibility(View.VISIBLE);
+            } else {
+                btnAprobar.setVisibility(View.GONE);
+                btnRechazar.setVisibility(View.GONE);
+            }
             itemView.setOnClickListener(v -> listener.onPostClick(post));
+            btnAprobar.setOnClickListener(v ->
+                    Toast.makeText(itemView.getContext(), "Post aprobado", Toast.LENGTH_SHORT).show());
+            btnRechazar.setOnClickListener(v ->
+                    Toast.makeText(itemView.getContext(), "Post rechazado", Toast.LENGTH_SHORT).show());
+            
         }
     }
 }

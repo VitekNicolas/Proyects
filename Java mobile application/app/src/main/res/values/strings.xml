@@ -44,5 +44,6 @@
     <string name="tv_fecha_title">Fecha</string>
     <string name="tv_tipo_title">Tipo</string>
     <string name="tv_address_title">Direccion</string>
+    <string name="iv_itemPost_description">Tumball post</string>
 
 </resources>
