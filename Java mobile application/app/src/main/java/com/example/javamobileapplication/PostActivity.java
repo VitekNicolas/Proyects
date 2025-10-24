@@ -10,7 +10,6 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,7 +32,6 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
 import timber.log.Timber;
 
 public class PostActivity extends MenuActivity {
@@ -67,7 +65,6 @@ public class PostActivity extends MenuActivity {
         btnGaleria.setOnClickListener(v -> openImageGallery());
         btnSavePost.setOnClickListener(v -> savePost());
         etFecha.setOnClickListener(v -> showDateSelector());
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void openCamera() {
@@ -118,7 +115,6 @@ public class PostActivity extends MenuActivity {
         }
     }
 
-    @SuppressLint("TimberExceptionLogging")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -155,6 +151,9 @@ public class PostActivity extends MenuActivity {
         }
     }
     private void savePost() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+        String userId = user.getUid();
         FirebaseApp.initializeApp(this);
         EditText et_description = findViewById(R.id.et_description);
         String address = et_description.getText().toString();
@@ -174,7 +173,7 @@ public class PostActivity extends MenuActivity {
             Address location = addresses.get(0);
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude);
+            Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude, userId);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("posts")
                     .add(post)

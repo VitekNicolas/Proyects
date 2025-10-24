@@ -4,22 +4,20 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
     private long id;
-    private String address;
-    private String category;
-    private String date;
-    private String imageUri;
+    private String address, category, date, imageUri, userId;
     private double latitude, longitude;
 
     public Post() {
     }
 
-    public Post(String address, String category, String date, String imageUri, double latitude, double longitude) {
+    public Post(String address, String category, String date, String imageUri, double latitude, double longitude, String userId) {
         this.address = address;
         this.category = category;
         this.date = date;
         this.imageUri = imageUri;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.userId=userId;
     }
 
     public long getId() {
@@ -77,4 +75,7 @@ public class Post implements Serializable {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 }

@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -43,7 +45,14 @@ public class PostListActivity extends MenuActivity {
     }
 
     private void loadPosts(boolean isAdmin) {
-        db.collection("posts").get().addOnSuccessListener(querySnapshot -> {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
+        Query query = db.collection("posts");
+        if (!isAdmin) {
+            // 👤 Solo ver los posts del usuario actual
+            query = query.whereEqualTo("userId", user.getUid());
+        }
+        query.get().addOnSuccessListener(querySnapshot -> {
             List<Post> posts = new ArrayList<>();
             for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                 Post post = doc.toObject(Post.class);
