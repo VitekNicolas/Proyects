@@ -177,6 +177,7 @@ public class PostActivity extends MenuActivity {
             String postId = db.collection("posts").document().getId();
             Post post = new Post(address, category, date, imageUri.toString(), latitude, longitude, userId);
             post.setId(postId);
+            post.setNotified(false);
             db.collection("posts").document(postId)
                     .set(post)
                     .addOnSuccessListener(aVoid -> {

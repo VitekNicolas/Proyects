@@ -1,15 +1,22 @@
 package com.example.javamobileapplication;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -19,6 +26,7 @@ public class PostListActivity extends MenuActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+    private static final String CHANNEL_ID = "post_status_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,9 @@ public class PostListActivity extends MenuActivity {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         checkUserRole();
+        createNotificationChannel();
+        requestNotificationPermission();
+        listenToPostStatusChanges();
     }
 
     private void checkUserRole() {
@@ -70,5 +81,71 @@ public class PostListActivity extends MenuActivity {
             }, isAdmin);
             recyclerView.setAdapter(adapter);
         });
+    }
+
+    private void showStatusNotification(String category, String status) {
+        String message = status.equals("approved")
+                ? "Tu reclamo de tipo \"" + category + "\" fue APROBADO"
+                : "Tu reclamo de tipo \"" + category + "\" fue RECHAZADO";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "post_status_channel")
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Actualización de tu reclamo")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
+        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            manager.notify((int) System.currentTimeMillis(), builder.build());
+        }
+    }
+    private void listenToPostStatusChanges() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        db.collection("posts")
+                .whereEqualTo("userId", user.getUid())
+                .addSnapshotListener((querySnapshot, error) -> {
+                    if (error != null || querySnapshot == null) return;
+
+                    for (DocumentChange change : querySnapshot.getDocumentChanges()) {
+                        DocumentSnapshot doc = change.getDocument();
+                        Post post = doc.toObject(Post.class);
+
+                        // 🔸 Solo si el post cambió de estado
+                        if (change.getType() == DocumentChange.Type.MODIFIED && post != null) {
+                            String newStatus = post.getStatus();
+
+                            // Verificamos si cambió a aprobado o rechazado y aún no fue notificado
+                            if ((newStatus.equals("approved") || newStatus.equals("rejected")) && !post.isNotified()) {
+                                showStatusNotification(post.getCategory(), newStatus);
+
+                                // 🔹 Marcar como notificado
+                                doc.getReference().update("notified", true);
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Actualización de reclamos";
+            String description = "Notifica cambios en el estado de tus reclamos";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
     private String id;
+    private boolean notified;
     private String address, category, date, imageUri, userId, status;
     private double latitude, longitude;
 
@@ -78,4 +79,6 @@ public class Post implements Serializable {
     public void setUserId(String userId) { this.userId = userId; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public boolean isNotified() { return notified; }
+    public void setNotified(boolean notified) { this.notified = notified; }
 }

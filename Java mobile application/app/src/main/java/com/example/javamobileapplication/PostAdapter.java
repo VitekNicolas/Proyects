@@ -96,8 +96,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         .addOnFailureListener(e ->
                                 Toast.makeText(itemView.getContext(), "Error al rechazar post", Toast.LENGTH_SHORT).show());
             });
-
-            
         }
     }
 }
