@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.WindowManager;
@@ -24,14 +25,20 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
+
 import timber.log.Timber;
 
 public class PostActivity extends MenuActivity {
@@ -129,15 +136,20 @@ public class PostActivity extends MenuActivity {
                 getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 InputStream inputStream = getContentResolver().openInputStream(sourceUri);
                 File file = new File(getFilesDir(), "imagen_" + System.currentTimeMillis() + ".jpg");
-                OutputStream outputStream = new FileOutputStream(file);
+                OutputStream outputStream = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    outputStream = Files.newOutputStream(file.toPath());
+                }
                 byte[] buffer = new byte[1024];
                 int length;
                 while (true) {
                     assert inputStream != null;
                     if (!((length = inputStream.read(buffer)) > 0)) break;
+                    assert outputStream != null;
                     outputStream.write(buffer, 0, length);
                 }
                 inputStream.close();
+                assert outputStream != null;
                 outputStream.close();
                 imageUri = Uri.fromFile(file);
                 imageView.setImageURI(imageUri);
@@ -152,6 +164,8 @@ public class PostActivity extends MenuActivity {
     }
     private void savePost() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference()
+                .child("images/" + UUID.randomUUID().toString() + ".jpg");
         if (user == null) return;
         String userId = user.getUid();
         FirebaseApp.initializeApp(this);
@@ -187,10 +201,10 @@ public class PostActivity extends MenuActivity {
                         Toast.makeText(this, "Error al subir el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         Timber.e(e, "Se produjo un error");
                     });
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Toast.makeText(this, "Error al buscar dirección", Toast.LENGTH_SHORT).show();
             Timber.e(e, "Se produjo un error");
         }
     }
-
 }

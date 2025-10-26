@@ -18,7 +18,6 @@ import org.osmdroid.views.overlay.Marker;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import timber.log.Timber;
 
 public class MapActivity extends MenuActivity {
@@ -107,7 +106,6 @@ public class MapActivity extends MenuActivity {
                                 marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
                                 break;
                         }
-
                         mapView.getOverlays().add(marker);
                     }
                     mapView.invalidate();
