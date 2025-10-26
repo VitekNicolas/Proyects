@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="status_pendiente">#FFA500</color> <!-- naranja -->
+    <color name="status_aprobado">#4CAF50</color>  <!-- verde -->
+    <color name="status_rechazado">#F44336</color> <!-- rojo -->
 </resources>

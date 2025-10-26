@@ -19,7 +19,7 @@ public class Post implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.userId=userId;
-        this.status="pending";
+        this.status="pendiente";
     }
 
     public String getId() {

@@ -3,6 +3,7 @@ package com.example.javamobileapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.InputStream;
 import java.util.List;
 import timber.log.Timber;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
+
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
@@ -48,6 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postList.get(position);
+        holder.setStatusStyle(holder,position,this.postList);
         holder.bind(post, listener, isAdmin);
     }
 
@@ -57,13 +58,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAddress, tvDate;
+        TextView tvAddress, tvDate, tvStatus;
         ImageView imgThumbnail, btnAprobar, btnRechazar, btnDownload, btnLocation;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tv_fecha);
+            tvStatus=itemView.findViewById(R.id.tv_status);
             imgThumbnail = itemView.findViewById(R.id.iv_preview);
             btnAprobar = itemView.findViewById(R.id.btn_check);
             btnRechazar = itemView.findViewById(R.id.btn_delete);
@@ -76,6 +78,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             tvAddress.setText(post.getAddress());
             tvDate.setText(post.getDate());
+            tvStatus.setText(post.getStatus());
             Glide.with(itemView.getContext())
                     .load(Uri.parse(post.getImageUri()))
                     .into(imgThumbnail);
@@ -89,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             itemView.setOnClickListener(v -> listener.onPostClick(post));
             btnAprobar.setOnClickListener(v -> {
                 db.collection("posts").document(post.getId())
-                        .update("status", "approved")
+                        .update("status", "aprobado")
                         .addOnSuccessListener(aVoid ->
                                 Toast.makeText(itemView.getContext(), "Post aprobado", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e ->
@@ -97,7 +100,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             });
             btnRechazar.setOnClickListener(v -> {
                 db.collection("posts").document(post.getId())
-                        .update("status", "rejected")
+                        .update("status", "rechazado")
                         .addOnSuccessListener(aVoid ->
                                 Toast.makeText(itemView.getContext(), "Post rechazado", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e ->
@@ -129,6 +132,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 intent.putExtra("address", post.getAddress());
                 itemView.getContext().startActivity(intent);
             });
+        }
+
+        public void setStatusStyle(@NonNull PostViewHolder holder, int position, List<Post> postList){
+            Context context = itemView.getContext();
+            Post post = postList.get(position);
+            holder.tvStatus.setText(post.getStatus());
+            holder.tvStatus.setPaintFlags(holder.tvStatus.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            switch (post.getStatus().toLowerCase()) {
+                case "pendiente":
+                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.status_pendiente));
+                    break;
+                case "aprobado":
+                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.status_aprobado));
+                    break;
+                case "rechazado":
+                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.status_rechazado));
+                    break;
+                default:
+                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.black));
+                    break;
+            }
         }
     }
 }

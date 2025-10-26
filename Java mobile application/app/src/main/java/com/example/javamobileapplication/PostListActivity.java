@@ -21,6 +21,7 @@ import com.google.firebase.firestore.Query;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import timber.log.Timber;
 
@@ -61,15 +62,15 @@ public class PostListActivity extends MenuActivity {
     private void loadPosts(boolean isAdmin) {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) return;
-        Query query = db.collection("posts");
+        Query query;
         if (isAdmin) {
-            // 👑 El admin ve los pendientes
-            query = query.whereEqualTo("status", "pending");
-        }
-        else{
-            query = query
+            // 👑 El admin ve todos los posts
+            query = db.collection("posts");
+        } else {
+            // 👤 El usuario ve los suyos (aprobados o rechazados)
+            query = db.collection("posts")
                     .whereEqualTo("userId", user.getUid())
-                    .whereEqualTo("status", "approved");
+                    .whereIn("status", Arrays.asList("aprobado", "rechazado"));
         }
         query.get().addOnSuccessListener(querySnapshot -> {
             List<Post> posts = new ArrayList<>();
@@ -87,7 +88,7 @@ public class PostListActivity extends MenuActivity {
     }
 
     private void showStatusNotification(String category, String status) {
-        String message = status.equals("approved")
+        String message = status.equals("aprobado")
                 ? "Tu reclamo de tipo \"" + category + "\" fue APROBADO"
                 : "Tu reclamo de tipo \"" + category + "\" fue RECHAZADO";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "post_status_channel")
@@ -115,7 +116,7 @@ public class PostListActivity extends MenuActivity {
                         Post post = doc.toObject(Post.class);
                         if (change.getType() == DocumentChange.Type.MODIFIED) {
                             String newStatus = post.getStatus();
-                            if ((newStatus.equals("approved") || newStatus.equals("rejected")) && !post.isNotified()) {
+                            if ((newStatus.equals("aprobado") || newStatus.equals("rechazado")) && !post.isNotified()) {
                                 showStatusNotification(post.getCategory(), newStatus);
                                 doc.getReference().update("notified", true);
                             }

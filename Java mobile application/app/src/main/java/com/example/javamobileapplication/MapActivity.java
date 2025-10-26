@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
+import androidx.core.content.res.ResourcesCompat;
+
 
 public class MapActivity extends MenuActivity {
 
@@ -88,7 +90,7 @@ public class MapActivity extends MenuActivity {
     private void addMarkers() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posts")
-                .whereEqualTo("status", "approved")
+                .whereEqualTo("status", "aprobado")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     mapView.getOverlays().clear();
@@ -100,16 +102,18 @@ public class MapActivity extends MenuActivity {
                         marker.setSnippet("Fecha: " + complaint.getDate());
                         switch (complaint.getCategory().toLowerCase()) {
                             case "bache":
-                                marker.setIcon(getResources().getDrawable(R.drawable.marker_green));
+                                marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.marker_green, null));
                                 break;
                             case "basura acumulada":
-                                marker.setIcon(getResources().getDrawable(R.drawable.marker_yellow));
+                                marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.marker_yellow, null));
+
                                 break;
                             case "iluminación":
-                                marker.setIcon(getResources().getDrawable(R.drawable.marker_red));
+                                marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.marker_red, null));
+
                                 break;
                             default:
-                                marker.setIcon(getResources().getDrawable(R.drawable.marker_blue));
+                                marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.marker_blue, null));
                                 break;
                         }
                         mapView.getOverlays().add(marker);
