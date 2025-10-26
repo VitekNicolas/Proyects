@@ -42,6 +42,12 @@ public class MapActivity extends MenuActivity {
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
         btnSearch.setOnClickListener(v -> searchLocation());
         addMarkers();
+        double lat = getIntent().getDoubleExtra("latitude", 0);
+        double lon = getIntent().getDoubleExtra("longitude", 0);
+        String address = getIntent().getStringExtra("address");
+        if (lat != 0 && lon != 0) {
+            focusOnMarker(lat, lon, address);
+        }
     }
 
     private void searchLocation() {
@@ -114,5 +120,10 @@ public class MapActivity extends MenuActivity {
                     Timber.tag("Firestore").e(e, "Error al cargar los posts");
                     Toast.makeText(this, "Error al cargar marcadores", Toast.LENGTH_SHORT).show();
                 });
+    }
+    private void focusOnMarker(double latitude, double longitude, String address) {
+        GeoPoint point = new GeoPoint(latitude, longitude);
+        mapView.getController().setZoom(18.0);
+        mapView.getController().animateTo(point);
     }
 }

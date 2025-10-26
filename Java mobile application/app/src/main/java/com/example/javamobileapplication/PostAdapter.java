@@ -122,7 +122,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     Toast.makeText(context, "Error al iniciar descarga: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
+            btnLocation.setOnClickListener(v -> {
+                Intent intent = new Intent(itemView.getContext(), MapActivity.class);
+                intent.putExtra("latitude", post.getLatitude());
+                intent.putExtra("longitude", post.getLongitude());
+                intent.putExtra("address", post.getAddress());
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }
