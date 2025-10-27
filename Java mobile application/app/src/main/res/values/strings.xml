@@ -40,11 +40,15 @@
     <string name="btn_camera_title">Tomar foto</string>
     <string name="btn_gallery_title">Elegir imagen de galería</string>
     <string name="btn_publish_title">Publicar</string>
-    <!--    Reclaim details activity-->
+    <!--    Reclaim list activity-->
+    <string name="tv_postList_title">Lista de reclamos</string>
     <string name="tv_fecha_title">Fecha</string>
     <string name="tv_tipo_title">Tipo</string>
     <string name="tv_address_title">Direccion</string>
     <string name="iv_itemPost_description">Tumball post</string>
     <string name="tv_status_title">Estado</string>
-
+    <string name="iv_btnDownload_description">Button for download post image</string>
+    <string name="iv_btnLocation_description">Button for locate post marker in map.</string>
+    <string name="iv_btnReject_description">Button for reject post.</string>
+    <string name="iv_btnApproved">Button for aprove post.</string>
 </resources>
