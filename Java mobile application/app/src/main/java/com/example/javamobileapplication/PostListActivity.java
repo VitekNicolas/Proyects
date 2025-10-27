@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -64,28 +65,46 @@ public class PostListActivity extends MenuActivity {
         if (user == null) return;
         Query query;
         if (isAdmin) {
-            // 👑 El admin ve todos los posts
             query = db.collection("posts");
         } else {
-            // 👤 El usuario ve los suyos (aprobados o rechazados)
             query = db.collection("posts")
                     .whereEqualTo("userId", user.getUid())
                     .whereIn("status", Arrays.asList("aprobado", "rechazado"));
         }
+
         query.get().addOnSuccessListener(querySnapshot -> {
             List<Post> posts = new ArrayList<>();
             for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                 Post post = doc.toObject(Post.class);
                 if (post != null) posts.add(post);
             }
+
             PostAdapter adapter = new PostAdapter(posts, post -> {
                 Intent intent = new Intent(this, PostDetailActivity.class);
                 intent.putExtra("post", post);
                 startActivity(intent);
             }, isAdmin);
+
             recyclerView.setAdapter(adapter);
+
+            // 🔍 Vinculamos el SearchView
+            SearchView searchView = findViewById(R.id.search_post);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    adapter.getFilter().filter(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return true;
+                }
+            });
         });
     }
+
 
     private void showStatusNotification(String category, String status) {
         String message = status.equals("aprobado")
@@ -200,5 +219,4 @@ public class PostListActivity extends MenuActivity {
             manager.notify((int) System.currentTimeMillis(), builder.build());
         }
     }
-
 }

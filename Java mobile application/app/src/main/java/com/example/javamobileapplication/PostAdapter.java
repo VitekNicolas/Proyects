@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
@@ -24,6 +26,7 @@ import timber.log.Timber;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private final List<Post> postList;
+    private List<Post> filteredList;
     private final OnPostClickListener listener;
     private final boolean isAdmin;
 
@@ -35,7 +38,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.postList = postList;
         this.listener = listener;
         this.isAdmin = isAdmin;
+        this.filteredList = new ArrayList<>(postList);
     }
+
 
     @NonNull
     @Override
@@ -47,14 +52,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        Post post = postList.get(position);
-        holder.setStatusStyle(holder,position,this.postList);
+        Post post = filteredList.get(position);
+        holder.setStatusStyle(holder,position,this.filteredList);
         holder.bind(post, listener, isAdmin);
     }
 
     @Override
     public int getItemCount() {
-        return postList.size();
+        return filteredList.size();
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
@@ -154,5 +159,37 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     break;
             }
         }
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString().toLowerCase().trim();
+                List<Post> filtered = new ArrayList<>();
+                if (query.isEmpty()) {
+                    filtered = new ArrayList<>(postList);
+                } else {
+                    for (Post post : postList) {
+                        if ((post.getAddress() != null && post.getAddress().toLowerCase().contains(query)) ||
+                                (post.getStatus() != null && post.getStatus().toLowerCase().contains(query)) ||
+                                (post.getDate() != null && post.getDate().toLowerCase().contains(query)) ||
+                                (post.getCategory() != null && post.getCategory().toLowerCase().contains(query)) ||
+                                (post.getUserId() != null && post.getUserId().toLowerCase().contains(query))) {
+                            filtered.add(post);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filtered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList = (List<Post>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }
