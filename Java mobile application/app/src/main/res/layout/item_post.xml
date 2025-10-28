@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#3F6BF1"
-            android:contentDescription="@string/iv_btnDownload_description"
+            android:contentDescription="@string/ib_btnDownload_description"
             android:padding="5dp"
             app:srcCompat="@drawable/ic_download" />
 
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#EFD912"
-            android:contentDescription="@string/iv_btnLocation_description"
+            android:contentDescription="@string/ib_btnLocation_description"
             android:padding="5dp"
             app:srcCompat="@drawable/ic_location" />
 

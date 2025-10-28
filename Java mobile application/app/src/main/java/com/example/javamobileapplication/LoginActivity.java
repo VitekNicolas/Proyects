@@ -1,6 +1,5 @@
 package com.example.javamobileapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +27,7 @@ import com.google.firebase.auth.*;
 
 import timber.log.Timber;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MenuActivity {
 
     private static final int RC_SIGN_IN = 100;
     private EditText et_userEmail, et_password_hint;
@@ -41,9 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         et_userEmail=findViewById(R.id.et_userEmail);
         et_password_hint=findViewById(R.id.et_password_hint);
         Button btn_register = findViewById(R.id.btn_register);
@@ -59,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         FirebaseUser user = myAuth.getCurrentUser();
-        mostrarImagenGuardada(user);
     }
 
 

@@ -1,51 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="#FAFAFA"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include layout="@layout/toolbar_layout" />
-
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:background="#E0E0E0"
-            android:contentDescription="Imagen del reclamo" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dirección"
-            android:textSize="18sp"
+            android:text="@string/tv_postListDetail_title"
+            android:textColor="#2b2b2b"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#212121"
-            android:layout_marginTop="16dp" />
+            android:layout_marginStart="10dp" />
 
-        <TextView
-            android:id="@+id/tv_category"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tipo de reclamo"
-            android:textSize="16sp"
-            android:textColor="#424242"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/white"
+            android:elevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha"
-            android:textSize="16sp"
-            android:textColor="#424242"
-            android:layout_marginTop="8dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:background="#E0E0E0"
+                    android:contentDescription="Imagen del reclamo"
+                    android:layout_marginBottom="8dp"
+                    android:clipToOutline="true" />
+
+                <!-- DATOS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dirección"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121" />
+
+                    <TextView
+                        android:id="@+id/tv_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dirección"
+                        android:textSize="16sp"
+                        android:textColor="#212121" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha"
+                        android:textSize="16sp"
+                        android:textColor="#424242"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Estado"
+                        android:textSize="16sp"
+                        android:textColor="#424242"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ID"
+                        android:textSize="16sp"
+                        android:textColor="#424242"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- BOTONES -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_edit"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/rounded_button_background"
+                        android:src="@drawable/ic_edit"
+                        android:contentDescription="@string/ib_btnEditPost_title" />
+
+                    <ImageButton
+                        android:id="@+id/btn_download"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/rounded_button_background"
+                        app:srcCompat="@drawable/ic_download"
+                        android:contentDescription="@string/ib_btnDownload_description" />
+
+                    <ImageButton
+                        android:id="@+id/btn_location"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/rounded_button_background"
+                        app:srcCompat="@drawable/ic_location"
+                        android:contentDescription="@string/ib_btnLocation_description" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

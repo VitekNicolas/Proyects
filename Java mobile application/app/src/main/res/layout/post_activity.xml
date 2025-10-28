@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/et_date_hint"
-            android:focusable="true"
+            android:focusable="false"
             android:clickable="true"
             android:inputType="none"
             android:drawableEnd="@android:drawable/ic_menu_today"

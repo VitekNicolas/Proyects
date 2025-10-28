@@ -50,24 +50,19 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:exported="false"
-            android:label="Registrarse" />
+            android:exported="false" />
         <activity
             android:name=".MapActivity"
-            android:exported="false"
-            android:label="Mapa de reclamos" />
+            android:exported="false"/>
         <activity
             android:name=".PostActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="Publicar reclamo"/>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".PostDetailActivity"
-            android:exported="false"
-            android:label="Detalle" />
+            android:exported="false"/>
         <activity
             android:name=".PostListActivity"
-            android:exported="false"
-            android:label="Lista de reclamos" />
+            android:exported="false"/>
     </application>
 </manifest>

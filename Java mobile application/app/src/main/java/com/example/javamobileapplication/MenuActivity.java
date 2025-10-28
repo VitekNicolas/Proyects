@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import java.util.Objects;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -64,6 +65,7 @@ public class MenuActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         Drawable overflowIcon = toolbar.getOverflowIcon();
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         if (overflowIcon != null) {
             overflowIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         }

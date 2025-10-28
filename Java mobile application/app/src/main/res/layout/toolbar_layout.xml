@@ -7,4 +7,15 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:titleTextColor="@android:color/white"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:fitsSystemWindows="true">
+
+<ImageView
+android:id="@+id/logoImageView"
+android:layout_width="150dp"
+android:layout_height="50dp"
+android:layout_gravity="start"
+android:layout_marginStart="0in"
+android:contentDescription="@string/iv_logo_description"
+android:src="@drawable/ic_logo" />
+</androidx.appcompat.widget.Toolbar>
