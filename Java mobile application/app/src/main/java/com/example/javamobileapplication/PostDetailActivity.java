@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -37,6 +38,11 @@ public class PostDetailActivity extends MenuActivity {
         ibDownload.setOnClickListener(v-> {
             assert post != null;
             downloadPostImage(post);
+        });
+        ImageButton ibDelete=findViewById(R.id.btn_delete);
+        ibDelete.setOnClickListener(v->{
+            assert post != null;
+            deletePost(post);
         });
     }
 
@@ -72,6 +78,27 @@ public class PostDetailActivity extends MenuActivity {
                 imgPreview.setImageURI(Uri.parse(post.getImageUri()));
             }
         }
+    }
+
+    private void deletePost(Post post){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String postId = post.getId(); // currentPost es el Post que estás mostrando en la actividad
+        if (postId == null || postId.isEmpty()) {
+            Toast.makeText(this, "ID del reclamo no válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        db.collection("posts").document(postId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Reclamo eliminado correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PostDetailActivity.this, PostListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al eliminar el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void downloadPostImage(Post post){

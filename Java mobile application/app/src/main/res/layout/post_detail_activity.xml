@@ -110,11 +110,11 @@
                     android:padding="8dp">
 
                     <ImageButton
-                        android:id="@+id/btn_edit"
+                        android:id="@+id/btn_delete"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/rounded_button_background"
-                        android:src="@drawable/ic_edit"
+                        android:src="@drawable/ic_delete"
                         android:contentDescription="@string/ib_btnEditPost_title" />
 
                     <ImageButton

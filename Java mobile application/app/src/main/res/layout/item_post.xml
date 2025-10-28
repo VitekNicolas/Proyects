@@ -73,7 +73,7 @@
             android:background="#EF123B"
             android:contentDescription="@string/iv_btnReject_description"
             android:padding="5dp"
-            app:srcCompat="@drawable/ic_delete"
+            app:srcCompat="@drawable/ic_reject"
             android:visibility="gone" />
 
         <Space
