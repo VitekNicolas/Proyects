@@ -67,32 +67,6 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/btn_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#3F6BF1"
-            android:contentDescription="@string/ib_btnDownload_description"
-            android:padding="5dp"
-            app:srcCompat="@drawable/ic_download" />
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/btn_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#EFD912"
-            android:contentDescription="@string/ib_btnLocation_description"
-            android:padding="5dp"
-            app:srcCompat="@drawable/ic_location" />
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <ImageView
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
