@@ -41,27 +41,34 @@
 
         <Button
             android:id="@+id/btn_loginUser"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:text="@string/btn_login_title"
-            android:backgroundTint="#1AD105" />
+            android:backgroundTint="#1AD105"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/btn_register"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/btn_register_title"
             android:backgroundTint="#3F6BF1"
-            app:iconPadding="2dp" />
+            app:iconPadding="2dp"
+            android:textColor="#FFFFFF"/>
+
     </LinearLayout>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_loginGoogle_title"
+        android:textSize="16sp"
 />
 </LinearLayout>

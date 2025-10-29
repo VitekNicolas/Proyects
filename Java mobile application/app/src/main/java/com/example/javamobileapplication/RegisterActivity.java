@@ -1,5 +1,7 @@
 package com.example.javamobileapplication;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
@@ -9,33 +11,28 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Objects;
-
 import timber.log.Timber;
 
 public class RegisterActivity extends MenuActivity {
 
+    private ActivityResultLauncher<Intent> galleryLauncher;
+    private ActivityResultLauncher<Intent> cameraLauncher;
     private EditText et_email, et_password, et_repeatPassword;
-    private ImageView imgUserProfile;
     private FirebaseAuth myAuth;
     private Uri imageUri;
     private static final int REQUEST_GALLERY = 100;
@@ -50,11 +47,43 @@ public class RegisterActivity extends MenuActivity {
         et_email = findViewById(R.id.et_userEmail);
         et_password = findViewById(R.id.et_password_hint);
         et_repeatPassword = findViewById(R.id.et_passwordRepeat_hint);
-        imgUserProfile = findViewById(R.id.iv_profile_photo);
+        ImageView profilePhoto = findViewById(R.id.iv_profile_photo);
         Button btn_register = findViewById(R.id.btn_registerUser);
-        Button btn_add_photo = findViewById(R.id.btn_add_photo);
         btn_register.setOnClickListener(v -> registerUser());
+        Button btn_add_photo = findViewById(R.id.btn_add_photo);
         btn_add_photo.setOnClickListener(v -> abrirSelectorImagen());
+        Button btnDelete = findViewById(R.id.btn_remove_photo);
+        btnDelete.setOnClickListener(v->deleteImage(profilePhoto));
+        setActivityResult(profilePhoto);
+    }
+
+    private void setActivityResult(ImageView imageView){
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImage = result.getData().getData();
+                        imageView.setImageURI(selectedImage);
+                    }
+                }
+        );
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        imageView.setImageURI(imageUri);
+                    }
+                }
+        );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
+
+    private void deleteImage(ImageView imageView) {
+        imageView.setImageResource(R.drawable.user);
     }
 
     private void abrirSelectorImagen() {
@@ -76,7 +105,7 @@ public class RegisterActivity extends MenuActivity {
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivityForResult(intent, REQUEST_GALLERY);
+        galleryLauncher.launch(intent);
     }
 
     private void openCamera() {
@@ -86,25 +115,10 @@ public class RegisterActivity extends MenuActivity {
             imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", photo);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivityForResult(intent, REQUEST_CAMERA);
+            cameraLauncher.launch(intent);
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode != RESULT_OK) return;
-//        if (requestCode == REQUEST_GALLERY && data != null) {
-//            Uri sourceUri = data.getData();
-//            if (sourceUri != null) {
-//                getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                imageUri = sourceUri;
-//                imgUserProfile.setImageURI(imageUri);
-//            }
-//        } else if (requestCode == REQUEST_CAMERA) {
-//            imgUserProfile.setImageURI(imageUri);
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -197,39 +211,14 @@ public class RegisterActivity extends MenuActivity {
                 });
     }
 
-//    private void uploadImageAndSaveUser(FirebaseUser firebaseUser, String email) {
-//        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-//        StorageReference imageRef = storageRef.child("users/" + System.currentTimeMillis() + ".jpg");
-//        try {
-//            InputStream stream = new FileInputStream(Objects.requireNonNull(imageUri.getPath()));
-//            UploadTask uploadTask = imageRef.putStream(stream);
-//            uploadTask.addOnSuccessListener(taskSnapshot ->
-//                    imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-//                        String downloadUrl = uri.toString();
-//                        saveUserToFirestore(firebaseUser.getUid(), email, downloadUrl);
-//                        Timber.tag("UPLOAD").e( " ");
-//                    })
-//            ).addOnFailureListener(e -> {
-//                Timber.tag("UPLOAD").e(e, "Error al subir imagen");
-//            });
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private void saveUserToFirestore(String uid, String email, String imageUrl) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         User user = new User(email, imageUrl);
         db.collection("users")
                 .document(uid)
                 .set(user)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al guardar usuario: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                });
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al guardar usuario: " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
 }
 

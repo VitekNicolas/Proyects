@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.SignInButton;
@@ -53,6 +54,8 @@ public class LoginActivity extends MenuActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        TextView textView = (TextView) btn_google.getChildAt(0);
+        textView.setText(getString(R.string.btn_loginGoogle_title));
     }
 
     @Override
