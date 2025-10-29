@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -160,7 +159,7 @@ public class PostActivity extends MenuActivity {
     }
     private void savePost() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference()
+        FirebaseStorage.getInstance().getReference()
                 .child("images/" + UUID.randomUUID().toString() + ".jpg");
         if (user == null) return;
         String userId = user.getUid();

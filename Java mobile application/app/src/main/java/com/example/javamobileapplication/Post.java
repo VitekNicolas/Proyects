@@ -3,10 +3,10 @@ package com.example.javamobileapplication;
 import java.io.Serializable;
 
 public class Post implements Serializable {
-    private String id;
-    private boolean notified;
-    private String address, category, date, imageUri, userId, status;
+
+    private String id, address, category, date, imageUri, userId, status;
     private double latitude, longitude;
+    private boolean notified;
 
     public Post() {
     }
