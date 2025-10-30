@@ -33,7 +33,7 @@
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:hint="@string/et_location_hint"
                 android:background="@drawable/edittext_background"
@@ -44,7 +44,7 @@
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"
+                android:layout_height="57dp"
                 android:text="@string/btn_search_title"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"

@@ -10,9 +10,12 @@ import androidx.multidex.BuildConfig;
 import androidx.preference.PreferenceManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import java.io.IOException;
@@ -20,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
 import androidx.core.content.res.ResourcesCompat;
-
 
 public class MapActivity extends MenuActivity {
 
@@ -39,16 +41,17 @@ public class MapActivity extends MenuActivity {
         etSearch = findViewById(R.id.et_search);
         Button btnSearch = findViewById(R.id.btn_search);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.setBuiltInZoomControls(true);
-        mapView.getController().setZoom(14);
+        mapView.setMultiTouchControls(true);
+        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
+        IMapController mapController = mapView.getController();
+        mapController.setZoom(14.0);
         mapView.getController().setCenter(new GeoPoint(-34.7636, -58.2126));
         btnSearch.setOnClickListener(v -> searchLocation());
         addMarkers();
         double lat = getIntent().getDoubleExtra("latitude", 0);
         double lon = getIntent().getDoubleExtra("longitude", 0);
-        String address = getIntent().getStringExtra("address");
         if (lat != 0 && lon != 0) {
-            focusOnMarker(lat, lon, address);
+            focusOnMarker(lat, lon);
         }
     }
 
@@ -66,7 +69,8 @@ public class MapActivity extends MenuActivity {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 GeoPoint point = new GeoPoint(latitude, longitude);
-                mapView.getController().setZoom(16);
+                IMapController mapController = mapView.getController();
+                mapController.setZoom(14.0);
                 mapView.getController().animateTo(point);
                 if (currentMarker != null) {
                     mapView.getOverlays().remove(currentMarker);
@@ -125,7 +129,7 @@ public class MapActivity extends MenuActivity {
                     Toast.makeText(this, "Error al cargar marcadores", Toast.LENGTH_SHORT).show();
                 });
     }
-    private void focusOnMarker(double latitude, double longitude, String address) {
+    private void focusOnMarker(double latitude, double longitude) {
         GeoPoint point = new GeoPoint(latitude, longitude);
         mapView.getController().setZoom(18.0);
         mapView.getController().animateTo(point);
