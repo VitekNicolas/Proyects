@@ -45,6 +45,10 @@ public class PostActivity extends MenuActivity {
     private Spinner spinnerTipo;
     private EditText etFecha;
 
+    private ImageView iv_profilePhoto;
+    private FirebaseFirestore db;
+    private FirebaseAuth myAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,12 @@ public class PostActivity extends MenuActivity {
         btnGaleria.setOnClickListener(v -> openImageGallery());
         btnSavePost.setOnClickListener(v -> savePost());
         etFecha.setOnClickListener(v -> showDateSelector());
+
+        iv_profilePhoto = findViewById(R.id.iv_profilePhoto);
+        db = FirebaseFirestore.getInstance();
+        myAuth = FirebaseAuth.getInstance();
+
+
     }
 
     private void openCamera() {
@@ -202,4 +212,5 @@ public class PostActivity extends MenuActivity {
             Timber.e(e, "Se produjo un error");
         }
     }
+
 }

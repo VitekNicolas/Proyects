@@ -67,20 +67,17 @@ public class PostListActivity extends MenuActivity {
                     .whereEqualTo("userId", user.getUid())
                     .whereIn("status", Arrays.asList("aprobado", "rechazado"));
         }
-
         query.get().addOnSuccessListener(querySnapshot -> {
             List<Post> posts = new ArrayList<>();
             for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                 Post post = doc.toObject(Post.class);
                 if (post != null) posts.add(post);
             }
-
             PostAdapter adapter = new PostAdapter(posts, post -> {
                 Intent intent = new Intent(this, PostDetailActivity.class);
                 intent.putExtra("post", post);
                 startActivity(intent);
             }, isAdmin);
-
             recyclerView.setAdapter(adapter);
             SearchView searchView = findViewById(R.id.search_post);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -1,13 +1,10 @@
 package com.example.javamobileapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -18,14 +15,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Objects;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import timber.log.Timber;
 
 public class LoginActivity extends MenuActivity {
@@ -33,20 +29,27 @@ public class LoginActivity extends MenuActivity {
     private static final int RC_SIGN_IN = 100;
     private EditText et_userEmail, et_password_hint;
     private FirebaseAuth myAuth;
-    private SharedPreferences preferences;
     private GoogleSignInClient mGoogleSignInClient;
+    private ImageView iv_profilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        et_userEmail=findViewById(R.id.et_userEmail);
-        et_password_hint=findViewById(R.id.et_password_hint);
+
+        et_userEmail = findViewById(R.id.et_userEmail);
+        et_password_hint = findViewById(R.id.et_password_hint);
+        iv_profilePhoto = findViewById(R.id.iv_profilePhoto);
+
         Button btn_register = findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(registerListener);
+        btn_register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+
         Button btn_login = findViewById(R.id.btn_loginUser);
-        btn_login.setOnClickListener(v->loginUser());
+        btn_login.setOnClickListener(v -> loginUser());
+
         SignInButton btn_google = findViewById(R.id.btn_google);
+        TextView textView = (TextView) btn_google.getChildAt(0);
+        textView.setText(getString(R.string.btn_loginGoogle_title));
         btn_google.setOnClickListener(v -> signInWithGoogle());
         myAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -54,18 +57,13 @@ public class LoginActivity extends MenuActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        TextView textView = (TextView) btn_google.getChildAt(0);
-        textView.setText(getString(R.string.btn_loginGoogle_title));
+        loadProfileImageIfExists();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }
-    private final View.OnClickListener registerListener = v -> {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    };
 
     private void loginUser() {
         String email = et_userEmail.getText().toString().trim();
@@ -77,78 +75,112 @@ public class LoginActivity extends MenuActivity {
         myAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, PostActivity.class));
-                        finish();
+                        FirebaseUser user = myAuth.getCurrentUser();
+                        if (user != null) {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("users").document(user.getUid()).get()
+                                    .addOnSuccessListener(document -> {
+                                        if (document.exists()) {
+                                            String photoUrl = document.getString("imageUri");
+                                            saveProfileImageLocally(photoUrl);
+                                        }
+                                        Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(this, PostActivity.class));
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(this, "Error al obtener foto de perfil", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(this, PostActivity.class));
+                                        finish();
+                                    });
+                        }
                     } else {
                         Toast.makeText(this, "Error al iniciar sesión: " +
                                 Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    // 🔹 Login con Google
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    @Override
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                if (account != null) {
+                    firebaseAuthWithGoogle(account);
+                }
             } catch (ApiException e) {
-                Toast.makeText(this, "Error al iniciar con Google", Toast.LENGTH_SHORT).show();
+                Log.e("GoogleSignIn", "Error al obtener cuenta de Google", e);
             }
         }
     }
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         myAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Inicio exitoso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, PostActivity.class));
-                        finish();
+                        FirebaseUser firebaseUser = myAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            String email = firebaseUser.getEmail();
+                            String photoUrl = (firebaseUser.getPhotoUrl() != null)
+                                    ? firebaseUser.getPhotoUrl().toString()
+                                    : null;
+
+                            // Guardar en Firestore si no existe
+                            saveGoogleUserToFirebase(email, photoUrl);
+                            // Guardar localmente
+                            if (photoUrl != null) saveProfileImageLocally(photoUrl);
+                            // Ir al PostActivity
+                            startActivity(new Intent(this, PostActivity.class));
+                            finish();
+                        }
                     } else {
                         Toast.makeText(this, "Error en la autenticación con Google", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-    private void mostrarImagenGuardada(FirebaseUser user) {
-        preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        String imagenBase64 = preferences.getString("profile_image", null);
-        ImageView imgUserProfile = findViewById(R.id.iv_profilePhoto);
-        if (imagenBase64 != null) {
-            byte[] bytes = Base64.decode(imagenBase64, Base64.DEFAULT);
+
+    private void saveGoogleUserToFirebase(String email, String photoUrl) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        User user = new User(email, photoUrl);
+        db.collection("users")
+                .document(userId)
+                .set(user)
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Usuario guardado/actualizado"))
+                .addOnFailureListener(e -> Log.w("Firestore", "Error al guardar usuario", e));
+    }
+
+    private void saveProfileImageLocally(String imageUri) {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        prefs.edit().putString("imageUri", imageUri).apply();
+        Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadProfileImageIfExists() {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String savedUri = prefs.getString("imageUri", null);
+        if (savedUri != null) {
+            Uri uri = Uri.parse(savedUri);
+            ImageView ivProfilePhoto = findViewById(R.id.iv_profilePhoto);
             Glide.with(this)
-                    .asBitmap()
-                    .load(bytes)
+                    .load(uri)
                     .circleCrop()
                     .placeholder(R.drawable.user)
-                    .into(imgUserProfile);
-        } else if (user.getPhotoUrl() != null) {
-            Uri photoUrl = user.getPhotoUrl();
-            Glide.with(this)
-                    .load(photoUrl)
-                    .circleCrop()
-                    .placeholder(R.drawable.user)
-                    .into(imgUserProfile);
-            new Thread(() -> {
-                try {
-                    InputStream in = new URL(photoUrl.toString()).openStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
-                    String imagen64 = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-                    preferences.edit().putString("profile_image", imagen64).apply();
-                } catch (Exception e) {
-                    Timber.e(e,"Error al procesar");
-                }
-            }).start();
+                    .into(ivProfilePhoto);
+            Toast.makeText(this, "hay imagen", Toast.LENGTH_SHORT).show();
         } else {
-            imgUserProfile.setImageResource(R.drawable.user);
+            Toast.makeText(this, "No hay imagen", Toast.LENGTH_SHORT).show();
+            iv_profilePhoto.setImageResource(R.drawable.user);
         }
     }
 }
