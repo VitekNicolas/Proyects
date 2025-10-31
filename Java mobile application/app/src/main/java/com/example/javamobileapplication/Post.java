@@ -34,51 +34,27 @@ public class Post implements Serializable {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getImageUri() {
         return imageUri;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
     public double getLongitude() {
         return longitude;
     }
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
     public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
     public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
     public boolean isNotified() { return notified; }
     public void setNotified(boolean notified) { this.notified = notified; }
 }

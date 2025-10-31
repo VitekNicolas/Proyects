@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Bera Claims</string>
+
+    <!-- Main menu -->
+    <string name="iv_logo_description">Berazategui logo</string>
+    <string name="it_publish_title">Publish</string>
+    <string name="it_map_title">Map</string>
+    <string name="it_settings_title">Settings</string>
+    <string name="it_logOut_title">Log out</string>
+
+    <!-- Login activity -->
+    <string name="et_user_hint">User</string>
+    <string name="et_password_hint">Password</string>
+    <string name="btn_login_title">Log in</string>
+    <string name="btn_register_title">Register</string>
+    <string name="iv_login_description">Login image</string>
+    <string name="btn_loginGoogle_title">Sign in with Google</string>
+    <string name="default_web_client_id">182611265235-1dtfarmk7na6creiivm540d15d8b9vv5.apps.googleusercontent.com</string>
+
+    <!-- Register activity -->
+    <string name="title_activity_register">Register Activity</string>
+    <string name="title_welcome">Welcome</string>
+    <string name="iv_photoUser_title">User profile photo</string>
+    <string name="btn_addPhoto_title">Add photo</string>
+    <string name="btn_deletePhoto_title">Delete</string>
+    <string name="et_email_hint">Email</string>
+    <string name="et_passwordRepeat_hint">Repeat password</string>
+
+    <!-- Map activity -->
+    <string name="title_activity_maps">Maps Activity</string>
+    <string name="toolbar_map_title">Claims map</string>
+    <string name="btn_search_title">Search</string>
+    <string name="et_location_hint">Enter location</string>
+
+    <!-- Post activity -->
+    <string name="toolbar_post_title">New claim</string>
+    <string-array name="sp_reclaims_name">
+        <item>pothole</item>
+        <item>accumulated garbage</item>
+        <item>lighting</item>
+        <item>others</item>
+    </string-array>
+    <string name="et_date_hint">Select date</string>
+    <string name="iv_image_description">Publication image</string>
+    <string name="btn_camera_title">Take photo</string>
+    <string name="btn_gallery_title">Choose from gallery</string>
+    <string name="btn_publish_title">Publish</string>
+
+    <!-- Reclaim list activity -->
+    <string name="tv_postList_title">Claim list</string>
+    <string name="tv_fecha_title">Date</string>
+    <string name="tv_tipo_title">Type</string>
+    <string name="tv_address_title">Address</string>
+    <string name="iv_itemPost_description">Thumbnail post</string>
+    <string name="tv_status_title">Status</string>
+    <string name="iv_btnReject_description">Button to reject post.</string>
+    <string name="iv_btnApproved">Button to approve post.</string>
+
+    <!-- Reclaim list detail activity -->
+    <string name="ib_btnEditPost_title">Button to edit post attributes</string>
+    <string name="ib_btnDownload_description">Button to download post image</string>
+    <string name="ib_btnLocation_description">Button to locate post marker on map.</string>
+    <string name="tv_postListDetail_title">Claim details</string>
+</resources>

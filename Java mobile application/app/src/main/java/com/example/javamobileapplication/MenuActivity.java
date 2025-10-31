@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,6 +44,8 @@ public class MenuActivity extends AppCompatActivity {
         } else if (id==R.id.action_logout) {
             cerrarSesion();
             return true;
+        } else if (id==R.id.action_settings) {
+            abrirSelectorImagen();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -69,5 +72,20 @@ public class MenuActivity extends AppCompatActivity {
         if (overflowIcon != null) {
             overflowIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         }
+    }
+    private void abrirSelectorImagen() {
+        String[] options = {"Español", "Ingles"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Seleccione un idioma:")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        LocaleHelper.setLocale(this, "es");
+                    }
+                    else{
+                        LocaleHelper.setLocale(this, "en");
+                    }
+                    recreate();
+                });
+        builder.show();
     }
 }

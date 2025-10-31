@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +19,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import timber.log.Timber;
 
 public class LoginActivity extends MenuActivity {
@@ -36,17 +33,13 @@ public class LoginActivity extends MenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
         et_userEmail = findViewById(R.id.et_userEmail);
         et_password_hint = findViewById(R.id.et_password_hint);
         iv_profilePhoto = findViewById(R.id.iv_profilePhoto);
-
         Button btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
-
         Button btn_login = findViewById(R.id.btn_loginUser);
         btn_login.setOnClickListener(v -> loginUser());
-
         SignInButton btn_google = findViewById(R.id.btn_google);
         TextView textView = (TextView) btn_google.getChildAt(0);
         textView.setText(getString(R.string.btn_loginGoogle_title));
@@ -58,6 +51,7 @@ public class LoginActivity extends MenuActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         loadProfileImageIfExists();
+        LocaleHelper.loadLocale(this);
     }
 
     @Override
@@ -118,7 +112,7 @@ public class LoginActivity extends MenuActivity {
                     firebaseAuthWithGoogle(account);
                 }
             } catch (ApiException e) {
-                Log.e("GoogleSignIn", "Error al obtener cuenta de Google", e);
+                Timber.tag("GoogleSignIn").e(e, "Error al obtener cuenta de Google");
             }
         }
     }
@@ -134,12 +128,8 @@ public class LoginActivity extends MenuActivity {
                             String photoUrl = (firebaseUser.getPhotoUrl() != null)
                                     ? firebaseUser.getPhotoUrl().toString()
                                     : null;
-
-                            // Guardar en Firestore si no existe
                             saveGoogleUserToFirebase(email, photoUrl);
-                            // Guardar localmente
                             if (photoUrl != null) saveProfileImageLocally(photoUrl);
-                            // Ir al PostActivity
                             startActivity(new Intent(this, PostActivity.class));
                             finish();
                         }
@@ -156,8 +146,8 @@ public class LoginActivity extends MenuActivity {
         db.collection("users")
                 .document(userId)
                 .set(user)
-                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Usuario guardado/actualizado"))
-                .addOnFailureListener(e -> Log.w("Firestore", "Error al guardar usuario", e));
+                .addOnSuccessListener(aVoid -> Timber.tag("Firestore").d("Usuario guardado/actualizado"))
+                .addOnFailureListener(e -> Timber.tag("Firestore").w(e, "Error al guardar usuario"));
     }
 
     private void saveProfileImageLocally(String imageUri) {

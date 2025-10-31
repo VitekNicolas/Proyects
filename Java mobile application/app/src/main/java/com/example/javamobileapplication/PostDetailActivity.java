@@ -96,9 +96,7 @@ public class PostDetailActivity extends MenuActivity {
                     startActivity(intent);
                     finish();
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al eliminar el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al eliminar el reclamo: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void downloadPostImage(Post post){

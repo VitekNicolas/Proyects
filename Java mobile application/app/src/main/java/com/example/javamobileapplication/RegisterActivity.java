@@ -35,9 +35,7 @@ public class RegisterActivity extends MenuActivity {
     private EditText et_email, et_password, et_repeatPassword;
     private FirebaseAuth myAuth;
     private Uri imageUri;
-    private static final int REQUEST_GALLERY = 100;
     private static final int REQUEST_CAMERA = 101;
-    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,26 +66,25 @@ public class RegisterActivity extends MenuActivity {
                             try {
                                 getContentResolver().takePersistableUriPermission(
                                         sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
                                 InputStream inputStream = getContentResolver().openInputStream(sourceUri);
                                 File file = new File(getFilesDir(), "imagen_" + System.currentTimeMillis() + ".jpg");
                                 OutputStream outputStream = null;
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     outputStream = Files.newOutputStream(file.toPath());
                                 }
-
                                 byte[] buffer = new byte[1024];
                                 int length;
-                                while ((length = inputStream.read(buffer)) > 0) {
+                                while (true) {
+                                    assert inputStream != null;
+                                    if (!((length = inputStream.read(buffer)) > 0)) break;
+                                    assert outputStream != null;
                                     outputStream.write(buffer, 0, length);
                                 }
-
                                 inputStream.close();
+                                assert outputStream != null;
                                 outputStream.close();
-
                                 imageUri = Uri.fromFile(file); // ✅ URI segura para Glide
                                 imageView.setImageURI(imageUri);
-
                             } catch (SecurityException se) {
                                 Toast.makeText(imageView.getContext(), "No se puede acceder a la imagen seleccionada", Toast.LENGTH_SHORT).show();
                                 Timber.e(se, "Se produjo un error");
@@ -110,7 +107,6 @@ public class RegisterActivity extends MenuActivity {
         );
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
@@ -121,10 +117,10 @@ public class RegisterActivity extends MenuActivity {
     }
 
     private void abrirSelectorImagen() {
-        String[] opciones = {"Galería", "Cámara"};
+        String[] options = {"Galería", "Cámara"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Seleccionar imagen desde:")
-                .setItems(opciones, (dialog, which) -> {
+                .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         openImageGallery();
                     } else {
@@ -152,48 +148,6 @@ public class RegisterActivity extends MenuActivity {
             cameraLauncher.launch(intent);
         }
     }
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        ImageView imageView = findViewById(R.id.iv_profile_photo);
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            imageView.setImageURI(imageUri);
-//        } else if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-//            Uri sourceUri = data.getData();
-//            assert sourceUri != null;
-//            Timber.tag("RegisterActivity").d("Uri authority: %s", sourceUri.getAuthority());
-//            try {
-//                getContentResolver().takePersistableUriPermission(sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                InputStream inputStream = getContentResolver().openInputStream(sourceUri);
-//                File file = new File(getFilesDir(), "imagen_" + System.currentTimeMillis() + ".jpg");
-//                OutputStream outputStream = null;
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    outputStream = Files.newOutputStream(file.toPath());
-//                }
-//                byte[] buffer = new byte[1024];
-//                int length;
-//                while (true) {
-//                    assert inputStream != null;
-//                    if (!((length = inputStream.read(buffer)) > 0)) break;
-//                    assert outputStream != null;
-//                    outputStream.write(buffer, 0, length);
-//                }
-//                inputStream.close();
-//                assert outputStream != null;
-//                outputStream.close();
-//                imageUri = Uri.fromFile(file);
-//                imageView.setImageURI(imageUri);
-//            } catch (SecurityException se) {
-//                Toast.makeText(this, "No se puede acceder a la imagen seleccionada", Toast.LENGTH_SHORT).show();
-//                Timber.e(se,"Se produjo un error");
-//            } catch (IOException e) {
-//                Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show();
-//                Timber.e(e,"Se produjo un error");
-//            }
-//        }
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
