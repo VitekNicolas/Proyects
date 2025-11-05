@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="32dp">
+
+    <!-- Columna izquierda: imagen -->
+    <ImageView
+        android:id="@+id/iv_profilePhoto"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/iv_login_description"
+        android:src="@drawable/user"
+        android:scaleType="centerInside"
+        android:padding="16dp" />
+
+    <!-- Columna derecha: formulario -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_layout" />
+
+        <EditText
+            android:id="@+id/et_userEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_user_hint"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/et_password_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_password_hint"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_loginUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#1AD105"
+                android:text="@string/btn_login_title"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#3F6BF1"
+                android:text="@string/btn_register_title"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_loginGoogle_title" />
+    </LinearLayout>
+
+</LinearLayout>

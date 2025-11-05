@@ -37,8 +37,7 @@
     </string-array>
     <string name="et_date_hint">Seleccionar fecha</string>
     <string name="iv_image_description">Imagen de la publcacion</string>
-    <string name="btn_camera_title">Tomar foto</string>
-    <string name="btn_gallery_title">Elegir imagen de galería</string>
+    <string name="btn_camera_title">Imagen</string>
     <string name="btn_publish_title">Publicar</string>
     <!--    Reclaim list activity-->
     <string name="tv_postList_title">Lista de reclamos</string>
@@ -54,4 +53,5 @@
     <string name="ib_btnDownload_description">Button for download post image</string>
     <string name="ib_btnLocation_description">Button for locate post marker in map.</string>
     <string name="tv_postListDetail_title">Detalle del reclamo</string>
+    <string name="tv_post_title">Ingrese su reclamo</string>
 </resources>

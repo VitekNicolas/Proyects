@@ -1,12 +1,26 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <include layout="@layout/toolbar_layout" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_post_title"
+            android:textColor="#2b2b2b"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp" />
 
         <EditText
             android:id="@+id/et_description"
@@ -48,29 +62,32 @@
             android:background="#E0E0E0"
             android:contentDescription="@string/iv_image_description" />
 
-        <Button
-            android:id="@+id/btn_choose_image"
+        <LinearLayout
+            android:paddingTop="7dp"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_gallery_title"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#FFA726"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnCamera"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_camera_title"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#5C6BC0"/>
-
-        <Button
-            android:id="@+id/btn_publish_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_publish_title"
-            android:backgroundTint="#388E3C"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
+            <Button
+                android:id="@+id/btnCamera"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#5C6BC0"
+                android:text="@string/btn_camera_title"
+                android:textColor="#FFFFFF"/>
+            <Button
+                android:id="@+id/btn_publish_title"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_publish_title"
+                android:layout_weight="1"
+                android:backgroundTint="#388E3C"
+                android:textColor="@android:color/white"/>
+         </LinearLayout>
     </LinearLayout>
 </ScrollView>

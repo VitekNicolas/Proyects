@@ -1,17 +1,8 @@
 package com.example.javamobileapplication;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,22 +11,14 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.util.Objects;
-import timber.log.Timber;
 
 public class RegisterActivity extends MenuActivity {
 
-    private ActivityResultLauncher<Intent> galleryLauncher;
-    private ActivityResultLauncher<Intent> cameraLauncher;
     private EditText et_email, et_password, et_repeatPassword;
     private FirebaseAuth myAuth;
-    private Uri imageUri;
-    private static final int REQUEST_CAMERA = 101;
+    private ImageView profilePhoto;
+    private ImagePickerHelper imagePickerHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,128 +28,22 @@ public class RegisterActivity extends MenuActivity {
         et_email = findViewById(R.id.et_userEmail);
         et_password = findViewById(R.id.et_password_hint);
         et_repeatPassword = findViewById(R.id.et_passwordRepeat_hint);
-        ImageView profilePhoto = findViewById(R.id.iv_profile_photo);
-        Button btn_register = findViewById(R.id.btn_registerUser);
-        btn_register.setOnClickListener(v -> registerUser());
-        Button btn_add_photo = findViewById(R.id.btn_add_photo);
-        btn_add_photo.setOnClickListener(v -> abrirSelectorImagen());
+        profilePhoto = findViewById(R.id.iv_profile_photo);
+        imagePickerHelper = new ImagePickerHelper(this, profilePhoto);
+        Button btnAddPhoto = findViewById(R.id.btn_add_photo);
+        btnAddPhoto.setOnClickListener(v -> imagePickerHelper.showImageSourceDialog());
         Button btnDelete = findViewById(R.id.btn_remove_photo);
-        btnDelete.setOnClickListener(v->deleteImage(profilePhoto));
-        setActivityResult(profilePhoto);
-    }
-
-    private void setActivityResult(ImageView imageView) {
-        galleryLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Uri sourceUri = result.getData().getData();
-                        if (sourceUri != null) {
-                            Timber.tag("RegisterActivity").d("Uri authority: %s", sourceUri.getAuthority());
-                            try {
-                                getContentResolver().takePersistableUriPermission(
-                                        sourceUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                InputStream inputStream = getContentResolver().openInputStream(sourceUri);
-                                File file = new File(getFilesDir(), "imagen_" + System.currentTimeMillis() + ".jpg");
-                                OutputStream outputStream = null;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    outputStream = Files.newOutputStream(file.toPath());
-                                }
-                                byte[] buffer = new byte[1024];
-                                int length;
-                                while (true) {
-                                    assert inputStream != null;
-                                    if (!((length = inputStream.read(buffer)) > 0)) break;
-                                    assert outputStream != null;
-                                    outputStream.write(buffer, 0, length);
-                                }
-                                inputStream.close();
-                                assert outputStream != null;
-                                outputStream.close();
-                                imageUri = Uri.fromFile(file); // ✅ URI segura para Glide
-                                imageView.setImageURI(imageUri);
-                            } catch (SecurityException se) {
-                                Toast.makeText(imageView.getContext(), "No se puede acceder a la imagen seleccionada", Toast.LENGTH_SHORT).show();
-                                Timber.e(se, "Se produjo un error");
-                            } catch (IOException e) {
-                                Toast.makeText(imageView.getContext(), "Error al cargar imagen", Toast.LENGTH_SHORT).show();
-                                Timber.e(e, "Se produjo un error");
-                            }
-                        }
-                    }
-                }
-        );
-
-        cameraLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && imageUri != null) {
-                        imageView.setImageURI(imageUri);
-                    }
-                }
-        );
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
-
-    private void deleteImage(ImageView imageView) {
-        imageView.setImageResource(R.drawable.user);
-    }
-
-    private void abrirSelectorImagen() {
-        String[] options = {"Galería", "Cámara"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Seleccionar imagen desde:")
-                .setItems(options, (dialog, which) -> {
-                    if (which == 0) {
-                        openImageGallery();
-                    } else {
-                        openCamera();
-                    }
-                });
-        builder.show();
-    }
-
-    private void openImageGallery() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("image/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        galleryLauncher.launch(intent);
-    }
-
-    private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            File photo = new File(getExternalFilesDir(null), "temp_user_photo.jpg");
-            imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", photo);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            cameraLauncher.launch(intent);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CAMERA) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openCamera();
-            } else {
-                Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_LONG).show();
-            }
-        }
+        btnDelete.setOnClickListener(v -> profilePhoto.setImageResource(R.drawable.user));
+        Button btnRegister = findViewById(R.id.btn_registerUser);
+        btnRegister.setOnClickListener(v -> registerUser());
     }
 
     private void registerUser() {
         String email = et_email.getText().toString().trim();
         String password = et_password.getText().toString().trim();
         String repeatPassword = et_repeatPassword.getText().toString().trim();
+        Uri imageUri = imagePickerHelper.getImageUri();
+
         if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
             Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
@@ -183,6 +60,7 @@ public class RegisterActivity extends MenuActivity {
             Toast.makeText(this, "Seleccione una imagen de perfil", Toast.LENGTH_SHORT).show();
             return;
         }
+
         myAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -190,7 +68,7 @@ public class RegisterActivity extends MenuActivity {
                         assert firebaseUser != null;
                         String userId = firebaseUser.getUid();
                         FirebaseApp.initializeApp(this);
-                        saveUserToFirestore(userId,email, imageUri.toString());
+                        saveUserToFirestore(userId, email, imageUri.toString());
                         startActivity(new Intent(this, LoginActivity.class));
                     } else {
                         Toast.makeText(this,

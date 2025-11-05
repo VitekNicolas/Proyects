@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
-
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private final List<Post> postList;
