@@ -11,3 +11,6 @@ An API that identifies TV show episodes based on video frame analysis — simila
 - Match an image frame against stored episodes
 - Built with FastAPI and SQLite
 - Swagger-based interactive documentation
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+.\.venv\Scripts\activate.bat
