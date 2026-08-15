@@ -1,7 +1,7 @@
-import {analizeText} from "../services/fetch.js";
+import { analizeText } from "../services/fetch.js";
 import { processKeyValues } from "./ProcessKeyValues.js";
 
-export const callAnalizeText=()=>{
+export const callAnalizeText = async () => {
     let text = document.getElementById("inpText").value;
-    analizeText(text, processKeyValues);
+    await analizeText(text, processKeyValues);
 }

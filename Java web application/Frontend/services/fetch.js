@@ -1,62 +1,12 @@
 const clientUrl = "http://localhost:8080/client";
 const resultUrl = "http://localhost:8080/result";
+const authUrl = "http://localhost:8080/auth/login";
+const analyzeUrl = "http://localhost:8080/analyze";
 
-var json = {
-  status: {
-    code: "0",
-    msg: "OK",
-    credits: "1",
-    remaining_credits: "19998",
-  },
-  model: "general_en",
-  score_tag: "P",
-  agreement: "AGREEMENT",
-  subjectivity: "SUBJECTIVE",
-  confidence: "100",
-  irony: "NONIRONIC",
-  sentence_list: [
-    {
-      text: "I love this car.",
-      inip: "0",
-      endp: "15",
-      bop: "y",
-      confidence: "100",
-      score_tag: "P",
-      agreement: "AGREEMENT",
-      segment_list: [
-        {
-          text: "I love this car.",
-          segment_type: "main",
-          inip: "0",
-          endp: "15",
-          confidence: "100",
-          score_tag: "P",
-          agreement: "AGREEMENT",
-          polarity_term_list: [
-            {
-              text: "love",
-              inip: "2",
-              endp: "5",
-              confidence: "100",
-              score_tag: "P",
-              sentimented_entity_list: [
-                {
-                  form: "car",
-                  id: "6fa0e89a58",
-                  variant: "car",
-                  inip: "10",
-                  endp: "12",
-                  type: "Top>Product>Machine>Vehicle>Car",
-                  score_tag: "P",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
+// ⚠️ Visible en el navegador — ver nota de seguridad en el README del backend
+const API_KEY = "una-clave-larga-y-dificil-de-adivinar";
+
+let authToken = null;
 
 export const registerClient = async (
   name,
@@ -64,9 +14,10 @@ export const registerClient = async (
   userName,
   city,
   state,
-  zipCode
+  zipCode,
+  password
 ) => {
-  await fetch(clientUrl, {
+  const response = await fetch(clientUrl, {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify({
@@ -76,18 +27,40 @@ export const registerClient = async (
       city: city,
       state: state,
       zipCode: zipCode,
+      password: password,
     }),
-  })
-    .then((httpResponse) => {
-      if (httpResponse.ok) {
-        return httpResponse.json();
-      }
-      if (httpResponse.status == 500) {
-        deployAlert("El cliente ya fue agregado");
-      }
-    })
-    .then(console.log("Cliente creado"));
+  });
+
+  if (response.ok) {
+    return true;
+  }
+
+  if (response.status === 400) {
+    const error = await response.json();
+    alert("Datos inválidos: " + JSON.stringify(error));
+  } else {
+    alert("No se pudo registrar el cliente. Intente con otro nombre de usuario.");
+  }
+  return false;
 };
+
+export const loginClient = async (userName, password) => {
+  const response = await fetch(authUrl, {
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+    body: JSON.stringify({ userName, password }),
+  });
+
+  if (response.ok) {
+    const json = await response.json();
+    authToken = json.token;
+    return true;
+  }
+
+  console.error("Login fallido");
+  return false;
+};
+
 export const registerResult = async (
   userName,
   scoreTag,
@@ -96,11 +69,18 @@ export const registerResult = async (
   agreement,
   confidence
 ) => {
+  if (!authToken) {
+    alert("Sesión no iniciada. Vuelva a registrarse.");
+    return;
+  }
+
   await fetch(`${resultUrl}/${userName}`, {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
+    },
     method: "POST",
     body: JSON.stringify({
-      userName: userName,
       scoreTag: scoreTag,
       irony: irony,
       subjectivity: subjectivity,
@@ -112,21 +92,22 @@ export const registerResult = async (
       if (httpResponse.ok) {
         return httpResponse.json();
       }
+      if (httpResponse.status === 401) {
+        alert("Sesión expirada. Vuelva a registrarse.");
+      }
     })
-    .then(console.log("Resultado agregado"));
+    .then(() => console.log("Resultado agregado"));
 };
 
 export const analizeText = async (text, callback) => {
-  const formdata = new FormData();
-  formdata.append("key", "86c2bbd98a3a00d5b15330c4fcdc17a3");
-  formdata.append("txt", text);
-  formdata.append("lang", "es");
-  const requestOptions = {
+  await fetch(analyzeUrl, {
     method: "POST",
-    body: formdata,
-    redirect: "follow",
-  };
-  await fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-KEY": API_KEY,
+    },
+    body: JSON.stringify({ text: text }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -134,9 +115,16 @@ export const analizeText = async (text, callback) => {
       return response.json();
     })
     .then((json) => {
-      callback(json);
+      callback({
+        score_tag: json.scoreTag,
+        irony: json.irony,
+        subjectivity: json.subjectivity,
+        agreement: json.agreement,
+        confidence: json.confidence,
+      });
     })
     .catch((error) => {
       console.error("Error al hacer la solicitud:", error);
+      alert("No se pudo analizar el texto. Intente de nuevo.");
     });
 };

@@ -40,6 +40,16 @@ export class InscriptionForm {
               />
             </div>
           </div>
+          <div class="col-md-4 mb-3">
+  <label for="inpPassword">Contraseña</label>
+  <input
+    type="password"
+    class="form-control"
+    id="inpPassword"
+    placeholder="Contraseña"
+    required
+  />
+</div>
         </div>
         <div class="form-row">
           <div class="col-md-6 mb-3">
@@ -100,26 +110,26 @@ export class InscriptionForm {
       <button class="btn btn-primary" id="btnSubmit" type="button">
         Registrar cliente
       </button>
-      <button class="btn btn-success" id="btnAnalize" type="button">
+      <button class="btn btn-success" id="btnAnalize" type="button" type="button" disabled>
         Analizar texto
       </button>
     </form>`;
     container.innerHTML += form;
   }
-  static disableFormElements=(elementsToDisable)=>{
+  static disableFormElements = (elementsToDisable) => {
     elementsToDisable.forEach(element => {
       element.disabled = true;
     });
   }
-  static callDisableFormElements=(dibaleCode)=> {
+  static callDisableFormElements = (dibaleCode) => {
     let elementsToDisable;
     switch (dibaleCode) {
-      case 1: 
+      case 1:
         elementsToDisable = document.querySelectorAll(".divClientData input, #btnSubmit");
         this.disableFormElements(elementsToDisable);
         break;
-      case 2: 
-        elementsToDisable=document.querySelectorAll("#inpText, #lblConditions, #btnAnalize");
+      case 2:
+        elementsToDisable = document.querySelectorAll("#inpText, #lblConditions, #btnAnalize");
         this.disableFormElements(elementsToDisable);
       default:
         break;
