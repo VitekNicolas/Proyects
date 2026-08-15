@@ -11,6 +11,8 @@ import com.example.demo.model.AnalyzeTextRequest;
 import com.example.demo.services.AnalysisService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,6 +28,12 @@ public class AnalysisController {
 
     @PostMapping()
     @Operation(summary = "Analyze text", description = "Analyzes sentiment of a given text using Groq AI")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Text analyzed successfully"),
+            @ApiResponse(responseCode = "400", description = "Missing or blank text field"),
+            @ApiResponse(responseCode = "401", description = "Missing or invalid API key"),
+            @ApiResponse(responseCode = "502", description = "Groq AI service unreachable or returned an unparseable response")
+    })
     public AnalysisResponseDto analyze(@Valid @RequestBody AnalyzeTextRequest request) {
         return analysisService.analyze(request.getText());
     }

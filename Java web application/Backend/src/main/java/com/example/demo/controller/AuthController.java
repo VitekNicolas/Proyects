@@ -15,6 +15,8 @@ import com.example.demo.repositories.IClientRepositoy;
 import com.example.demo.services.JwtService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -35,6 +37,12 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "Login", description = "Authenticates a client and returns a JWT token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login successful, JWT returned"),
+            @ApiResponse(responseCode = "400", description = "Missing userName or password"),
+            @ApiResponse(responseCode = "401", description = "Incorrect password"),
+            @ApiResponse(responseCode = "404", description = "userName not found")
+    })
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
         Client client = clientRepository.getByUserName(request.getUserName());
 
