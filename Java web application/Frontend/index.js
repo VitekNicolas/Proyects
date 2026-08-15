@@ -13,8 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
   InscriptionForm.addForm(divInscription);
   document.querySelector("#btnSubmit").addEventListener("click", async (event) => {
     event.preventDefault();
-    await submitClient();
-    InscriptionForm.callDisableFormElements(1);
+    const success = await submitClient();
+    if (success) {
+      InscriptionForm.callDisableFormElements(1);
+    }
   });
   document.querySelector("#btnAnalize").addEventListener("click", async (event) => {
     event.preventDefault();

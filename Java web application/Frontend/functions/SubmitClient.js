@@ -1,4 +1,5 @@
 import { registerClient, loginClient } from "../services/fetch.js";
+import { showAlert } from "../functions/ShowAlert.js";
 
 export const submitClient = async () => {
     let name = document.getElementById("inpName").value;
@@ -8,13 +9,18 @@ export const submitClient = async () => {
     let state = document.getElementById("inpState").value;
     let zipCode = document.getElementById("inpZipCode").value;
     let password = document.getElementById("inpPassword").value;
+
     const registered = await registerClient(name, lastName, userName, city, state, zipCode, password);
+
     if (registered) {
         const loggedIn = await loginClient(userName, password);
         if (loggedIn) {
             document.querySelector("#btnAnalize").disabled = false;
+            return true;
         } else {
-            alert("No se pudo iniciar sesión automáticamente. Intente de nuevo.");
+            showAlert("No se pudo iniciar sesión automáticamente. Intente de nuevo.");
+            return false;
         }
     }
+    return false;
 };

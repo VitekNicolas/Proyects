@@ -1,9 +1,9 @@
+import { showAlert } from "../functions/ShowAlert.js";
+
 const clientUrl = "http://localhost:8080/client";
 const resultUrl = "http://localhost:8080/result";
 const authUrl = "http://localhost:8080/auth/login";
 const analyzeUrl = "http://localhost:8080/analyze";
-
-// ⚠️ Visible en el navegador — ver nota de seguridad en el README del backend
 const API_KEY = "una-clave-larga-y-dificil-de-adivinar";
 
 let authToken = null;
@@ -37,9 +37,9 @@ export const registerClient = async (
 
   if (response.status === 400) {
     const error = await response.json();
-    alert("Datos inválidos: " + JSON.stringify(error));
+    showAlert("Datos inválidos: " + JSON.stringify(error));
   } else {
-    alert("No se pudo registrar el cliente. Intente con otro nombre de usuario.");
+    showAlert("No se pudo registrar el cliente. Intente con otro nombre de usuario.");
   }
   return false;
 };
@@ -70,7 +70,7 @@ export const registerResult = async (
   confidence
 ) => {
   if (!authToken) {
-    alert("Sesión no iniciada. Vuelva a registrarse.");
+    showAlert("Sesión no iniciada. Vuelva a registrarse.");
     return;
   }
 
@@ -93,7 +93,7 @@ export const registerResult = async (
         return httpResponse.json();
       }
       if (httpResponse.status === 401) {
-        alert("Sesión expirada. Vuelva a registrarse.");
+        showAlert("Sesión expirada. Vuelva a registrarse.");
       }
     })
     .then(() => console.log("Resultado agregado"));
@@ -125,6 +125,6 @@ export const analizeText = async (text, callback) => {
     })
     .catch((error) => {
       console.error("Error al hacer la solicitud:", error);
-      alert("No se pudo analizar el texto. Intente de nuevo.");
+      showAlert("No se pudo analizar el texto. Intente de nuevo.");
     });
 };
