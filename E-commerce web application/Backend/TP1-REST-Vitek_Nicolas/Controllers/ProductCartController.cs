@@ -33,7 +33,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>Update a product cart.</summary>
@@ -52,7 +52,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>Create a product cart.</summary>
@@ -71,7 +71,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
     }

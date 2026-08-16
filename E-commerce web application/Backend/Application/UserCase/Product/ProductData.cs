@@ -1,5 +1,4 @@
-﻿
-namespace Application.UserCase.Product
+﻿namespace Application.UserCase.Product
 {
     public class ProductData
     {

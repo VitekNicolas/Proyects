@@ -32,7 +32,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentNameException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>Retrieves the details of a specific product by its unique identifier</summary>
@@ -55,7 +55,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
     }

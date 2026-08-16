@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Application.Exceptions;
+﻿using Application.Exceptions;
 using Application.Interface;
 using Application.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +7,10 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class ClientController(IClientService service) : ControllerBase
     {
-        private readonly IClientService _service;
-        public ClientController(IClientService service)
-        {
-            _service = service;
-        }
+        private readonly IClientService _service = service;
+
         /// <summary>Returns a client.</summary>
         /// <param name="id">Client ID.</param>
         /// <returns>The client given his ID.</returns>
@@ -27,12 +23,12 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         {
             try
             {
-                var result = await _service.GetAll(id);
+                var result = await _service.GetById(id);
                 return new JsonResult(result);
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>Create a client.</summary>
@@ -52,11 +48,11 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (DuplicateDniException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
             catch (InvalidDniException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
     }

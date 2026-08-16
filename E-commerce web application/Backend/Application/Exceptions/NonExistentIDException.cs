@@ -1,4 +1,7 @@
-public class NonExistentIDException : Exception
+namespace Application.Exceptions
 {
-        public string message = "El registro con ese ID no existe";
+        public class NonExistentIDException : Exception
+        {
+                public NonExistentIDException() : base("El registro con ese ID no existe") { }
+        }
 }

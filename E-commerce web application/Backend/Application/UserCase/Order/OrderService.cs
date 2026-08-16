@@ -5,15 +5,11 @@ using Domain.Entities;
 
 namespace Application.UserCase
 {
-    public class OrderService : IOrderService
+    public class OrderService(IOrderCommand command, IOrderQuery query) : IOrderService
     {
-        private readonly IOrderCommand _command;
-        private readonly IOrderQuery _query;
-        public OrderService(IOrderCommand command, IOrderQuery query)
-        {
-            _command = command;
-            _query = query;
-        }
+        private readonly IOrderCommand _command = command;
+        private readonly IOrderQuery _query = query;
+
         public async Task<Order> CreateOrder(int clientId)
         {
             _query.UpdateStatusCart(clientId);
@@ -34,7 +30,6 @@ namespace Application.UserCase
                 throw new SameDateException();
             }
             var result = await _query.GetBalance(from, to);
-            //return result.Select(db=>db);
             return result;
         }
     }

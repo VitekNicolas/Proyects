@@ -2,6 +2,6 @@
 {
     public class DuplicateDniException:Exception
     {
-        public string message = "Ya existe un cliente con ese dni";
+        public DuplicateDniException() : base("Ya existe un cliente con ese dni") { }
     }
 }

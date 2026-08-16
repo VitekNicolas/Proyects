@@ -1,4 +1,7 @@
-public class NonExistentNameException : Exception
+namespace Application.Exceptions
 {
-        public string message = "El registro con ese nombre no existe";
+        public class NonExistentNameException : Exception
+        {
+                public NonExistentNameException() : base("El registro con ese nombre no existe") { }
+        }
 }

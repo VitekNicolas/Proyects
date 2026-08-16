@@ -6,15 +6,11 @@ using Domain.Entities;
 
 namespace Application.UserCase
 {
-    public class ClientService : IClientService
+    public class ClientService(IClientCommand command, IClientQuery query) : IClientService
     {
-        private readonly IClientCommand _command;
-        private readonly IClientQuery _query;
-        public ClientService(IClientCommand command, IClientQuery query)
-        {
-            _command = command;
-            _query = query;
-        }
+        private readonly IClientCommand _command = command;
+        private readonly IClientQuery _query = query;
+
         public async Task<Client> CreateClient(ClientRequest request)
         {
             if (DuplicateDni(request.DNI))
@@ -42,7 +38,7 @@ namespace Application.UserCase
         }
         public bool InvalidDni(int dni)
         {
-            if (dni > 10000000 && dni < 99999999)
+            if (dni >= 1000000 && dni <= 99999999)
             {
                 return false;
             }
@@ -52,13 +48,9 @@ namespace Application.UserCase
             }
         }
 
-        public Task<ClientResponse> GetAll(int id)
+        public Task<ClientResponse> GetById(int id)
         {
-            var client = _query.GetClient(id);
-            if (client==null)
-            {
-                throw new NonExistentIDException();
-            }
+            var client = _query.GetClient(id) ?? throw new NonExistentIDException();
             return Task.FromResult(new ClientResponse
             {
                 FirstName = client.FirstName,

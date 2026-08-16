@@ -7,7 +7,7 @@ namespace Application.Interface
     public interface IClientService
     {
         Task<Client> CreateClient(ClientRequest request);
-        Task<ClientResponse> GetAll(int id);
+        Task<ClientResponse> GetById(int id);
         public bool DuplicateDni(int dni);
 
         public bool InvalidDni(int dni);

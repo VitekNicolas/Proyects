@@ -32,7 +32,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (NonExistentIDException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>Returns a list of purchase orders within a specified date range.</summary>
@@ -53,7 +53,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
             }
             catch (SameDateException ex)
             {
-                return BadRequest(ex.message);
+                return BadRequest(ex.Message);
             }
         }
     }
