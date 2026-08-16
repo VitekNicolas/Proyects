@@ -1,4 +1,4 @@
-import { showAlert } from "../functions/ShowAlert.js";
+import { showAlert } from "../services/ShowAlert.js";
 
 const clientUrl = "http://localhost:8080/client";
 const resultUrl = "http://localhost:8080/result";
