@@ -29,11 +29,9 @@ export class AnalysisResult {
 
     _translateScoreTag() {
         switch (this.score_tag) {
-            case "P+": return "Muy positivo";
             case "P": return "Positivo";
             case "NEU": return "Neutral";
             case "N": return "Negativo";
-            case "N+": return "Muy negativo";
             case "NONE": return "Sin polaridad";
             default: return this.score_tag;
         }

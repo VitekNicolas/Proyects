@@ -1,0 +1,18 @@
+h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 24px;
+}
+label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #6c757d;
+}
+body {
+    overflow-x: hidden;
+}
+body {
+    background-color: #f5f6f8;
+    min-height: 100vh;
+}

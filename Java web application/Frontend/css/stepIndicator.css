@@ -1,0 +1,46 @@
+.step-indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.step-indicator .step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+.step-indicator .step-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #e9ecef;
+    color: #6c757d;
+    flex-shrink: 0;
+}
+.step-indicator .step.active .step-circle,
+.step-indicator .step.done .step-circle {
+    background-color: #0d6efd;
+    color: #fff;
+}
+.step-indicator .step-label {
+    font-size: 13px;
+    color: #6c757d;
+}
+.step-indicator .step.active .step-label {
+    font-weight: 600;
+    color: #212529;
+}
+.step-indicator .step-connector {
+    flex: 0 0 32px;
+    height: 2px;
+    background-color: #e9ecef;
+    margin: 0 4px;
+}
+.step-indicator .step-connector.done {
+    background-color: #0d6efd;
+}

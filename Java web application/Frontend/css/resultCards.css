@@ -1,0 +1,27 @@
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+}
+.result-card {
+    border-radius: 8px;
+    padding: 16px 8px;
+    text-align: center;
+}
+.result-card i {
+    font-size: 22px;
+}
+.result-card p {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 6px 0 0;
+}
+.result-card.success { background-color: #d1e7dd; }
+.result-card.success i, .result-card.success p { color: #0f5132; }
+.result-card.danger { background-color: #f8d7da; }
+.result-card.danger i, .result-card.danger p { color: #842029; }
+.result-card.neutral { background-color: #f8f9fa; }
+.result-card.neutral i, .result-card.neutral p { color: #495057; }
+.result-card.info { background-color: #cfe2ff; }
+.result-card.info i, .result-card.info p { color: #084298; }

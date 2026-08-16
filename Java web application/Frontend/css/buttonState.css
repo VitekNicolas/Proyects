@@ -1,0 +1,26 @@
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+    overflow: hidden;
+}
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    left: -30%;
+    top: 0;
+    height: 100%;
+    width: 30%;
+    background: rgba(255, 255, 255, 0.6);
+    animation: btn-progress 1s infinite linear;
+}
+@keyframes btn-progress {
+    0% { left: -30%; }
+    100% { left: 100%; }
+}
+.btn-success-flash {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease;
+}
