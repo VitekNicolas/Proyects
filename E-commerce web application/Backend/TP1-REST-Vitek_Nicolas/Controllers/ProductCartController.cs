@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Exceptions;
+using Application.Interface;
 using Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,10 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductCartController : ControllerBase
+    public class ProductCartController(IProductCartService service) : ControllerBase
     {
-        private readonly IProductCartService _service;
+        private readonly IProductCartService _service = service;
 
-        public ProductCartController(IProductCartService service)
-        {
-            _service = service;
-        }
         /// <summary>Delete a product cart.</summary>
         /// <param name="clientId">Client ID.</param>
         /// <param name="productId">Product ID.</param>

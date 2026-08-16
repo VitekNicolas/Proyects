@@ -7,14 +7,9 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrderController(IOrderService service) : ControllerBase
     {
-        private readonly IOrderService _service;
-
-        public OrderController(IOrderService service)
-        {
-            _service = service;
-        }
+        private readonly IOrderService _service = service;
 
         /// <summary>Create a purchase order.</summary>
         /// <param name="clientId">Client ID.</param>

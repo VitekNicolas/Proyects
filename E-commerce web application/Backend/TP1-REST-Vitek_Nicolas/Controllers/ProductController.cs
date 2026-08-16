@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Exceptions;
+using Application.Interface;
 using Application.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,10 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController(IProductService service) : ControllerBase
     {
-        private readonly IProductService _service;
+        private readonly IProductService _service = service;
 
-        public ProductController(IProductService service)
-        {
-            _service = service;
-        }
         /// <summary>Retrieves a list of products filtered by name and optionally sorted.</summary>
         /// <param name="name">The name or partial name to filter the products by.</param>
         /// <param name="sort">Indicates whether to sort the products in ascending order by name.</param>

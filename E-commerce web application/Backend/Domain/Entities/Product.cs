@@ -15,7 +15,7 @@ namespace Domain.Entities
         [Column("code")]
         public string? Code { get; set; }
         [Column("price")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         [Column("image")]
         public string? Image { get; set; }
         public ICollection<ProductCart>? ProductCart { get; set; }

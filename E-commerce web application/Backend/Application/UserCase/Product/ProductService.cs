@@ -1,51 +1,43 @@
-﻿using Application.Interface;
+﻿using Application.Exceptions;
+using Application.Interface;
 using Application.Response;
 
 namespace Application.UserCase.Product
 {
-    public class ProductService : IProductService
+    public class ProductService(IProductQuery query) : IProductService
     {
-        private readonly IProductQuery _query;
-
-        public ProductService(IProductQuery query)
-        {
-            _query = query;
-        }
+        private readonly IProductQuery _query = query;
 
         public async Task<IEnumerable<ProductResponse>> GetAll(string name, bool sort)
         {
             var result = await _query.GetAll(name, sort);
-            if (result.Count==0)
+            if (result.Count == 0)
             {
                 throw new NonExistentNameException();
             }
-            return result.Select(p=> new ProductResponse
+            return result.Select(p => new ProductResponse
             {
                 ProductId = p.ProductId,
-                Name =p.Name,
-                Brand=p.Brand,
-                Code=p.Code,
-                Price=p.Price,
-                Image=p.Image,
-                Description=p.Description
+                Name = p.Name,
+                Brand = p.Brand,
+                Code = p.Code,
+                Price = p.Price,
+                Image = p.Image,
+                Description = p.Description
             });
         }
         public Task<ProductResponse> GetProduct(int id)
         {
-            var product = _query.GetProduct(id);
-            if (product==null)
-            {
-                throw new NonExistentIDException();
-            }
+            var product = _query.GetProduct(id) ?? throw new NonExistentIDException();
             return Task.FromResult(new ProductResponse
             {
-                ProductId=product.ProductId,
-                Name=product.Name,
-                Brand=product.Brand,
-                Price=product.Price,
-                Code=product.Code,
-                Image=product.Image,
-                Description=product.Description
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Brand = product.Brand,
+                Price = product.Price,
+                Code = product.Code,
+                Image = product.Image,
+                Description = product.Description
             });
         }
     }

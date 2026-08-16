@@ -4,28 +4,35 @@ using Infraesctructure.Persistence;
 
 namespace Infraesctructure.Command
 {
-    public class ProductCartCommand:IProductCartCommand
+    public class ProductCartCommand(AppDbContext context) : IProductCartCommand
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context = context;
 
-        public ProductCartCommand(AppDbContext context)
-        {
-            _context = context;
-        }
         public async Task InsertProductCart(ProductCart productCart)
         {
             _context.Add(productCart);
             await _context.SaveChangesAsync();
         }
+        // ProductCartCommand.cs
         public async Task DeletedProductCart(ProductCart productCart)
         {
-            _context.Remove(productCart);
-            await _context.SaveChangesAsync();
+            var tracked = await _context.ProductCart
+                .FindAsync(productCart.CartId, productCart.ProductId);
+            if (tracked != null)
+            {
+                _context.Remove(tracked);
+                await _context.SaveChangesAsync();
+            }
         }
         public async Task UpdateProductCart(ProductCart productCart)
         {
-            _context.Update(productCart);
-            await _context.SaveChangesAsync();
+            var tracked = await _context.ProductCart
+                .FindAsync(productCart.CartId, productCart.ProductId);
+            if (tracked != null)
+            {
+                _context.Update(tracked);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

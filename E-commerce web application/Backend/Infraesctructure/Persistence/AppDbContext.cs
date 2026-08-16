@@ -49,7 +49,7 @@ namespace Infraesctructure.Persistence
                 Description = "40 grm",
                 Brand = "Sol Serrano",
                 Code = "a-043",
-                Price = 37.99,
+                Price = 37.99m,
                 Image = "Http://static.cotodigital3.com.ar/sitios/fotos/full/00523500/00523588.jpg?3.0.138f",
             },
             new
@@ -59,7 +59,7 @@ namespace Infraesctructure.Persistence
                 Description = "Edicion 1950, 1 kgrm",
                 Brand = "Amanda",
                 Code = "a-099",
-                Price = 543.33,
+                Price = 543.33m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00510600/00510606.jpg?3.0.138f",
             },
             new
@@ -69,7 +69,7 @@ namespace Infraesctructure.Persistence
                 Description = "520 grm",
                 Brand = "Corper",
                 Code = "a-007",
-                Price = 95.40,
+                Price = 95.40m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00263300/00263369.jpg?3.0.138f",
             },
             new
@@ -79,7 +79,7 @@ namespace Infraesctructure.Persistence
                 Description = "20 grm",
                 Brand = "La Virginia",
                 Code = "a-211",
-                Price = 388.15,
+                Price = 388.15m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00230100/00230124.jpg?3.0.138f",
             },
             new
@@ -89,7 +89,7 @@ namespace Infraesctructure.Persistence
                 Description = "Bajo en sodio, 340 grm",
                 Brand = "Doña Pupa",
                 Code = "a-055",
-                Price = 65.39,
+                Price = 65.39m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00537400/00537472.jpg?3.0.138f",
             },
             new
@@ -99,7 +99,7 @@ namespace Infraesctructure.Persistence
                 Description = "Sin gas, 2.5 lt",
                 Brand = "Bonaqua",
                 Code = "b-013",
-                Price = 91.71,
+                Price = 91.71m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00289600/00289636.jpg?3.0.138f",
             },
             new
@@ -109,7 +109,7 @@ namespace Infraesctructure.Persistence
                 Description = "Light, 2 lt",
                 Brand = "Coca-Cola",
                 Code = "b-020",
-                Price = 134.55,
+                Price = 134.55m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00189500/00189594.jpg?3.0.138f",
             },
             new
@@ -119,7 +119,7 @@ namespace Infraesctructure.Persistence
                 Description = "Entera, sache 1 lt",
                 Brand = "La Serenisima",
                 Code = "f-103",
-                Price = 183.25,
+                Price = 183.25m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00170500/00170599.jpg?3.0.138f",
             },
             new
@@ -129,7 +129,7 @@ namespace Infraesctructure.Persistence
                 Description = "Caja 160 grm",
                 Brand = "Fudy",
                 Code = "c-017",
-                Price = 259.00,
+                Price = 259.00m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00499100/00499140.jpg?3.0.138f",
             },
             new
@@ -139,7 +139,7 @@ namespace Infraesctructure.Persistence
                 Description = "Doble hoja, caja 100u",
                 Brand = "Elite",
                 Code = "l-022",
-                Price = 149.87,
+                Price = 149.87m,
                 Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00264600/00264677.jpg?3.0.138f",
             }
             );

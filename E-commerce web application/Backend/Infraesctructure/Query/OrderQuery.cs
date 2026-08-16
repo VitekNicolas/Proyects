@@ -7,42 +7,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraesctructure.Query
 {
-    public class OrderQuery : IOrderQuery
+    public class OrderQuery(AppDbContext context) : IOrderQuery
     {
-        private readonly AppDbContext _context;
-        public OrderQuery(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
+
         public void UpdateStatusCart(int clientId)
         {
-var query = from cl in _context.Client
-            where cl.ClientId == clientId
-            join c in _context.Cart on cl.ClientId equals c.ClientId
-            select c;
+            var query = from cl in _context.Client
+                        where cl.ClientId == clientId
+                        join c in _context.Cart on cl.ClientId equals c.ClientId
+                        select c;
 
-foreach (var cart in query)
-{
-    cart.Status = false;
-}
+            foreach (var cart in query)
+            {
+                cart.Status = false;
+            }
             _context.SaveChanges();
         }
         public OrderProductData CalculateTotal(int clientId)
         {
-            int cartId=0;
-            double total = 0;
+            int cartId = 0;
+            decimal total = 0;
             var productsInCart = from cl in _context.Client
-                        where cl.ClientId == clientId
-                        join c in _context.Cart on cl.ClientId equals c.ClientId
-                        where c.Status == false
-                        join cp in _context.ProductCart on c.CartId equals cp.CartId
-                        join p in _context.Product on cp.ProductId equals p.ProductId
-                        select new OrderProductData
-                        {
-                            Price = p.Price,
-                            Amount = cp.Amount,
-                            CartId = c.CartId
-                        };
+                                 where cl.ClientId == clientId
+                                 join c in _context.Cart on cl.ClientId equals c.ClientId
+                                 where c.Status == false
+                                 join cp in _context.ProductCart on c.CartId equals cp.CartId
+                                 join p in _context.Product on cp.ProductId equals p.ProductId
+                                 select new OrderProductData
+                                 {
+                                     Price = p.Price,
+                                     Amount = cp.Amount,
+                                     CartId = c.CartId
+                                 };
             var listOfProducts = productsInCart.ToList();
             foreach (OrderProductData product in listOfProducts)
             {

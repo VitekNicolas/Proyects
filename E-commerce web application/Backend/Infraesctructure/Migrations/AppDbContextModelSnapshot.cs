@@ -15,7 +15,7 @@ namespace Infraesctructure.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
 
             modelBuilder.Entity("Domain.Entities.Cart", b =>
                 {
@@ -97,7 +97,7 @@ namespace Infraesctructure.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("date");
 
-                    b.Property<double>("Total")
+                    b.Property<decimal>("Total")
                         .HasColumnType("decimal(15,2)")
                         .HasColumnName("total");
 
@@ -136,7 +136,7 @@ namespace Infraesctructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(15,2)")
                         .HasColumnName("price");
 
@@ -153,7 +153,7 @@ namespace Infraesctructure.Migrations
                             Description = "40 grm",
                             Image = "Http://static.cotodigital3.com.ar/sitios/fotos/full/00523500/00523588.jpg?3.0.138f",
                             Name = "Alfajor",
-                            Price = 37.990000000000002
+                            Price = 37.99m
                         },
                         new
                         {
@@ -163,7 +163,7 @@ namespace Infraesctructure.Migrations
                             Description = "Edicion 1950, 1 kgrm",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00510600/00510606.jpg?3.0.138f",
                             Name = "Yerba mate",
-                            Price = 543.33000000000004
+                            Price = 543.33m
                         },
                         new
                         {
@@ -173,7 +173,7 @@ namespace Infraesctructure.Migrations
                             Description = "520 grm",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00263300/00263369.jpg?3.0.138f",
                             Name = "Pure de tomate",
-                            Price = 95.400000000000006
+                            Price = 95.40m
                         },
                         new
                         {
@@ -183,7 +183,7 @@ namespace Infraesctructure.Migrations
                             Description = "20 grm",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00230100/00230124.jpg?3.0.138f",
                             Name = "Cafe molido",
-                            Price = 388.14999999999998
+                            Price = 388.15m
                         },
                         new
                         {
@@ -193,7 +193,7 @@ namespace Infraesctructure.Migrations
                             Description = "Bajo en sodio, 340 grm",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00537400/00537472.jpg?3.0.138f",
                             Name = "Arvejas",
-                            Price = 65.390000000000001
+                            Price = 65.39m
                         },
                         new
                         {
@@ -203,7 +203,7 @@ namespace Infraesctructure.Migrations
                             Description = "Sin gas, 2.5 lt",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00289600/00289636.jpg?3.0.138f",
                             Name = "Agua mineral",
-                            Price = 91.709999999999994
+                            Price = 91.71m
                         },
                         new
                         {
@@ -213,7 +213,7 @@ namespace Infraesctructure.Migrations
                             Description = "Light, 2 lt",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00189500/00189594.jpg?3.0.138f",
                             Name = "Gaseosa",
-                            Price = 134.55000000000001
+                            Price = 134.55m
                         },
                         new
                         {
@@ -223,7 +223,7 @@ namespace Infraesctructure.Migrations
                             Description = "Entera, sache 1 lt",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00170500/00170599.jpg?3.0.138f",
                             Name = "Leche",
-                            Price = 183.25
+                            Price = 183.25m
                         },
                         new
                         {
@@ -233,7 +233,7 @@ namespace Infraesctructure.Migrations
                             Description = "Caja 160 grm",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00499100/00499140.jpg?3.0.138f",
                             Name = "Cookie Sandwich",
-                            Price = 259.0
+                            Price = 259.00m
                         },
                         new
                         {
@@ -243,7 +243,7 @@ namespace Infraesctructure.Migrations
                             Description = "Doble hoja, caja 100u",
                             Image = "https://static.cotodigital3.com.ar/sitios/fotos/full/00264600/00264677.jpg?3.0.138f",
                             Name = "Pañuelos",
-                            Price = 149.87
+                            Price = 149.87m
                         });
                 });
 

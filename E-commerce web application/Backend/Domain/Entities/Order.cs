@@ -11,7 +11,7 @@ namespace Domain.Entities
         [Column("date")]
         public DateTime Date { get; set; }
         [Column("total")]
-        public double Total { get; set; }
+        public decimal Total { get; set; }
         public Cart? Cart { get; set; }
     }
 }

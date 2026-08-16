@@ -5,18 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraesctructure.Query
 {
-    public class ProductQuery : IProductQuery
+    public class ProductQuery(AppDbContext context) : IProductQuery
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context = context;
 
-        public ProductQuery(AppDbContext context)
-        {
-            _context = context;
-        }
         public async Task<List<Product>> GetAll(string name, bool sort)
         {
             var products = from p in _context.Product
-                           where p.Name == name
+                           where p.Name != null && (string.IsNullOrEmpty(name) || p.Name.Contains(name))
                            select p;
             switch (sort)
             {
