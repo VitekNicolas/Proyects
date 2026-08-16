@@ -1,0 +1,12 @@
+<!ELEMENT Project (PropertyGroup,ItemGroup+)>
+<!ATTLIST Project Sdk NMTOKEN #REQUIRED>
+<!ELEMENT PropertyGroup (TargetFramework,ImplicitUsings,Nullable)>
+<!ELEMENT TargetFramework (#PCDATA)>
+<!ELEMENT ImplicitUsings (#PCDATA)>
+<!ELEMENT Nullable (#PCDATA)>
+<!ELEMENT ItemGroup (PackageReference?,ProjectReference?)>
+<!ELEMENT PackageReference EMPTY>
+<!ATTLIST PackageReference Include NMTOKEN #REQUIRED>
+<!ATTLIST PackageReference Version NMTOKEN #REQUIRED>
+<!ELEMENT ProjectReference EMPTY>
+<!ATTLIST ProjectReference Include CDATA #REQUIRED>
