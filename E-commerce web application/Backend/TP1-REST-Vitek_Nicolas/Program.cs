@@ -27,6 +27,30 @@ builder.Services.AddSwaggerGen(c =>
         var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
         c.IncludeXmlComments(xmlPath);
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "Ingresá el token JWT (sin el prefijo 'Bearer ', Swagger lo agrega solo)."
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
     });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -41,6 +65,8 @@ builder.Services.AddScoped<IClientQuery, ClientQuery>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductQuery, ProductQuery>();
+
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddScoped<IProductCartService, ProductCartService>();
 builder.Services.AddScoped<ICartQuery, CartQuery>();
@@ -66,7 +92,7 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
-                      
+
 });
 
 var jwtKey = builder.Configuration["Jwt:Key"]!;
