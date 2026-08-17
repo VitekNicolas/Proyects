@@ -2,17 +2,17 @@ using Application.Exceptions;
 using Application.Interface;
 using Application.Interface.Models;
 using Application.Response;
-using BCryptNet = BCrypt.Net.BCrypt;
 using Domain.Entities;
 
-namespace Application.UserCase.Auth
+namespace Application.UserCase
 {
-    public class AuthService(IClientCommand command, IClientQuery query) : IAuthService
+    public class AuthService(IClientCommand command, IClientQuery query, ITokenService tokenService) : IAuthService
     {
         private readonly IClientCommand _command = command;
         private readonly IClientQuery _query = query;
+        private readonly ITokenService _tokenService = tokenService;
 
-        public async Task<ClientResponse> Register(RegisterRequest request)
+        public async Task<AuthResponse> Register(RegisterRequest request)
         {
             if (_query.DuplicateDni(request.DNI))
             {
@@ -41,18 +41,10 @@ namespace Application.UserCase.Auth
 
             await _command.InsertClient(client);
 
-            return new ClientResponse
-            {
-                ClientId = client.ClientId,
-                DNI = client.DNI,
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                Address = client.Address,
-                PhoneNumber = client.PhoneNumber
-            };
+            return BuildAuthResponse(client);
         }
 
-        public async Task<ClientResponse> Login(LoginRequest request)
+        public async Task<AuthResponse> Login(LoginRequest request)
         {
             var client = _query.GetClientByEmail(request.Email);
             if (client == null || client.PasswordHash == null)
@@ -65,18 +57,27 @@ namespace Application.UserCase.Auth
                 throw new InvalidCredentialsException();
             }
 
-            return new ClientResponse
+            return BuildAuthResponse(client);
+        }
+
+        private AuthResponse BuildAuthResponse(Client client)
+        {
+            return new AuthResponse
             {
-                ClientId = client.ClientId,
-                DNI = client.DNI,
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                Address = client.Address,
-                PhoneNumber = client.PhoneNumber
+                Token = _tokenService.GenerateToken(client),
+                Client = new ClientResponse
+                {
+                    ClientId = client.ClientId,
+                    DNI = client.DNI,
+                    FirstName = client.FirstName,
+                    LastName = client.LastName,
+                    Address = client.Address,
+                    PhoneNumber = client.PhoneNumber
+                }
             };
         }
 
-        private bool InvalidDni(int dni)
+        private static bool InvalidDni(int dni)
         {
             return !(dni >= 1000000 && dni <= 99999999);
         }

@@ -26,20 +26,8 @@ namespace Infraesctructure.Persistence
                 entity.HasIndex(c => c.Email).IsUnique();
                 entity.Property(c => c.PasswordHash).HasColumnType("nvarchar(200)").IsRequired();
                 entity.Property(t => t.ClientId).ValueGeneratedOnAdd();
-                entity.HasData(
-                    new Client
-                    {
-                        ClientId = 1,
-                        FirstName = "Nicolas",
-                        LastName = "Vitek",
-                        DNI = 23344312,
-                        Address = "Bynnon 2331",
-                        PhoneNumber = "4234-1231",
-                        Email = "nicolas@example.com",
-                        PasswordHash = "TEMP_HASH_PLACEHOLDER"
-                    });
                 entity
-                .HasMany<Cart>(cl => cl.Cart)
+                .HasMany(cl => cl.Cart)
                 .WithOne(c => c.Client);
 
             });
