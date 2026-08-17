@@ -77,5 +77,26 @@ namespace Infraesctructure.Query
                         };
             return await query.ToListAsync();
         }
+        public async Task<List<DataBalanceResponse>> GetClientOrders(int clientId)
+        {
+            var query = from p in _context.Product
+                        join cp in _context.ProductCart on p.ProductId equals cp.ProductId
+                        join c in _context.Cart on cp.CartId equals c.CartId
+                        join o in _context.Order on c.CartId equals o.CartId
+                        join cl in _context.Client on c.ClientId equals cl.ClientId
+                        where cl.ClientId == clientId
+                        orderby o.Date descending
+                        select new DataBalanceResponse
+                        {
+                            FirstNameClient = cl.FirstName,
+                            LastNameClient = cl.LastName,
+                            ProductName = p.Name,
+                            ProductAmount = cp.Amount,
+                            SubTotal = cp.Amount * p.Price,
+                            Total = o.Total,
+                            ProductPrice = p.Price
+                        };
+            return await query.ToListAsync();
+        }
     }
 }

@@ -32,5 +32,11 @@ namespace Application.UserCase
             var result = await _query.GetBalance(from, to);
             return result;
         }
+
+        public async Task<IEnumerable<DataBalanceResponse>> GetMyOrders(int clientId)
+        {
+            var result = await _query.GetClientOrders(clientId);
+            return result;
+        }
     }
 }

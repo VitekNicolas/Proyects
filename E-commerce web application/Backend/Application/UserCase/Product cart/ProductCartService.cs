@@ -12,9 +12,9 @@ namespace Application.UserCase.cart
         private readonly ICartQuery _carQuery = carQuery;
         private readonly IProductQuery _productQuery = productQuery;
 
-        public async Task<ProductCart> CreateProductCart(ProductCartRequest request)
+        public async Task<ProductCart> CreateProductCart(int clientId, ProductCartRequest request)
         {
-            int? cartId = _carQuery.GetCartId(request.ClientId) ?? throw new NonExistentIDException();
+            int? cartId = _carQuery.GetCartId(clientId) ?? throw new NonExistentIDException();
             if (_productQuery.GetProduct(request.ProductId) == null)
             {
                 throw new NonExistentIDException();
@@ -35,9 +35,9 @@ namespace Application.UserCase.cart
             return productCart;
         }
 
-        public async Task<ProductCart> UpdateProductCart(ProductCartRequest request)
+        public async Task<ProductCart> UpdateProductCart(int clientId, ProductCartRequest request)
         {
-            int? cartId = _carQuery.GetCartId(request.ClientId) ?? throw new NonExistentIDException();
+            int? cartId = _carQuery.GetCartId(clientId) ?? throw new NonExistentIDException();
             if (_productQuery.GetProduct(request.ProductId) == null)
             {
                 throw new NonExistentIDException();

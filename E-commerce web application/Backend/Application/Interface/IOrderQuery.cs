@@ -8,5 +8,6 @@ namespace Application.Interface
         public void UpdateStatusCart(int clientId);
         public OrderProductData CalculateTotal(int clientId);
         public Task<List<DataBalanceResponse>> GetBalance(DateTime from, DateTime to);
+        Task<List<DataBalanceResponse>> GetClientOrders(int clientId);
     }
 }
