@@ -1,63 +1,73 @@
+using System.Reflection;
+using System.Text;
+using System.Text.Json.Serialization;
 using Application.Interface;
-using Application.UserCase.cart;
 using Application.UserCase;
+using Application.UserCase.cart;
 using Application.UserCase.Product;
 using Infraesctructure.Command;
 using Infraesctructure.Persistence;
 using Infraesctructure.Query;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TP1_REST_Vitek_Nicolas.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new OpenApiInfo
+{
+    c.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
         {
             Title = "E-commerce API",
             Version = "v1",
-            Description = "API REST para gestión de clientes, productos, carritos y órdenes de compra."
-        });
-        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        c.IncludeXmlComments(xmlPath);
-        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            Description =
+                "API REST para gestión de clientes, productos, carritos y órdenes de compra.",
+        }
+    );
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    c.AddSecurityDefinition(
+        "Bearer",
+        new OpenApiSecurityScheme
         {
             Name = "Authorization",
             Type = SecuritySchemeType.Http,
             Scheme = "Bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description = "Ingresá el token JWT (sin el prefijo 'Bearer ', Swagger lo agrega solo)."
-        });
-
-        c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
+            Description =
+                "Ingresá el token JWT (sin el prefijo 'Bearer ', Swagger lo agrega solo).",
         }
-    });
-    });
+    );
+
+    c.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer",
+                    },
+                },
+                Array.Empty<string>()
+            },
+        }
+    );
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(connectionString,
-        b => b.MigrationsAssembly("Infraestructure")));
+    options.UseSqlite(connectionString, b => b.MigrationsAssembly("Infraestructure"))
+);
 
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientCommand, ClientCommand>();
@@ -79,27 +89,30 @@ builder.Services.AddScoped<IOrderQuery, OrderQuery>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddControllers().AddJsonOptions(x =>
-   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+builder
+    .Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-                      name: "politica",
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:5500")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                      });
-
+        name: "politica",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:5500", "http://127.0.0.1:5500")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
 });
 
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]!;
 var jwtAudience = builder.Configuration["Jwt:Audience"]!;
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder
+    .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -110,7 +123,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtIssuer,
             ValidAudience = jwtAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
         };
     });
 
@@ -124,7 +137,6 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
-
 }
 app.UseHttpsRedirection();
 app.UseCors("politica");
