@@ -1,0 +1,25 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# SQLite local db (si la usás para desarrollo local)
+*.db
+*.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db

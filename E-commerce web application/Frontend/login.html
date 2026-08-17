@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Almacén Vitek — Ingresar</title>
+  <link href="./js/css/login.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="auth-card">
+    <p class="auth-sign">Almacén Vitek</p>
+    <p class="auth-subtitle">Tu kiosco de siempre, ahora online</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" type="button">Ingresar</button>
+      <button class="auth-tab" id="tabRegister" type="button">Crear cuenta</button>
+    </div>
+
+    <p class="auth-error" id="authError"></p>
+
+    <form class="auth-form active" id="formLogin">
+      <div class="auth-field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="tu@email.com" required />
+      </div>
+      <div class="auth-field">
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required />
+      </div>
+      <button class="auth-submit" id="btnLogin" type="submit">Entrar</button>
+    </form>
+
+    <form class="auth-form" id="formRegister">
+      <div class="auth-field">
+        <label for="regFirstName">Nombre</label>
+        <input type="text" id="regFirstName" placeholder="Nicolás" required />
+      </div>
+      <div class="auth-field">
+        <label for="regLastName">Apellido</label>
+        <input type="text" id="regLastName" placeholder="Vitek" required />
+      </div>
+      <div class="auth-field">
+        <label for="regDni">DNI</label>
+        <input type="text" id="regDni" placeholder="30123456" required />
+      </div>
+      <div class="auth-field">
+        <label for="regAddress">Dirección</label>
+        <input type="text" id="regAddress" placeholder="Calle Falsa 123" required />
+      </div>
+      <div class="auth-field">
+        <label for="regPhoneNumber">Teléfono</label>
+        <input type="text" id="regPhoneNumber" placeholder="11 2233 4455" required />
+      </div>
+      <div class="auth-field">
+        <label for="regEmail">Email</label>
+        <input type="email" id="regEmail" placeholder="tu@email.com" required />
+      </div>
+      <div class="auth-field">
+        <label for="regPassword">Contraseña</label>
+        <input type="password" id="regPassword" placeholder="Mínimo 8 caracteres" required minlength="8" />
+      </div>
+      <button class="auth-submit" id="btnRegister" type="submit">Crear cuenta</button>
+    </form>
+  </div>
+
+  <script type="module" src="./js/pages/LoginPage.js"></script>
+</body>
+</html>
