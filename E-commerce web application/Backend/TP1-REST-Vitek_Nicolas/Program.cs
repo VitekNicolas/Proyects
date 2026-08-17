@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Application.UserCase.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -46,6 +47,9 @@ builder.Services.AddScoped<IProductCartQuery, ProductCartQuery>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderCommand, OrderCommand>();
 builder.Services.AddScoped<IOrderQuery, OrderQuery>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddControllers().AddJsonOptions(x =>
    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 

@@ -2,6 +2,7 @@
 {
     public class ClientResponse
     {
+        public int ClientId { get; set; }
         public int DNI { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

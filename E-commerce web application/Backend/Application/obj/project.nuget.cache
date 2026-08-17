@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IbhfKmOrZMg=",
+  "dgSpecHash": "y6Ukgjv5yIg=",
   "success": true,
   "projectFilePath": "C:\\Users\\nicol\\Documents\\Nicolas\\Proyects\\E-commerce web application\\Backend\\Application\\Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\nicol\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.10\\microsoft.entityframeworkcore.10.0.10.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.10\\microsoft.entityframeworkcore.abstractions.10.0.10.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.10\\microsoft.entityframeworkcore.analyzers.10.0.10.nupkg.sha512",

@@ -1,4 +1,4 @@
-﻿namespace Application.Models
+﻿namespace Application.Interface.Models
 {
     /// <summary>Datos necesarios para agregar, actualizar o identificar un producto dentro del carrito de un cliente.</summary>
     public class ProductCartRequest

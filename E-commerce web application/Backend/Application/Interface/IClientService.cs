@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Interface.Models;
 using Application.Response;
 using Domain.Entities;
 

@@ -1,6 +1,6 @@
 ﻿using Application.Exceptions;
 using Application.Interface;
-using Application.Models;
+using Application.Interface.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TP1_REST_Vitek_Nicolas.Controllers

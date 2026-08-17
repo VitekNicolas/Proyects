@@ -36,5 +36,14 @@ namespace Infraesctructure.Query
                 return true;
             }
         }
+        public bool DuplicateEmail(string email)
+        {
+            return _context.Client.Any(c => c.Email == email);
+        }
+
+        public Client? GetClientByEmail(string email)
+        {
+            return _context.Client.FirstOrDefault(c => c.Email == email);
+        }
     }
 }
