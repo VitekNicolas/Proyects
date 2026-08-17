@@ -9,7 +9,7 @@ namespace Infraesctructure.Query
     {
         private readonly AppDbContext _context = context;
 
-        public async Task<List<Product>> GetAll(string name, bool sort)
+        public async Task<List<Product>> GetAll(string? name, bool sort)
         {
             var products = from p in _context.Product
                            where p.Name != null && (string.IsNullOrEmpty(name) || p.Name.Contains(name))

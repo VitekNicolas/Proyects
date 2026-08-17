@@ -3,17 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraesctructure.Persistence
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
         public DbSet<Client> Client { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductCart> ProductCart { get; set; }
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-        {
-        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>(entity =>
@@ -25,6 +22,9 @@ namespace Infraesctructure.Persistence
                 entity.Property(t => t.LastName).HasColumnType("nvarchar(25)");
                 entity.Property(t => t.Address).HasColumnType("TEXT");
                 entity.Property(t => t.PhoneNumber).HasColumnType("nvarchar(13)");
+                entity.Property(c => c.Email).HasColumnType("nvarchar(100)").IsRequired();
+                entity.HasIndex(c => c.Email).IsUnique();
+                entity.Property(c => c.PasswordHash).HasColumnType("nvarchar(200)").IsRequired();
                 entity.Property(t => t.ClientId).ValueGeneratedOnAdd();
                 entity.HasData(
                     new Client
@@ -34,7 +34,9 @@ namespace Infraesctructure.Persistence
                         LastName = "Vitek",
                         DNI = 23344312,
                         Address = "Bynnon 2331",
-                        PhoneNumber = "4234-1231"
+                        PhoneNumber = "4234-1231",
+                        Email = "nicolas@example.com",
+                        PasswordHash = "TEMP_HASH_PLACEHOLDER"
                     });
                 entity
                 .HasMany<Cart>(cl => cl.Cart)

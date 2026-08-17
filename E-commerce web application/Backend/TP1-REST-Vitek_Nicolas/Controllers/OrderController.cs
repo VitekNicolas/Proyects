@@ -1,7 +1,6 @@
 ﻿using Application.Exceptions;
 using Application.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace TP1_REST_Vitek_Nicolas.Controllers
 {
@@ -18,6 +17,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         [HttpPost("{clientId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]       
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateOrder(int clientId)
         {
             try

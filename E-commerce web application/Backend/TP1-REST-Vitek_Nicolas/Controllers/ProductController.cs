@@ -20,11 +20,11 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]        
-        public async Task<ActionResult<IEnumerable<ProductResponse>>> GetAll([FromQuery] string name, [FromQuery] bool sort)
+        public async Task<ActionResult<IEnumerable<ProductResponse>>> GetAll([FromQuery] string? name = null, [FromQuery] bool sort = false)
         {
             try
             {
-                var result = await _service.GetAll(name,sort);
+                var result = await _service.GetAll(name ?? string.Empty, sort);
                 return new JsonResult(result);
             }
             catch (NonExistentNameException ex)
@@ -43,7 +43,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]        
-        public async Task<IActionResult> GetAll(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {

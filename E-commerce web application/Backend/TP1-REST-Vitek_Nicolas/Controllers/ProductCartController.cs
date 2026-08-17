@@ -20,7 +20,8 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         /// clientId or productId</response>
         [HttpDelete("{clientId}/{productId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]     
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]   
         public async Task<IActionResult> DeletedProductcart(int clientId, int productId)
         {
             try
@@ -39,7 +40,8 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         /// <response code="400">There is no productCart for that productId</response>
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]     
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]   
         public async Task<IActionResult> UpdateProductCart(ProductCartRequest request)
         {
             try
@@ -59,6 +61,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]        
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateProductcart(ProductCartRequest request)
         {
             try

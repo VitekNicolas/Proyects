@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraesctructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260816221351_ChangeMoneyTypesToDecimal")]
-    partial class ChangeMoneyTypesToDecimal
+    [Migration("20260817020845_AddClientAuthFields")]
+    partial class AddClientAuthFields
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,11 @@ namespace Infraesctructure.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasColumnName("dni");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("email");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(25)")
                         .HasColumnName("firstName");
@@ -65,11 +70,19 @@ namespace Infraesctructure.Migrations
                         .HasColumnType("nvarchar(25)")
                         .HasColumnName("lastName");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("passwordHash");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(13)")
                         .HasColumnName("phoneNumber");
 
                     b.HasKey("ClientId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Client", (string)null);
 
@@ -79,8 +92,10 @@ namespace Infraesctructure.Migrations
                             ClientId = 1,
                             Address = "Bynnon 2331",
                             DNI = 23344312,
+                            Email = "nicolas@example.com",
                             FirstName = "Nicolas",
                             LastName = "Vitek",
+                            PasswordHash = "TEMP_HASH_PLACEHOLDER",
                             PhoneNumber = "4234-1231"
                         });
                 });

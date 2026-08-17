@@ -5,15 +5,20 @@ using Domain.Entities;
 
 namespace Application.UserCase.cart
 {
-    public class ProductCartService(IProductCartQuery query, IProductCartCommand command, ICartQuery carQuery) : IProductCartService
+    public class ProductCartService(IProductCartQuery query, IProductCartCommand command, ICartQuery carQuery, IProductQuery productQuery) : IProductCartService
     {
         private readonly IProductCartQuery _query = query;
         private readonly IProductCartCommand _command = command;
         private readonly ICartQuery _carQuery = carQuery;
+        private readonly IProductQuery _productQuery = productQuery;
 
         public async Task<ProductCart> CreateProductCart(ProductCartRequest request)
         {
             int? cartId = _carQuery.GetCartId(request.ClientId) ?? throw new NonExistentIDException();
+            if (_productQuery.GetProduct(request.ProductId) == null)
+            {
+                throw new NonExistentIDException();
+            }
             var productCart = new ProductCart
             {
                 CartId = cartId.Value,
@@ -33,6 +38,10 @@ namespace Application.UserCase.cart
         public async Task<ProductCart> UpdateProductCart(ProductCartRequest request)
         {
             int? cartId = _carQuery.GetCartId(request.ClientId) ?? throw new NonExistentIDException();
+            if (_productQuery.GetProduct(request.ProductId) == null)
+            {
+                throw new NonExistentIDException();
+            }
             var productCart = new ProductCart
             {
                 CartId = cartId.Value,

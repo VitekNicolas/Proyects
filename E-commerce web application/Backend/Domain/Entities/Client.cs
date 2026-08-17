@@ -16,14 +16,20 @@ namespace Domain.Entities
         public string? Address { get; set; }
         [Column("phoneNumber")]
         public string? PhoneNumber { get; set; }
+        [Column("email")]
+        public string? Email { get; set; }
+        [Column("passwordHash")]
+        public string? PasswordHash { get; set; }
         public ICollection<Cart>? Cart { get; set; }
-        public Client(int dni, string firstName, string lastName, string address, string phoneNumber)
+        public Client(int dni, string firstName, string lastName, string address, string phoneNumber, string email, string passwordHash)
         {
             DNI = dni;
             FirstName = firstName;
             LastName = lastName;
             Address = address;
             PhoneNumber = phoneNumber;
+            Email = email;
+            PasswordHash = passwordHash;
         }
         public Client(){}
     }

@@ -1,7 +1,7 @@
-﻿using System.Data.SqlTypes;
-using Application.Interface;
+﻿using Application.Interface;
 using Application.Response;
 using Application.UserCase;
+using Application.Exceptions;
 using Infraesctructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +41,10 @@ namespace Infraesctructure.Query
                                      CartId = c.CartId
                                  };
             var listOfProducts = productsInCart.ToList();
+            if (listOfProducts.Count == 0)
+            {
+                throw new NonExistentIDException();
+            }
             foreach (OrderProductData product in listOfProducts)
             {
                 total += product.Price * product.Amount;
@@ -60,7 +64,7 @@ namespace Infraesctructure.Query
                         join c in _context.Cart on cp.CartId equals c.CartId
                         join o in _context.Order on c.CartId equals o.CartId
                         join cl in _context.Client on c.ClientId equals cl.ClientId
-                        where o.Date > desde & o.Date < hasta
+                        where o.Date > desde && o.Date < hasta
                         select new DataBalanceResponse
                         {
                             FirstNameClient = cl.FirstName,

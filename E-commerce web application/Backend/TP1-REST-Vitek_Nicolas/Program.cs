@@ -11,19 +11,25 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mi API", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "E-commerce API",
+            Version = "v1",
+            Description = "API REST para gestión de clientes, productos, carritos y órdenes de compra."
+        });
         var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
         c.IncludeXmlComments(xmlPath);
     });
 
-var conectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(conectionString));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(connectionString,
+        b => b.MigrationsAssembly("Infraestructure")));
 
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientCommand, ClientCommand>();
@@ -50,10 +56,10 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5500")
-                          .AllowAnyOrigin()
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
+                      
 });
 var app = builder.Build();
 

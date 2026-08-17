@@ -31,7 +31,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /// <summary>Create a client.</summary>
+        /// <summary>Create a client</summary>
         /// <returns>The object client recently created</returns>
         /// <response code="200">Client created successfully.</response>
         /// <response code="400">Validation error. The dni must be between 1000000 and 99999999.</response>
@@ -39,6 +39,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         [HttpPost, ActionName("Crear cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateClient(ClientRequest request)
         {
             try

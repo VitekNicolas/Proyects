@@ -8,7 +8,7 @@ namespace Application.UserCase.Product
     {
         private readonly IProductQuery _query = query;
 
-        public async Task<IEnumerable<ProductResponse>> GetAll(string name, bool sort)
+        public async Task<IEnumerable<ProductResponse>> GetAll(string? name, bool sort)
         {
             var result = await _query.GetAll(name, sort);
             if (result.Count == 0)

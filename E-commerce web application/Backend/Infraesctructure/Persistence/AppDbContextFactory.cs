@@ -2,15 +2,16 @@ using Infraesctructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+namespace Infraesctructure.Persistence
 {
-    public AppDbContext CreateDbContext(string[] args)
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-
-        // Usa la configuración adecuada para tu entorno de diseño
-        optionsBuilder.UseSqlite("Data Source=ecommerce_db.db"); // Cambia a tu cadena de conexión
-
-        return new AppDbContext(optionsBuilder.Options);
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlite("Data Source=ecommerce_db.db");
+            
+            return new AppDbContext(optionsBuilder.Options);
+        }
     }
 }
