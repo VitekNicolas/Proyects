@@ -1,65 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Almacén Vitek</title>
-  <link href="./css/app.css" rel="stylesheet" />
-</head>
-<body>
-  <nav class="navbar">
-    <span class="navbar-brand">Almacén Vitek</span>
-    <div class="navbar-tabs">
-      <button class="navbar-tab active" data-section="products">Productos</button>
-      <button class="navbar-tab" data-section="cart">Carrito</button>
-      <button class="navbar-tab" data-section="orders">Mis compras</button>
-    </div>
-    <div class="navbar-user">
-      <span id="navUserName"></span>
-      <button class="btn-logout" id="btnLogout">Salir</button>
-    </div>
-  </nav>
-
-  <main>
-    <section class="section active" id="section-products">
-      <div class="section-header">
-        <h1 class="section-title">Productos</h1>
-        <div class="search-bar">
-          <input type="search" id="inpSearch" placeholder="Buscar producto..." />
-          <select id="selSort">
-            <option value="false">Menor a mayor</option>
-            <option value="true">Mayor a menor</option>
-          </select>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Almacén Vitek</title>
+    <link href="./css/app.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <span class="navbar-brand">Almacén Vitek</span>
+      <div class="navbar-tabs">
+        <button class="navbar-tab active" data-section="products">
+          Productos
+        </button>
+        <button class="navbar-tab" data-section="cart">Carrito</button>
+        <button class="navbar-tab" data-section="orders">Mis compras</button>
+      </div>
+      <div class="navbar-user">
+        <span id="navUserName"></span>
+        <button class="btn-logout" id="btnLogout">Salir</button>
+      </div>
+    </nav>
+    <main>
+      <section class="section active" id="section-products">
+        <div class="section-header">
+          <h1 class="section-title">Productos</h1>
+          <div class="search-bar">
+            <input
+              type="search"
+              id="inpSearch"
+              placeholder="Buscar producto..."
+            />
+            <select id="selSort">
+              <option value="false">Menor a mayor</option>
+              <option value="true">Mayor a menor</option>
+            </select>
+          </div>
         </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+      <section class="section" id="section-cart">
+        <div class="section-header">
+          <h1 class="section-title">Tu carrito</h1>
+        </div>
+        <div class="cart-list" id="cartList"></div>
+      </section>
+      <section class="section" id="section-orders">
+        <div class="section-header">
+          <h1 class="section-title">Mis compras</h1>
+        </div>
+        <div class="order-list" id="orderList"></div>
+      </section>
+    </main>
+    <div class="cart-float-bar" id="cartFloatBar">
+      <div class="info">
+        <span class="label" id="cartFloatCount">0 productos</span>
+        <span class="total" id="cartFloatTotal">$0</span>
       </div>
-      <div class="product-grid" id="productGrid"></div>
-    </section>
-
-    <section class="section" id="section-cart">
-      <div class="section-header">
-        <h1 class="section-title">Tu carrito</h1>
-      </div>
-      <div class="cart-list" id="cartList"></div>
-    </section>
-
-    <section class="section" id="section-orders">
-      <div class="section-header">
-        <h1 class="section-title">Mis compras</h1>
-      </div>
-      <div class="order-list" id="orderList"></div>
-    </section>
-  </main>
-
-  <div class="cart-float-bar" id="cartFloatBar">
-    <div class="info">
-      <span class="label" id="cartFloatCount">0 productos</span>
-      <span class="total" id="cartFloatTotal">$0</span>
+      <button id="btnCheckout" type="button">Confirmar compra</button>
     </div>
-    <button id="btnCheckout" type="button">Confirmar compra</button>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script type="module" src="./js/app.js"></script>
-</body>
+    <div class="toast" id="toast"></div>
+    <div class="modal-overlay" id="invoiceModal">
+      <div class="modal-card">
+        <p class="modal-title">Compra confirmada</p>
+        <p class="modal-subtitle" id="invoiceDate"></p>
+        <div class="invoice-items" id="invoiceItems"></div>
+        <div class="invoice-total">
+          <span>Total</span>
+          <span id="invoiceTotal">$0</span>
+        </div>
+        <button class="btn-primary" id="btnCloseInvoice" type="button">
+          Seguir comprando
+        </button>
+      </div>
+    </div>
+    <script type="module" src="./js/app.js"></script>
+  </body>
 </html>
