@@ -17,7 +17,7 @@ export class ProductCard {
         <input type="number" min="0" value="0" readonly data-role="amount" />
         <button type="button" data-action="increase">+</button>
       </div>
-      <button class="btn-primary" type="button" data-action="add" disabled>Agregar al carrito</button>
+      <button class="btn-outline" type="button" data-action="add" disabled>Agregar al carrito</button>
     `;
 
     const input = el.querySelector('[data-role="amount"]');
@@ -37,13 +37,19 @@ export class ProductCard {
       decreaseBtn.disabled = newValue === 0;
     });
 
-    addBtn.addEventListener("click", () => {
+    addBtn.addEventListener("click", async () => {
       const amount = parseInt(input.value, 10);
       if (amount > 0 && this.onAdd) {
-        this.onAdd(productId, amount);
+        addBtn.disabled = true;
+        addBtn.textContent = "Agregando...";
+        await this.onAdd(productId, amount);
+        addBtn.textContent = "Agregado ✓";
+        setTimeout(() => {
+          addBtn.textContent = "Agregar al carrito";
+          addBtn.disabled = input.value === "0";
+        }, 1200);
       }
     });
-
     return el;
   }
 }

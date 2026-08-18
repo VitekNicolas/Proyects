@@ -9,7 +9,6 @@ export class ProductsPage {
     this.searchInput = document.getElementById("inpSearch");
     this.sortSelect = document.getElementById("selSort");
     this.onCartChanged = onCartChanged;
-
     this.searchInput.addEventListener("input", this.debounce(() => this.load(), 350));
     this.sortSelect.addEventListener("change", () => this.load());
   }
@@ -44,7 +43,7 @@ export class ProductsPage {
       const card = new ProductCard(product);
       card.onAdd = async (productId, amount) => {
         try {
-          await CartService.addProduct(productId, amount);
+          await CartService.updateProduct(productId, amount);
           showToast(`${product.name} agregado al carrito`);
           if (this.onCartChanged) await this.onCartChanged();
         } catch (error) {

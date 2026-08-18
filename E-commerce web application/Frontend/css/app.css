@@ -136,6 +136,18 @@ main {
   font-size: 13px;
   color: var(--text-primary);
   font-family: "Inter", sans-serif;
+  line-height: 1.2;
+}
+
+.search-bar select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238B90B0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+  cursor: pointer;
 }
 
 .product-grid {
@@ -205,8 +217,39 @@ main {
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-primary);
-  padding: 5px;
+  padding: 5px 0;
   font-size: 13px;
+  line-height: 1;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.amount-control input::-webkit-outer-spin-button,
+.amount-control input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+.btn-outline:hover {
+  background: rgba(76, 224, 210, 0.08);
+}
+.btn-outline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
 }
 
 .btn-primary {
@@ -216,7 +259,7 @@ main {
   border-radius: 6px;
   padding: 10px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   font-family: "Inter", sans-serif;
 }
