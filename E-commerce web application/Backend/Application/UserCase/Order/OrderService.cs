@@ -5,10 +5,11 @@ using Domain.Entities;
 
 namespace Application.UserCase
 {
-    public class OrderService(IOrderCommand command, IOrderQuery query) : IOrderService
+    public class OrderService(IOrderCommand command, IOrderQuery query, ICartCommand cartCommand) : IOrderService
     {
         private readonly IOrderCommand _command = command;
         private readonly IOrderQuery _query = query;
+        private readonly ICartCommand _cartCommand = cartCommand;
 
         public async Task<Order> CreateOrder(int clientId)
         {
@@ -21,8 +22,13 @@ namespace Application.UserCase
                 Total = result.Total
             };
             await _command.InsertOrder(order);
+
+            var newCart = new Cart(clientId, true);
+            await _cartCommand.InsertCart(newCart);
+
             return order;
         }
+
         public async Task<IEnumerable<DataBalanceResponse>> ShowBalance(DateTime from, DateTime to)
         {
             if (from == to)

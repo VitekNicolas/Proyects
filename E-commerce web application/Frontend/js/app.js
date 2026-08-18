@@ -2,6 +2,7 @@ import "./auth-guard.js";
 import { AuthService } from "./services/AuthService.js";
 import { CartService } from "./services/CartService.js";
 import { ProductsPage } from "./pages/ProductsPage.js";
+import { CartPage } from "./pages/CartPage.js";
 
 const tabs = document.querySelectorAll(".navbar-tab");
 const sections = document.querySelectorAll(".section");
@@ -17,7 +18,10 @@ const showSection = (name) => {
 };
 
 tabs.forEach((tab) => {
-  tab.addEventListener("click", () => showSection(tab.dataset.section));
+  tab.addEventListener("click", () => {
+    showSection(tab.dataset.section);
+    if (tab.dataset.section === "cart") cartPage.load();
+  });
 });
 
 btnLogout.addEventListener("click", () => AuthService.logout());
@@ -42,6 +46,7 @@ const updateCartFloatBar = async () => {
 };
 
 const productsPage = new ProductsPage({ onCartChanged: updateCartFloatBar });
+const cartPage = new CartPage({ onCartChanged: updateCartFloatBar });
 
 document.addEventListener("DOMContentLoaded", () => {
   productsPage.load();

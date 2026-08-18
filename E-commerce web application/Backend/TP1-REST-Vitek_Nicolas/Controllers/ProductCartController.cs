@@ -18,7 +18,7 @@ namespace TP1_REST_Vitek_Nicolas.Controllers
         /// <response code="200">ProductCart deleted successfully.</response>
         /// <response code="400">There is no productCart for that
         /// clientId or productId</response>
-        [HttpDelete("{clientId}/{productId}")]
+        [HttpDelete("{productId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(object))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

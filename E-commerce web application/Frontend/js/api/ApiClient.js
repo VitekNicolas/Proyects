@@ -49,7 +49,7 @@ export class ApiClient {
     }
 
     const data = await response.json();
-    return data?.$values ?? data;
+    return this.unwrapRefs(data);
   }
 
   static get(path, options = {}) {
@@ -66,5 +66,23 @@ export class ApiClient {
 
   static delete(path, options = {}) {
     return this.request(path, { ...options, method: "DELETE" });
+  }
+
+  static unwrapRefs(data) {
+    if (Array.isArray(data)) {
+      return data.map((item) => this.unwrapRefs(item));
+    }
+    if (data && typeof data === "object") {
+      if ("$values" in data) {
+        return this.unwrapRefs(data.$values);
+      }
+      const clean = {};
+      for (const key in data) {
+        if (key === "$id" || key === "$ref") continue;
+        clean[key] = this.unwrapRefs(data[key]);
+      }
+      return clean;
+    }
+    return data;
   }
 }

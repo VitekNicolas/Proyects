@@ -77,6 +77,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductQuery, ProductQuery>();
 
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartCommand, CartCommand>();
 
 builder.Services.AddScoped<IProductCartService, ProductCartService>();
 builder.Services.AddScoped<ICartQuery, CartQuery>();
