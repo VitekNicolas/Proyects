@@ -7,6 +7,7 @@ Interfaz web del e-commerce, desarrollada en **JavaScript vanilla (ES6)** con cl
 - HTML5 / CSS3
 - JavaScript ES6 (módulos nativos, clases)
 - Sin frameworks ni bundlers — se sirve como archivos estáticos
+- **nginx** + **Docker** para despliegue local
 
 ## Diseño
 
@@ -16,11 +17,12 @@ Sistema visual "Vidriera nocturna": fondo oscuro con acentos cian y ámbar, evoc
 
 ```
 Frontend/
-├── index.html              # Dashboard: productos, carrito, historial (requiere login)
-├── login.html               # Punto de entrada: login y registro
+├── Dockerfile               # Imagen nginx sirviendo los archivos estáticos
+├── index.html               # Dashboard: productos, carrito, historial (requiere login)
+├── login.html                # Punto de entrada: login y registro
 ├── css/
-│   ├── app.css                # Estilos del dashboard
-│   └── login.css               # Estilos de login/registro
+│   ├── app.css                 # Estilos del dashboard
+│   └── login.css                # Estilos de login/registro
 └── js/
     ├── app.js                # Punto de entrada de index.html
     ├── auth-guard.js          # Redirige a login.html si no hay sesión
@@ -47,36 +49,59 @@ Frontend/
 
 Cada `Service` es responsable de un único recurso del backend y no conoce el DOM. Cada `Page`/`Component` conoce el DOM pero no arma URLs ni fetches directamente — siempre pasa por un `Service`. `ApiClient` es la única clase que sabe hablar HTTP con el backend.
 
-## Requisitos previos
+## Puesta en marcha con Docker (recomendado)
 
-- El [backend](../Backend/README.md) corriendo localmente (por defecto en `https://localhost:7062`).
-- Un servidor de archivos estáticos. Cualquiera de estas opciones funciona:
-  - **Live Server** (extensión de VS Code)
-  - **live-server** (paquete de npm, con auto-reload):
+Esta es la forma principal de correr el proyecto.
+
+### Requisitos previos
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/), con virtualización habilitada (WSL2 en Windows).
+
+### Levantar el proyecto completo (frontend + backend)
+
+El `docker-compose.yml` vive en la **raíz del repositorio** (un nivel arriba de `Frontend/`) y levanta ambos servicios juntos. Parado ahí:
+
+```bash
+docker compose up --build
+```
+
+> En Windows, si el build falla por el motor "Bake" de Docker Compose, desactivalo para esa sesión de terminal:
+> ```cmd
+> set COMPOSE_BAKE=false
+> docker compose up --build
+> ```
+
+El frontend queda disponible en `http://localhost:5500`. Como no hay sesión iniciada la primera vez, redirige automáticamente a `login.html` — usá la pestaña **"Crear cuenta"** para registrar tu primer cliente (la base arranca sin clientes precargados, solo con el catálogo de productos).
+
+Para parar todo:
+```bash
+docker compose down
+```
+
+## Puesta en marcha sin Docker (desarrollo local)
+
+Si preferís servir los archivos estáticos directamente:
+
+### Requisitos previos
+
+- El [backend](../Backend/README.md) corriendo localmente (por defecto en `http://localhost:7062` — ver nota sobre HTTP más abajo).
+- Un servidor de archivos estáticos:
+  - **Live Server** (extensión de VS Code), o
+  - **live-server** (paquete de npm):
     ```bash
     npm install -g live-server
     ```
-  - **http-server** (paquete de npm, sin auto-reload):
-    ```bash
-    npm install -g http-server
-    ```
 
-## Puesta en marcha
+### Pasos
 
-1. Verificá que el backend esté corriendo y que `ApiClient.baseUrl` (en `js/api/ApiClient.js`) apunte a la URL correcta:
-   ```javascript
-   static baseUrl = "https://localhost:7062/api";
-   ```
-
+1. Verificá que `ApiClient.baseUrl` (en `js/api/ApiClient.js`) apunte a la URL correcta del backend.
 2. Levantá el frontend, parado en la carpeta `Frontend/`:
    ```bash
    live-server --port=5500
    ```
    o, con Live Server de VS Code, clic derecho sobre `index.html` → "Open with Live Server".
 
-3. El navegador va a abrir en `http://127.0.0.1:5500` (o `http://localhost:5500`, según el servidor que uses). Como no hay sesión iniciada, `auth-guard.js` va a redirigir automáticamente a `login.html`.
-
-   > ⚠️ El backend tiene CORS configurado para aceptar tanto `http://localhost:5500` como `http://127.0.0.1:5500`. Si servís el frontend en otro puerto u origen, hay que agregarlo en `Program.cs` del backend (`WithOrigins(...)`).
+   > ⚠️ El backend acepta CORS tanto desde `http://localhost:5500` como `http://127.0.0.1:5500`. Si servís en otro puerto u origen, hay que agregarlo en `Program.cs` del backend (`WithOrigins(...)`).
 
 ## Flujo de la aplicación
 
@@ -84,7 +109,7 @@ Cada `Service` es responsable de un único recurso del backend y no conoce el DO
 2. Al loguearse, redirige a **`index.html`**, protegido por `auth-guard.js`.
 3. **Productos**: catálogo con búsqueda y orden por precio. Agregar un producto ya existente en el carrito suma la cantidad, no falla.
 4. **Carrito**: lista editable (sumar/restar/quitar), sincronizada en tiempo real contra el backend — no se guarda copia local del carrito.
-5. **Confirmar compra**: crea la orden, muestra un resumen tipo factura, y limpia el carrito (el backend abre uno nuevo automáticamente).
+5. **Confirmar compra**: crea la orden, muestra un resumen tipo factura, y abre un carrito nuevo automáticamente.
 6. **Mis compras**: historial de órdenes propias del cliente, agrupadas por fecha, con detalle expandible.
 
 ## Sobre `localStorage`
