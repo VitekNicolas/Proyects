@@ -43,7 +43,7 @@ export class ProductsPage {
       const card = new ProductCard(product);
       card.onAdd = async (productId, amount) => {
         try {
-          await CartService.updateProduct(productId, amount);
+          await CartService.addProduct(productId, amount);
           showToast(`${product.name} agregado al carrito`);
           if (this.onCartChanged) await this.onCartChanged();
         } catch (error) {

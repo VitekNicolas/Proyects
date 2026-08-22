@@ -66,7 +66,7 @@ builder.Services.AddSwaggerGen(c =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(connectionString, b => b.MigrationsAssembly("Infraestructure"))
+    options.UseSqlite(connectionString, b => b.MigrationsAssembly("Infraesctructure"))
 );
 
 builder.Services.AddScoped<IClientService, ClientService>();
@@ -144,4 +144,9 @@ app.UseCors("politica");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 app.Run();

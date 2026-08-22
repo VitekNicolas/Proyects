@@ -1,5 +1,5 @@
 export class ApiClient {
-  static baseUrl = "https://localhost:7062/api";
+  static baseUrl = "http://localhost:7062/api";
 
   static getToken() {
     return localStorage.getItem("token");

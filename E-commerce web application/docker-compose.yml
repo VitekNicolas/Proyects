@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    ports:
+      - "7062:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/ecommerce_db.db
+      - Jwt__Key=EstaEsUnaClaveSecretaDeAlMenos32CaracteresDeLargo!
+      - Jwt__Issuer=EcommerceApi
+      - Jwt__Audience=EcommerceApiUsers
+      - Jwt__ExpiresInMinutes=120
+    volumes:
+      - ecommerce_data:/app/data
+
+  frontend:
+    build:
+      context: ./Frontend
+    ports:
+      - "5500:80"
+    depends_on:
+      - backend
+
+volumes:
+  ecommerce_data:
