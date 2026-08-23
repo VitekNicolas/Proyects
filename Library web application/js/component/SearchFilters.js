@@ -57,27 +57,33 @@ export class SearchFilters {
     };
 
     AddEventListenerToBtnSearchByYears = () => {
-        this.$btnSearchByAuthorYears.on("click", () => {
+        this.$btnSearchByAuthorYears.on("click", async () => {
             const inpMinYear = this.$divName.find("#inpMinYear").val();
             const inpMaxYear = this.$divName.find("#inpMaxYear").val();
-            this.render.RenderBooksFilteredByYears(inpMinYear, inpMaxYear);
+            this.$btnSearchByAuthorYears.prop("disabled", true).text("Buscando...");
+            await this.render.RenderBooksFilteredByYears(inpMinYear, inpMaxYear);
+            this.$btnSearchByAuthorYears.prop("disabled", false).text("Buscar");
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });
     };
 
     AddEventListenerToBtnSearchByAuthorName = () => {
-        this.$btnSearchByAuthorName.on("click", () => {
+        this.$btnSearchByAuthorName.on("click", async () => {
             const inpAuthorName = this.$divName.find("#inpAuthorName").val().trim();
             const encodedAuthor = encodeURIComponent(inpAuthorName);
-            this.render.RenderBooksFilteredByAuthorName(encodedAuthor);
+            this.$btnSearchByAuthorName.prop("disabled", true).text("Buscando...");
+            await this.render.RenderBooksFilteredByAuthorName(encodedAuthor);
+            this.$btnSearchByAuthorName.prop("disabled", false).text("Buscar");
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });
     };
 
     AddEventListenerToBtnSearchByTopic = () => {
-        this.$btnSearchByTopic.on("click", () => {
+        this.$btnSearchByTopic.on("click", async () => {
             const inpTopic = this.$divName.find("#inpTopic").val();
-            this.render.RenderBooksFilteredByTopic(inpTopic);
+            this.$btnSearchByTopic.prop("disabled", true).text("Buscando...");
+            await this.render.RenderBooksFilteredByTopic(inpTopic);
+            this.$btnSearchByTopic.prop("disabled", false).text("Buscar");
             this.pHandler.ChangePaginationAtributtes("none", "gray", "none");
         });
     };
