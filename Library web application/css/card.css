@@ -2,14 +2,10 @@
 .containerCatalog {
   background-color: #262626;
   background-image: radial-gradient(
-      50% 50% at top center,
-      rgba(0, 0, 0, 0.66),
-      #262626
-    ),
-    var(--featured-img);
-  background-position: top 58px center;
-  background-repeat: no-repeat;
-  background-blend-mode: overlay;
+    50% 50% at top center,
+    rgba(0, 0, 0, 0.66),
+    #262626
+  );
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 1rem;

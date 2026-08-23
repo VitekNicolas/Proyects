@@ -23,13 +23,7 @@ footer .wrapper {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 200px repeat(2, minmax(0, 1fr));
-  --fleck-seed: 35458;
-  --fleck-count: 500;
   --fleck-size-base: 3px;
-  --fleck-color-1: #434343;
-  --fleck-color-2: #262626;
-  --fleck-color-3: #434343;
-  --fleck-color-4: #262626;
   background-color: #111;
 }
 
@@ -40,12 +34,6 @@ footer .wrapper {
   border: 1px solid #dfbe02;
   font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial";
   --fleck-seed: 35458;
-  --fleck-count: 500;
-  --fleck-size-base: 3px;
-  --fleck-color-1: #434343;
-  --fleck-color-2: #262626;
-  --fleck-color-3: #434343;
-  --fleck-color-4: #262626;
   background-color: #111;
 }
 

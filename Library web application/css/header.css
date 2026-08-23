@@ -25,7 +25,7 @@ header .nav:hover {
 
 header img {
   height: 40px;
-  width: 40px;
+  width: auto;
 }
 
 header .nav .nav-icon {
