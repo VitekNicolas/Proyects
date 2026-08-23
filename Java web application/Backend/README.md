@@ -11,39 +11,62 @@ A Spring Boot REST API for managing clients and analyzing text sentiment using G
 - **JWT (jjwt 0.12.6)** — token-based auth for client-facing endpoints
 - **Groq AI** — sentiment analysis via LLM (OpenAI-compatible chat completions API)
 - **Maven** (with wrapper — `mvnw` / `mvnw.cmd`, no local Maven install required)
+- **Docker** — multi-stage build (JDK for compiling, JRE for runtime)
 
-## Prerequisites
+## Running the app
 
+You can run this either directly with Maven, or with Docker (recommended if you also want to run the frontend alongside it — see the root-level `docker-compose.yml`).
+
+### Option A — Local (Maven Wrapper)
+
+**Prerequisites:**
 - JDK 25 installed and available on your system
 - A [Groq](https://console.groq.com) account and API key (free tier)
 
 No local Maven installation is required — the project includes the Maven Wrapper.
 
-## Environment variables
-
-This project keeps all secrets out of source control. Set the following environment variables before running the app:
+**Environment variables** — set these before running:
 
 | Variable | Description |
+|---|---|
 | `GROQ_API_KEY` | API key from your Groq account, used by `/analyze` |
 | `API_KEY` | Your own arbitrary secret string, used to protect `/analyze` via the `X-API-KEY` header |
 | `JWT_SECRET` | A long, random string (32+ characters) used to sign JWT tokens |
 
-**PowerShell (current session only):**
 ```powershell
 $env:GROQ_API_KEY="your-groq-key"
 $env:API_KEY="your-chosen-api-key"
 $env:JWT_SECRET="a-long-random-secret-for-signing-jwts"
-```
-
-For a permanent setup, add these under Windows **System Properties → Environment Variables**, then restart your terminal/IDE so the new values are picked up.
-
-## Running the app
-
-```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-The server starts on `http://localhost:8080`.
+For a permanent setup, add these under Windows **System Properties → Environment Variables**, then restart your terminal/IDE.
+
+### Option B — Docker
+
+See the root `docker-compose.yml` (one level up, alongside `Frontend/`) to run backend + frontend together with a single command:
+
+```powershell
+docker compose up --build
+```
+
+This builds the backend from `Backend/Dockerfile` (multi-stage: `eclipse-temurin:25-jdk` to compile, `eclipse-temurin:25-jre` to run) and exposes it on `http://localhost:8080`.
+
+**Environment variables** for Docker live in a `.env` file at the repo root (next to `docker-compose.yml`), **not** committed to Git:
+```
+GROQ_API_KEY=your-groq-key
+API_KEY=your-chosen-api-key
+JWT_SECRET=a-long-random-secret-for-signing-jwts
+```
+A `.env.example` template (with empty values) is committed for reference.
+
+**Database persistence:** the container writes SQLite to `/data/mydatabase.db` inside the container, which is mapped to `./Backend/data` on the host via a volume — this way the database survives container rebuilds. Without this volume, all data would be lost every time the container is recreated.
+
+**Building the backend image on its own** (without compose):
+```powershell
+docker build -t sentiment-backend ./Backend
+docker run -p 8080:8080 --env-file .env sentiment-backend
+```
 
 ## API documentation (Swagger)
 
@@ -57,6 +80,8 @@ http://localhost:8080/v3/api-docs
 ```
 
 Swagger's **Authorize** button exposes two independent security schemes — fill in whichever one the endpoint you're testing requires (see below).
+
+> Navigating directly to a protected endpoint in the browser (e.g. `http://localhost:8080/client/id/1`) will correctly return `401 Token JWT missing` — that's expected, since a plain browser navigation never sends an `Authorization` header. Use Swagger's Authorize button or the frontend app to test authenticated endpoints.
 
 ## Domain model
 
@@ -92,6 +117,7 @@ X-API-KEY: <your API_KEY value>
 ## Endpoints
 
 | Method | Path | Auth | Description |
+|---|---|---|---|
 | `POST` | `/client` | Public | Register a new client |
 | `GET` | `/client/id/{id}` | JWT | Get a client by id |
 | `GET` | `/client/userName/{userName}` | JWT | Get a client by username |
@@ -104,6 +130,7 @@ X-API-KEY: <your API_KEY value>
 All endpoints return structured JSON error bodies via a centralized exception handler:
 
 | Status | Cause |
+|---|---|
 | `400` | Validation failure (missing/invalid fields) or malformed JSON |
 | `401` | Missing/invalid API key, missing/invalid/expired JWT, or wrong login credentials |
 | `404` | Requested client/resource not found |
@@ -111,9 +138,12 @@ All endpoints return structured JSON error bodies via a centralized exception ha
 
 ## Database
 
-SQLite file-based database (`mydatabase.db`, created automatically on first run via `spring.jpa.hibernate.ddl-auto=update`).
+SQLite file-based database, created automatically on first run via `spring.jpa.hibernate.ddl-auto=update`.
 
-> **Note:** SQLite's limited `ALTER TABLE` support means schema changes to existing entities are not always applied reliably by Hibernate's `update` mode. If you change an entity's fields, it's safest to delete `mydatabase.db` and let it be recreated on the next run.
+- **Local run:** `mydatabase.db` in the `Backend/` working directory.
+- **Docker run:** `/data/mydatabase.db` inside the container, persisted to `./Backend/data` on the host via a volume.
+
+> **Note:** SQLite's limited `ALTER TABLE` support means schema changes to existing entities are not always applied reliably by Hibernate's `update` mode. If you change an entity's fields, it's safest to delete the database file (`mydatabase.db` locally, or the contents of `Backend/data/` for Docker) and let it be recreated on the next run.
 
 ## Known limitations
 

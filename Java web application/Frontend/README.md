@@ -8,21 +8,52 @@ A vanilla JavaScript (ES modules) single-page app for registering clients and an
 - **Bootstrap 4.5.2** (via CDN) — base form styling
 - **Tabler Icons** (webfont, via CDN) — icons used in the wizard and result cards
 - **Live Server** (VS Code extension) — local dev server with auto-reload
+- **Docker** — served via `nginx:alpine` for containerized runs
 
-No `npm install` or build step required — just open the folder with Live Server.
-
-## Prerequisites
-
-- The backend must be running on `http://localhost:8080` (see the Backend README)
-- VS Code with the **Live Server** extension (or any static file server)
+No `npm install` or build step required — the app is plain static files.
 
 ## Running the app
+
+### Option A — Live Server (local dev)
+
+**Prerequisites:**
+- The backend must be running on `http://localhost:8080` (see the Backend README)
+- VS Code with the **Live Server** extension
 
 1. Open the `Frontend` folder in VS Code.
 2. Right-click `index.html` → **Open with Live Server**.
 3. The app opens at `http://127.0.0.1:5500` (or whichever port Live Server assigns).
 
 > **Important:** if you open the parent folder (containing both `Backend` and `Frontend`) in VS Code instead of just `Frontend`, Live Server will also watch the backend's SQLite database file and auto-reload the page every time a client is registered (since that write touches `mydatabase.db`). Either open only the `Frontend` folder, or add a `liveServer.settings.ignoreFiles` rule in your VS Code settings to exclude `**/Backend/**` and `**/*.db`.
+
+### Option B — Docker
+
+See the root `docker-compose.yml` (one level up, alongside `Backend/`) to run frontend + backend together:
+
+```powershell
+docker compose up --build
+```
+
+The frontend is served by `nginx:alpine` on `http://localhost:5500`.
+
+**Building the frontend image on its own** (without compose):
+```powershell
+docker build -t sentiment-frontend ./Frontend
+docker run -p 5500:80 sentiment-frontend
+```
+
+> **Live-reload during development:** by default, the Dockerfile copies the site into the image at build time — code changes require rebuilding (`docker compose up --build frontend`) to take effect. To iterate faster, mount the folder as a volume in `docker-compose.yml`:
+> ```yaml
+> frontend:
+>   build: ./Frontend
+>   ports:
+>     - "5500:80"
+>   volumes:
+>     - ./Frontend:/usr/share/nginx/html
+> ```
+> With the volume in place, a browser refresh (`Ctrl+Shift+R`) is enough to see changes — no rebuild needed. Remove the volume before a "final" build if you want the image to be self-contained.
+
+> **Filename case sensitivity:** Windows filesystems are case-insensitive, so a mismatch like `showAlert.js` (in an `import`) vs `ShowAlert.js` (the actual file on disk) works fine when served by Live Server on Windows, but **fails inside the Linux-based Docker container** (`nginx:alpine`), which treats them as two different files and returns `404`. If a page loads blank under Docker but works fine under Live Server, check the browser console for `404`s on `.js` files first — it's almost always a case mismatch between an import path and the real filename.
 
 ## Configuration
 
@@ -37,6 +68,8 @@ const API_KEY = "..."; // must match the backend's own API_KEY (not GROQ_API_KEY
 ```
 
 > **Known limitation:** `API_KEY` lives in client-side JavaScript and is visible to anyone who opens the browser's dev tools. This is the same trade-off any purely static frontend has with a backend-protected API key — it's acceptable for a school project, but the worst case is someone spending your `/analyze` quota, not a leaked third-party secret (the real Groq key never leaves the backend).
+
+> **CORS note:** the backend's allowed origin (`app.cors.allowed-origin` / `APP_CORS_ALLOWED_ORIGIN`) must exactly match how you access the frontend. If you access it as `http://localhost:5500` but the backend is configured for `http://127.0.0.1:5500` (or vice versa), the browser will block requests with a CORS error even though both point to the same machine.
 
 ## Architecture
 
@@ -56,7 +89,7 @@ The app is organized in four layers:
 1. **Step 1 — Register.** The user fills in personal data + a password. Clicking **Continuar**:
    - Calls `POST /client` (public, no auth needed) to create the account.
    - Immediately calls `POST /auth/login` with the same credentials to obtain a JWT (auto-login — the user never sees a separate login screen).
-   - On success, the form is hidden and the wizard advances to step 2.
+   - On success, the button flashes green, the form is hidden, and the wizard advances to step 2.
 2. **Step 2 — Analyze.** The user types a text and clicks **Analizar texto**:
    - Calls `POST /analyze` (with the `X-API-KEY` header) to get a sentiment analysis from Groq AI.
    - Results are shown as colored cards (sentiment, irony, subjectivity, confidence).
@@ -74,6 +107,8 @@ Every action button shows a Mercado-Pago-style loading bar while its request is 
 
 ```
 Frontend/
+├── Dockerfile
+├── .dockerignore
 ├── models/
 │   ├── Client.js
 │   └── AnalysisResult.js
