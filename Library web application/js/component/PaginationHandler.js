@@ -19,7 +19,7 @@ export class PaginationHandler {
   RenderPageNumbers() {
     this.totalPages = this.GetTotalPages();
     this.$pageNumbers.empty();
-    for (let i = 1; i <= this.totalPages; i++) {
+    for (let i = 1; i < this.totalPages; i++) {
       const $link = $(`<a href="#" data-page="${i}">${i}</a>`);
       if (i === this.currentPage) $link.addClass("active");
       this.$pageNumbers.append($link);

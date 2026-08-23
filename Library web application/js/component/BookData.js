@@ -4,20 +4,19 @@ export class BookData {
     this.author = json.authors?.[0]?.name ?? "Autor desconocido";
     this.birthYear = json.authors?.[0]?.birth_year ?? "Desconocido";
     this.deathYear = json.authors?.[0]?.death_year ?? "Desconocido";
-    this.language = json.languages;
-    this.image = json.formats["image/jpeg"];
+    this.language = json.languages ?? [];
+    this.image = json.formats?.["image/jpeg"] ?? "./img/logo.jpg";
     this.copyright = json.copyright;
-    this.subjects = json.subjects;
-    this.summaries = json.summaries[0];
-    this.bookshelves = json.bookshelves;
+    this.subjects = json.subjects ?? [];
+    this.summaries = json.summaries?.[0] ?? "";
+    this.bookshelves = json.bookshelves ?? [];
     this.TranslateCopyright();
     this.Translatelanguage();
     this.Truncatesummaries();
     this.ConvertSubjectsToString();
-    //this.ReverseAuthorName();
     this.ConvertBookshelvesToString();
   }
-  
+
   SetAuthor(author) {
     this.author = author;
   }
@@ -43,13 +42,13 @@ export class BookData {
   }
 
   GetTranslatedLanguages() {
-      return {
-        en: "Inglés",
-        fr: "Francés",
-        de: "Alemán",
-        es: "Español",
-        it: "Italiano",
-      };
+    return {
+      en: "Inglés",
+      fr: "Francés",
+      de: "Alemán",
+      es: "Español",
+      it: "Italiano",
+    };
   }
 
   Translatelanguage() {
@@ -65,11 +64,18 @@ export class BookData {
       this.SetCopyright("No");
     }
   }
-
   Truncatesummaries() {
+    if (!this.summaries) {
+      this.Setsummaries("Sin resumen disponible.");
+      return;
+    }
     const firstDot = this.summaries.indexOf(".");
+    if (firstDot === -1) {
+      this.Setsummaries(this.summaries);
+      return;
+    }
     const secondSentence = this.summaries.substring(firstDot + 1).split(".")[0].trim();
-    this.Setsummaries(secondSentence);
+    this.Setsummaries(secondSentence || this.summaries);
   }
 
   ConvertSubjectsToString() {

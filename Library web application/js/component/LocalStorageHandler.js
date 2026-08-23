@@ -29,20 +29,31 @@ export class LocalStorageHandler {
   }
 
   async FillBookshelve() {
-    let storage = $.parseJSON(localStorage.getItem("bookshelve"));
+    let storage = this.GetStorage("bookshelve");
     if (storage.length === 0) {
-      for (let i = 340; i <= 390; i++) {
-        let arrayOfBooks = await this.fetch.GetBook(i);
-        let book = new BookData(arrayOfBooks[0]);
-        this.AppendBookDataToStorage("bookshelve", book);
-        console.log(i + " agregado");
+      const ids = [];
+      for (let i = 340; i <= 390; i++) ids.push(i);
+      const chunkSize = 30;
+      const chunks = [];
+      for (let i = 0; i < ids.length; i += chunkSize) {
+        chunks.push(ids.slice(i, i + chunkSize));
       }
+      const results = await Promise.all(
+        chunks.map((chunk) => this.fetch.GetBook(chunk.join(",")))
+      );
+      results.forEach((arrayOfBooks) => {
+        if (!arrayOfBooks) return;
+        arrayOfBooks.forEach((bookJson) => {
+          const book = new BookData(bookJson);
+          this.AppendBookDataToStorage("bookshelve", book);
+        });
+      });
       console.log("Libros subidos");
     }
   }
 
   async FillPopular() {
-    let storage = $.parseJSON(localStorage.getItem("popular"));
+    let storage = this.GetStorage("popular");
     let arrayOfBooks = await this.fetch.GetBookByPopularity();
     if (storage.length === 0) {
       $.each(arrayOfBooks.results.slice(0, 10), (i, bookJson) => {
