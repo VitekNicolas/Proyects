@@ -7,18 +7,23 @@ export class BookCart {
     }
 
     Create = ({ json }) => {
-        return `
-            <div class="bookCart" data-title="${json.title}">
-                <img class="bookCartImage" src="${json.image}"/>
-                <div class="bookCartInfo">
-                    <h4 class="bookCartTitle"><strong>${json.title}</strong></h4>
-                    <p class="bookCartAuthor">${json.author}</p>
-                    <div class="divBtnRemoveBookCart">
-                        <button class="btnRemoveBookCart">Eliminar</button>
-                    </div>
+        const $el = $(`
+        <div class="bookCart" data-title="">
+            <img class="bookCartImage" src=""/>
+            <div class="bookCartInfo">
+                <h4 class="bookCartTitle"><strong></strong></h4>
+                <p class="bookCartAuthor"></p>
+                <div class="divBtnRemoveBookCart">
+                    <button class="btnRemoveBookCart">Eliminar</button>
                 </div>
             </div>
-        `;
+        </div>
+    `);
+        $el.attr("data-title", json.title);
+        $el.find(".bookCartImage").attr("src", json.image);
+        $el.find(".bookCartTitle strong").text(json.title);
+        $el.find(".bookCartAuthor").text(json.author);
+        return $el;
     }
 
     Append = (json) => {

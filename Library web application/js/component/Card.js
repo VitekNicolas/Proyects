@@ -14,31 +14,34 @@ export class Card {
   }
 
   Create(json) {
-    return $(` 
+    const $card = $(`
     <div class="book"
-        data-image="${json.image}"
-        data-author="${json.author}"
-        data-title="${json.title}"
-        data-birthYear="${json.birthYear}"
-        data-deathYear="${json.deathYear}"
-        data-summaries="${json.summaries}"
-        data-copyright="${json.copyright}"
-        data-language="${json.language}"
-        data-subjects="${json.subjects}"
-        data-bookshelves="${json.bookshelves}">
+        data-image="${this.Escape(json.image)}"
+        data-author="${this.Escape(json.author)}"
+        data-title="${this.Escape(json.title)}"
+        data-birthYear="${this.Escape(json.birthYear)}"
+        data-deathYear="${this.Escape(json.deathYear)}"
+        data-summaries="${this.Escape(json.summaries)}"
+        data-copyright="${this.Escape(json.copyright)}"
+        data-language="${this.Escape(json.language)}"
+        data-subjects="${this.Escape(json.subjects)}"
+        data-bookshelves="${this.Escape(json.bookshelves)}">
       <div class="coverImage">
-        <img class="bookImage" src="${json.image}"/>
+        <img class="bookImage" src="${this.Escape(json.image)}"/>
       </div>
       <div class="bookCardDescription">
-        <p class="title">
-          ${json.title}<br/>
-          ${json.author}
-        </p>
+        <p class="title"></p>
         <button class="btnShowDetails">Ver más</button>
         <button class="btnAddToCart">Agregar al carrito</button>
       </div>
     </div>
   `);
+    $card.find(".title").text(`${json.title} - ${json.author}`);
+    return $card;
+  }
+
+  Escape(value) {
+    return $("<div>").text(value ?? "").html();
   }
 
   Append(json, origin = "normal") {
