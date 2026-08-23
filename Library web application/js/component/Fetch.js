@@ -1,99 +1,46 @@
-import { BookData } from "./BookData.js";
-
 export class Fetch {
 
-  //Returns an array of books
-  GetBook = async (id) => {
+  // Método privado genérico para hacer requests a Gutendex
+  async #Get(url) {
     try {
-      const response = await fetch(`https://gutendex.com/books?ids=${id}`);
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(
-          `Error fetching book with id ${id}: ${response.statusText}`
-        );
+        throw new Error(`Error en la respuesta del servidor (${response.status})`);
       }
-      const json = await response.json();
-      const arrayOfBooks = json.results;
-      return arrayOfBooks;
+      return await response.json();
     } catch (error) {
-      console.error(error);
+      console.error(`Error al consultar ${url}:`, error);
       return null;
     }
+  }
+
+  // Devuelve un array de libros por id
+  GetBook = async (id) => {
+    const json = await this.#Get(`https://gutendex.com/books?ids=${id}`);
+    return json ? json.results : null;
   };
 
   GetBooksByYears = async (minYear, maxYear) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books/?author_year_start=${minYear}&author_year_end=${maxYear}`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+    return this.#Get(`https://gutendex.com/books/?author_year_start=${minYear}&author_year_end=${maxYear}`);
+  };
 
   GetBooksByAuthorName = async (authorName) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books?search=${authorName}`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+    return this.#Get(`https://gutendex.com/books?search=${authorName}`);
+  };
+
   GetBooksByTopic = async (topic) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books?topic=${topic}`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+    return this.#Get(`https://gutendex.com/books?topic=${topic}`);
+  };
 
   GetBookByCopyright = async (valor) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books?copyright=${valor}`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+    return this.#Get(`https://gutendex.com/books?copyright=${valor}`);
+  };
 
   GetBookByLanguage = async (language) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books?languages=${language}`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+    return this.#Get(`https://gutendex.com/books?languages=${language}`);
+  };
 
-  GetBookByPopularity = async (order) => {
-    try {
-      const response = await fetch(`https://gutendex.com/books?sort`);
-      if (!response.ok) {
-        throw new Error("Error en la respuesta del servidor");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error al buscar libros:", error);
-    }
-  }
+  GetBookByPopularity = async (order = "popular") => {
+    return this.#Get(`https://gutendex.com/books?sort=${order}`);
+  };
 }
