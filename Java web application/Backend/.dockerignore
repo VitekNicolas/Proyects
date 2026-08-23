@@ -1,0 +1,8 @@
+target/
+mydatabase.db
+ajsw.db;
+.vscode/
+.git/
+*.rar
+*.zip
+README.md
