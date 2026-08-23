@@ -68,14 +68,30 @@ export class Render {
 
   RenderBooksFiltered = async (fetchMethod, ...args) => {
     this.$cardsDivCatalog.empty();
-    const card = new Card(this.$cardsDivCatalog);
+    this.ShowLoading(this.$cardsDivCatalog);
     const books = await fetchMethod.apply(this.fetch, args);
+    this.$cardsDivCatalog.empty();
+    if (!books) {
+      this.ShowMessage(this.$cardsDivCatalog, "Ocurrió un error al buscar los libros. Intentá nuevamente.");
+      return;
+    }
+    if (!books.results || books.results.length === 0) {
+      this.ShowMessage(this.$cardsDivCatalog, "No se encontraron libros para esa búsqueda.");
+      return;
+    }
+    const card = new Card(this.$cardsDivCatalog);
     books.results.slice(0, 10).forEach(book => {
       const bookData = new BookData(book);
       card.Append(bookData);
     });
-
     card.AssignEventHandler();
+  };
+  ShowLoading = ($div) => {
+    $div.html(`<p class="stateMessage stateMessage--loading">Buscando libros...</p>`);
+  };
+  ShowMessage = ($div, text) => {
+    $div.html(`<p class="stateMessage"></p>`);
+    $div.find(".stateMessage").text(text);
   };
 
   RenderBooksFilteredByYears = (minYear, maxYear) => {

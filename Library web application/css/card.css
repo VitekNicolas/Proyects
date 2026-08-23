@@ -150,6 +150,19 @@
   touch-action: manipulation;
 }
 
+.stateMessage {
+  text-align: center;
+  width: 100%;
+  padding: 2rem 1rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.stateMessage--loading {
+  color: #888;
+  font-style: italic;
+}
+
 @media (min-width: 768px) and (max-width: 1199px) {
   .cardsDiv,
   .listBookSeen {
