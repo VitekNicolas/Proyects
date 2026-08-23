@@ -67,4 +67,33 @@ export class LocalStorageHandler {
   GetStorage(category) {
     return $.parseJSON(localStorage.getItem(category));
   }
+
+  IndexBook(bookdata) {
+    let index = JSON.parse(localStorage.getItem("bookIndex")) || {};
+    index[bookdata.title] = bookdata;
+    localStorage.setItem("bookIndex", JSON.stringify(index));
+  }
+
+  ResolveBookByTitle(title) {
+    const index = JSON.parse(localStorage.getItem("bookIndex")) || {};
+    return index[title] || null;
+  }
+
+  AppendBookReferenceToStorage(category, bookdata) {
+    let array = this.GetStorage(category);
+    if (!array.includes(bookdata.title)) {
+      array.push(bookdata.title);
+      localStorage.setItem(category, JSON.stringify(array));
+    }
+  }
+
+  DeleteBookReferenceFromStorage(category, bookTitle) {
+    let array = this.GetStorage(category).filter((title) => title !== bookTitle);
+    localStorage.setItem(category, JSON.stringify(array));
+  }
+
+  GetResolvedStorage(category) {
+    const titles = this.GetStorage(category) || [];
+    return titles.map((title) => this.ResolveBookByTitle(title)).filter(Boolean);
+  }
 }

@@ -45,6 +45,7 @@ export class Card {
   }
 
   Append(json, origin = "normal") {
+    this.localStorageHandler.IndexBook(json);
     const $card = this.Create(json);
     $card.data("origin", origin);
     $card.data("title", json.title);
@@ -90,12 +91,10 @@ export class Card {
         if ($carousel.find(".listBookSeen").children().length > 0) {
           $carousel.removeAttr("hidden");
         }
-        this.localStorageHandler.AppendBookDataToStorage("historical", json);
-      }
+        this.localStorageHandler.AppendBookReferenceToStorage("historical", json);      }
     });
-
     $card.find(".btnAddToCart").on("click", () => {
-      this.localStorageHandler.AppendBookDataToStorage("cart", json);
+      this.localStorageHandler.AppendBookReferenceToStorage("cart", json);
       const array = this.localStorageHandler.GetStorage("cart");
       const $bookCard = this.$bookCartDiv.find(`[data-title="${json.title}"]`);
       const $cartCount = $(".bookCartCount");
@@ -118,7 +117,7 @@ export class Card {
       if ($carousel.find(".listBookSeen").children().length === 0) {
         $carousel.attr("hidden", "");
       }
-      this.localStorageHandler.DeleteBookDataFromStorage("historical", $card.data("title"));
+      this.localStorageHandler.DeleteBookReferenceFromStorage("historical", $card.data("title"));
     });
   }
 }

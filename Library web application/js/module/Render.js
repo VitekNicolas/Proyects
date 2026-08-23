@@ -41,7 +41,9 @@ export class Render {
   };
 
   RenderBookInStorage = (storage, divName) => {
-    const array = this.localStorageHandler.GetStorage(storage);
+    const array = (storage === "historical" || storage === "cart")
+      ? this.localStorageHandler.GetResolvedStorage(storage)
+      : this.localStorageHandler.GetStorage(storage);
     const $div = $(divName).empty();
     let card;
     if (storage === "historical") {
@@ -49,7 +51,6 @@ export class Render {
     } else if (storage === "cart") {
       this.CheckCarousel();
       card = new BookCart($div);
-
       $(".bookCartCount").text(array.length);
     }
     array.forEach(item => {
